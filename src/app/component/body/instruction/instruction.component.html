@@ -1,0 +1,329 @@
+<div class="container-fluid text-center">
+  <div class="row">
+    <div *ngIf='examNature=="SUBGRP"; then WithSubjectExam else WithOutSubjectExam'>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group" aria-autocomplete="off">
+          <select id="examLang" name="examLang" [(ngModel)]="selectedExamLang" required>
+            <option value="">Select Language</option>
+            <option *ngFor='let examLang of examLangs' [value]="examLang.value">
+              {{examLang.label}}
+            </option>
+          </select>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="agreeBox" id="agreeBox" [(ngModel)]="aggreeFlag" (ngModelChange)="aggreeFlag = $event"> I Read the instruction carefully</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+      </form>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+<ng-template #WithSubjectExam>
+  <div class="col-sm-9" style="height: 500px; overflow: scroll;text-align: left;">
+    <div class="instructions">
+      <h1 style="text-align: center;">System Instruction</h1>
+      <div class="firstPage">
+        <div class="text-right">
+          <p>View In :
+            <select class="languageIns" [(ngModel)]="instructionLang" (ngModelChange)="instructionLang = $event">
+              <option value="ENG">English</option>
+              <option value="HND">Hindi</option>
+            </select>
+          </p>
+        </div>
+        <div *ngIf='instructionLang=="ENG"; then WithSubjectExamENGInst else WithSubjectExamHNDInst'>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 row-boarder"></div>
+</ng-template>
+<ng-template #WithSubjectExamENGInst>
+  <div style="font-size:.9em">
+    <p class="text-center">
+      <strong>Please read the following instructions carefully</strong>
+    </p>
+    <p>
+      <strong>
+        <u>General Instructions:</u>
+      </strong>
+    </p>
+    <ol>
+      <li>The clock has been set at the server and the countdown timer at the top right corner of your screen will display the
+        time remaining for you to complete the exam. When the clock runs out the exam ends by default - you are not required
+        to end or submit your exam.</li>
+      <li>The question palette at the right of screen shows one of the following statuses of each of the questions numbered:
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_not_visited" style="PADDING-TOP: 5px">1</span>
+              </td>
+              <td>You have not visited the question yet.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_not_answered" style="PADDING-TOP: 5px">3</span>
+              </td>
+              <td>You have not answered the question.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_answered" style="PADDING-TOP: 5px">5</span>
+              </td>
+              <td>You have answered the question.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_review" style="PADDING-TOP: 5px">7</span>
+              </td>
+              <td>You have NOT answered the question but have marked the question for review.</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_reviewanswered" style="PADDING-TOP: 12px">&nbsp;&nbsp;&nbsp; 9</span>
+              </td>
+              <td>You have answered the question but marked it for review.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li style="LIST-STYLE-TYPE: none">3:The Marked for Review status simply acts as a reminder that you have set to look at the question again.
+        <font color="red">
+          <i>If an answer is selected for a question that is Marked for Review, the answer will be considered in the final evaluation.
+          </i>
+        </font>
+      </li>
+    </ol>
+    <p>
+      <strong>
+        <u>Navigating to a question :</u>
+      </strong>
+    </p>
+    <ol start="4">
+      <li>To select a question to answer, you can do one of the following:
+        <ol type="a">
+          <li>Click on the question number on the question palette at the right of your screen to go to that numbered question
+            directly. Note that using this option does NOT save your answer to the current question.</li>
+          <li>Click on Save and Next to save answer to current question and to go to the next question in sequence.</li>
+          <li>Click on Mark for Review and Next to save answer to current question, mark it for review, and to go to the next
+            question in sequence.</li>
+        </ol>
+      </li>
+      <li>You can view the entire paper by clicking on the
+        <b> Question Paper</b> button.</li>
+    </ol>
+    <p>
+      <strong>
+        <u>Answering questions :</u>
+      </strong>
+    </p>
+    <ol start="6">
+      <li>For multiple choice type question :
+        <ol type="a">
+          <li>To select your answer, click on one of the option buttons</li>
+          <li>To change your answer, click the another desired option button</li>
+          <li>To save your answer, you MUST click on
+            <b> Save &amp; Next</b>
+          </li>
+          <li>To deselect a chosen answer, click on the chosen option again or click on the
+            <b> Clear Response</b> button.</li>
+          <li>To mark a question for review click on
+            <b> Mark for Review &amp; Next</b> .
+            <font color="red">
+              <i>If an answer is selected for a question that is Marked for Review, the answer will be considered in the final
+                evaluation.
+              </i>
+            </font>
+          </li>
+        </ol>
+      </li>
+      <li>To change an answer to a question, first select the question and then click on the new answer option followed by a
+        click on the
+        <b> Save &amp; Next</b> button.</li>
+      <li>Questions that are saved or marked for review after answering will ONLY be considered for evaluation.</li>
+    </ol>
+    <p>
+      <strong>
+        <u>Navigating through sections :</u>
+      </strong>
+    </p>
+    <ol start="9">
+      <li>Sections in this question paper are displayed on the top bar of the screen. Questions in a section can be viewed by
+        clicking on the section name. The section you are currently viewing is highlighted.</li>
+      <li>After clicking the
+        <b> Save &amp; Next</b> button on the last question for a section, you will automatically be taken to the first question
+        of the next section.</li>
+      <li>You can move the mouse cursor over the section names to view the status of the questions for that section.</li>
+      <li>You can shuffle between sections and questions anytime during the examination as per your convenience.</li>
+    </ol>
+  </div>
+</ng-template>
+
+<ng-template #WithSubjectExamHNDInst>
+  <div style="font-size:1em;" class="sysInsTest1Hindi">
+    <p class="text-center">
+      <strong>कृपया निम्नलिखित निर्देशों को ध्यान से पढ़ें</strong>
+    </p>
+    <p>
+      <strong>
+        <u>सामान्य अनुदेश</u>
+      </strong>
+    </p>
+    <ol>
+      <li>सर्वर पर घड़ी लगाई गई है तथा आपकी स्क्रीन के दाहिने कोने में शीर्ष पर काउंटडाउन टाइमर में आपके लिए परीक्षा समाप्त करने
+        के लिए शेष समय प्रदर्शित होगा। परीक्षा समय समाप्त होने पर, आपको अपनी परीक्षा बंद या जमा करने की जरूरत नहीं है । यह
+        स्वतः बंद या जमा हो जाएगी।</li>
+      <li>स्क्रीन के दाहिने कोने पर प्रश्न पैलेट, नंबर दिए प्रत्येक प्रश्न के लिए निम्न में से कोई एक स्थिति प्रकट करती है:
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_not_visited" style="PADDING-TOP: 5px">1</span>
+              </td>
+              <td>आप अभी तक प्रश्न पर नहीं गए हैं।</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_not_answered" style="PADDING-TOP: 5px">3</span>
+              </td>
+              <td>आपने प्रश्न का उत्तर नहीं दिया है।</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_answered" style="PADDING-TOP: 5px">5</span>
+              </td>
+              <td>आप प्रश्न का उत्तर दे चुके हैं।</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_review" style="PADDING-TOP: 5px">7</span>
+              </td>
+              <td>आपने प्रश्न का उत्तर नहीं दिया है पर प्रश्न को पुनर्विचार के लिए चिन्हित किया है।</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td valign="top">
+                <span id="tooltip_reviewanswered" style="PADDING-TOP: 12px">&nbsp;&nbsp;&nbsp; 9</span>
+              </td>
+              <td>आप प्रश्न का उत्तर दे चुकें हैं पर प्रश्न को पुनर्विचार के लिए चिन्हित किया है।</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li style="LIST-STYLE-TYPE: none">पुनर्विचार के लिए चिन्हित स्थिति सामान्यत अनुस्मारक के रूप में कार्य करती है जोकि आपने प्रश्न को दुबारा देखने के लिए
+        सेट किया है।
+        <font color="red">
+          <i>दि किसी प्रश्न के लिए उत्तर चुना हो जोकि पुनर्विचार के लिए चिन्हित किया है, तब अंतिम मूल्यांकन में उस उत्तर पर
+            ध्यान दिया जाएगा।</i>
+        </font>
+      </li>
+    </ol>
+    <p>
+      <strong>
+        <u>किसी प्रश्न पर जाना :</u>
+      </strong>
+    </p>
+    <ol start="4">
+      <li>उत्तर देने हेतु कोई प्रश्न चुनने के लिए, आप निम्न में से कोई एक कार्य कर सकते हैं:
+        <ol type="a">
+          <li>स्क्रीन के दांयी ओर प्रश्न पट्टिका में प्रश्न पर सीधे जाने के लिए प्रश्न संख्या पर क्लिक करें। ध्यान दें कि इस
+            विकल्प का प्रयोग करने से मौजूदा प्रश्न के लिए आपका उत्तर सुरक्षित नहीं होता है।</li>
+          <li>वर्तमान प्रश्न का उत्तर सुरक्षित करने के लिए और क्रम में अगले प्रश्न पर जाने के लिए
+            <strong> Save and Next</strong> पर क्लिक करें।</li>
+          <li>वर्तमान प्रश्न का उत्तर सुरक्षित करने के लिए, पुनर्विचार के लिए चिन्हित करने और क्रम में अगले प्रश्न पर जाने के
+            लिए
+            <b> Mark for Review and Next</b> पर क्लिक करें।</li>
+        </ol>
+      </li>
+      <li>आप
+        <b> Question Paper</b> बटन पर क्लिक करके संपूर्ण प्रश्नपत्र को देख सकते हैं।</li>
+    </ol>
+    <p>
+      <strong>
+        <u>प्रश्नों का उत्तर देना :</u>
+      </strong>
+    </p>
+    <ol start="6">
+      <li>बहुविकल्प प्रकार प्रश्न के लिए
+        <ol type="a">
+          <li>अपना उत्तर चुनने के लिए, विकल्प बटनों में से किसी एक पर क्लिक करें।</li>
+          <li>अपना उत्तर बदलने के लिए, अन्य वांछित विकल्प बटन पर क्लिक करें।</li>
+          <li>अपना उत्तर सुरक्षित करने के लिए, आपको
+            <b> Save &amp; Next</b> पर क्लिक करना जरूरी है।</li>
+          <li>अपना उत्तर सुरक्षित करने के लिए, आपको
+            <b> Save &amp; Next</b> पर क्लिक करना जरूरी है।</li>
+          <li>किसी प्रश्न को पुनर्विचार के लिए चिन्हित करने हेतु
+            <b> Mark for Review &amp; Next</b> पर क्लिक करें।
+            <font color="red">
+              <i>यदि किसी प्रश्न के लिए उत्तर चुना हो जोकि पुनर्विचार के लिए चिन्हित किया है, तब अंतिम मूल्यांकन में उस उत्तर
+                पर ध्यान दिया जाएगा।</i>
+            </font>
+          </li>
+        </ol>
+      </li>
+      <li>किसी प्रश्न का उत्तर बदलने के लिए, पहले प्रश्न का चयन करें, फिर नए उत्तर विकल्प पर क्लिक करने के बाद
+        <b> Save &amp; Next</b> बटन पर क्लिक करें।</li>
+      <li>उत्तर देने के बाद जो प्रश्न सुरक्षित हैं या पुनर्विचार के लिए चिन्हित है, सिर्फ उन पर ही मूल्यांकन के लिए ध्यान दिया
+        जाएगा।
+      </li>
+    </ol>
+    <p>
+      <strong>
+        <u>खंडों द्वारा प्रश्न पर जाना:</u>
+      </strong>
+    </p>
+    <ol start="9">
+      <li>इस प्रश्नपत्र में स्क्रीन के शीर्ष बार पर खंड प्रदर्शित होते हैं। किसी खंड में प्रश्न, खंड नाम पर क्लिक करके देखे जा
+        सकते हैं। आप वर्तमान में जिस खंड का उत्तर दे रहे हैं, वह प्रकाशमान होगा।</li>
+      <li>किसी खंड के लिए अंतिम प्रश्न के
+        <b> Save &amp; Next</b> बटन पर क्लिक करने के बाद, आप स्वचालित रूप से अगले खंड के प्रथम प्रश्न पर पहुंच जाओगे।</li>
+      <li>आप उस खंड के लिए प्रश्नों की स्थिति को देखने हेतु खंड नाम के ऊपर माउस कर्सर मूव कर सकते हो।</li>
+      <li>आप परीक्षा के दौरान किसी भी समय खंडों और प्रश्नों के बीच अपनी सुविधा के अनुसार फेरबदल कर सकते हो।</li>
+    </ol>
+  </div>
+</ng-template>
+
+
+<ng-template #WithOutSubjectExam>
+
+</ng-template>

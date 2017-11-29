@@ -1,0 +1,56 @@
+.row-boarder {
+border:2px solid #e9dfe9;
+margin-top:7px;
+border-style: dotted;
+border-radius: 5px;
+}
+.col-boarder {
+border:2px solid #fcf6fc;
+margin-top:7px;
+border-style: dotted;
+border-radius: 5px;
+}
+.btn-custom-wid{
+width: 45px !important;
+text-align: center;
+}
+.btn-custom-wid-hlf{
+width: 135px !important;
+}
+.btn-group>.btn:first-child {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.btn-border{
+border: 2px solid #025aa5;
+}
+.btn-nav-dcr{
+    font-size: 14px;
+    text-align: left;
+}
+.not_visited{
+    background-color: rgb(240, 240, 228);
+    color: black
+}
+.not_aswared{
+    background-color: rgb(240, 240, 228);
+    color: black
+}
+.marked_review_answered{
+    background-color: rgb(184, 19, 143);
+    color: rgb(253, 247, 247);
+}
+.marked_review_not_answered{
+    background-color: rgb(235, 144, 26);
+    color: rgb(253, 247, 247);
+}
+.answered{
+    background-color: rgb(26, 151, 14);
+    color: rgb(253, 247, 247);
+}
+.option-index-style{
+    color: rgb(192, 143, 9)
+ }
+ .overflow{
+    overflow-y:scroll;height:370px; text-align: left;
+ }

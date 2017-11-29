@@ -1,0 +1,168 @@
+<div class="row">
+  <div class="col-sm-4 mat-full-width">
+
+    <mat-form-field>
+      <mat-select placeholder="Select">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="col-sm-4 mat-full-width">
+    <mat-form-field>
+      <mat-select placeholder="Select">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-4 mat-full-width">
+    <mat-form-field>
+      <mat-select placeholder="Select">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 mat-full-width">
+    <mat-form-field>
+      <input matInput placeholder="Full Marks">
+    </mat-form-field>
+  </div>
+  <div class="col-sm-6 mat-full-width">
+    <mat-form-field>
+      <input matInput placeholder="Negative Marks">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-2">
+    Course
+  </div>
+  <div class="col-sm-4 mat-full-width">
+    <div style="height:55px;overflow-y: scroll">
+      <mat-selection-list #shoes>
+        <mat-list-option *ngFor="let shoe of typesOfShoes">
+          {{shoe}}
+        </mat-list-option>
+      </mat-selection-list>
+      <p>
+        Options selected: {{shoes.selectedOptions.selected.length}}
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-6 mat-full-width">
+    <mat-form-field>
+      <mat-chip-list>
+        <mat-chip>Chip 1
+        </mat-chip>
+        <mat-chip>Chip 2
+        </mat-chip>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-5 mat-full-width">
+    <mat-form-field>
+      <textarea matInput placeholder="Question Body in English" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-5 mat-full-width">
+    <mat-form-field>
+      <textarea matInput placeholder="Question Body in Hindi" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-2 mat-full-width">
+    <mat-form-field>
+      <input matInput placeholder="Image for question">
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-1 mat-full-width">
+    <p>Option:</p>
+  </div>
+  <div class="col-sm-4 mat-full-width">
+    <mat-form-field>
+      <textarea matInput placeholder=" Option Body in English" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-4 mat-full-width">
+    <mat-form-field>
+      <textarea matInput placeholder="Option Body in Hindi" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-2 mat-full-width">
+    <mat-form-field>
+      <input matInput placeholder="Negative Marks">
+    </mat-form-field>
+  </div>
+  <div class="col-sm-1">
+    <button mat-mini-fab>
+      <strong>+</strong>
+    </button>
+  </div>
+</div>
+<div class="row" style=" margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;">
+  <div class="col-sm-12">
+    guiyiuyiyiyiyiyiyi
+  </div>
+  <div class="col-sm-12">
+    hihiiiiyiyiyiyiyiyiiyii
+  </div>
+  <div class="col-sm-12" style="text-align: center;">
+    <img src="../../../../assets/image/company-banner.png" alt="Smiley face" height="100px" width="200px">
+  </div>
+  <div class="col-sm-12">
+    Option:A hihiiiiyiyiyiyiyiyiiyii
+  </div>
+  <div class="col-sm-12">
+    Option:B hihiiiiyiyiyiyiyiyiiyii
+  </div>
+  <div class="col-sm-12">
+    Option:C hihiiiiyiyiyiyiyiyiiyii
+  </div>
+  <div class="col-sm-12">
+    Option:d hihiiiiyiyiyiyiyiyiiyii
+  </div>
+</div>
+
+<div class="file-upload">
+  <label for="upload" class="file-upload__label">Css only file upload button</label>
+  <input id="upload" class="file-upload__input" type="file" name="file-upload">
+</div>
+<!--
+<mat-form-field>
+  <mat-chip-list #chipList>
+    <mat-chip>Chip 1<mat-chip>
+    <mat-chip>Chip 2<mat-chip>
+  </mat-chip-list>
+  <input matChipInputFor="chipList">
+</mat-form-field>
+
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        
+    </div>
+  </div>
+
+
+   <mat-form-field>
+            <input matInput placeholder="Input">
+          </mat-form-field>
+        
+          <mat-form-field>
+            <textarea matInput placeholder="Textarea"></textarea>
+          </mat-form-field>
+        
+          <mat-form-field>
+            <mat-select placeholder="Select">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+-->
