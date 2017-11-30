@@ -9,6 +9,7 @@ import { ExamQuestionSet } from '../model/examQuestionSet';
 import { ExamQuestionSetSubject } from '../model/examQuestionSetSubject'
 import { QuestionStatus } from '../model/questionStatus'
 import { Global } from '../Globel'
+import { ExamResult } from '../model/examResult'
 
 @Injectable()
 export class ExamcontrolService {
@@ -66,11 +67,21 @@ export class ExamcontrolService {
     return this.api.post<string>(url, questionStatusList, { headers: this.headers });
   }
 
-  public getExamNature(course:string): Observable<string> {
+  public getExamNature(course: string): Observable<string> {
     let url = this.global.BASEURL + '/redirect/coursenature/?course=' + course;
     let param = new HttpParams();
     param.set('course', course)
     return this.api.get<string>(url, { headers: this.headers });
+  }
+
+  public getResult(course: string, examSeqNo: number): Observable<ExamResult> {
+    let url = this.global.BASEURL + '/exam/result/?course=' + course + '&examseqno=' + examSeqNo;
+    let param = new HttpParams();
+    param.set('course', course);
+    param.set('examseqno', examSeqNo.toString())
+    //  return this.api.get<ExamResult>(url, { headers: this.headers, params: param });
+    return this.api.get<ExamResult>(url, { headers: this.headers });
+
   }
 
 }

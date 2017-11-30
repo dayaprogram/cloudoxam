@@ -65,8 +65,8 @@ export class ExamComponent implements OnInit {
   }
 
   markForReview(questionSeqNo: number) {
-    let questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
-    this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
+   // let questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
+   // this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
     this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
     this.previousQnNo = questionSeqNo;
     this.setQuestionStatus(this.previousQnNo);
@@ -97,7 +97,7 @@ export class ExamComponent implements OnInit {
 
 
   onClickOption(questionSeqNo: number, optionIndex: string) {
-    this.questionSetList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = optionIndex;
+    this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = optionIndex;
     //  this.questionSetList[questionSeqNo].finalSubmitAns = optionIndex;
   }
 
@@ -160,6 +160,8 @@ export class ExamComponent implements OnInit {
       err => {
         console.log('Something went wrong!' + err);
         console.log(err);
+      }, () => {
+        this.router.navigate(['/result']);
       }
     );
   }
@@ -172,7 +174,7 @@ export class ExamComponent implements OnInit {
         this.questionSetList = data.mcqQuestionList;
         this.examTime = data.examTime;
         this.examQuestionSet = data;
-     //   this.questionNavigator(1);
+        //   this.questionNavigator(1);
       },
       // Errors will call this callback instead:
       err => {
@@ -193,6 +195,7 @@ export class ExamComponent implements OnInit {
         });
         this.questionNavigator(1);
         this.startCountDownTimer(this.examTime * 60);
+        this.cookieService.set('EXAMSEQNO',this.questionSetList[0].examSeqNo.toString());
       }
     );
     this.api.getExamLang().subscribe(

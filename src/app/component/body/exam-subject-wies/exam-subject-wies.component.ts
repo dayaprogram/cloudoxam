@@ -162,6 +162,8 @@ export class ExamSubjectWiesComponent implements OnInit {
       err => {
         console.log('Something went wrong!' + err);
         console.log(err);
+      }, () => {
+        this.router.navigate(['/result']);
       }
     );
     /*
@@ -275,6 +277,8 @@ export class ExamSubjectWiesComponent implements OnInit {
         this.selectedSubject = this.questionSetSubject.subjectId;
         this.questionNavigator(1);
         this.startCountDownTimer(this.examTime * 60);
+        this.cookieService.set('EXAMSEQNO',this.questionSetList[0].examSeqNo.toString());
+        
       }
     );
     this.api.getExamLang().subscribe(

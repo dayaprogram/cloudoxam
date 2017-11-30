@@ -118,19 +118,19 @@
     <div class="col-sm-12">
       <div class="row" style="margin-top: 15px">
         <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border">Previous Question</button>
+          <button type="button" class="btn btn-default btn-border" (click)="questionNavigator(questionSet.questionSeqNo-1)">Previous Question</button>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border">Next Question</button>
+          <button type="button" class="btn btn-default btn-border" (click)="questionNavigator(questionSet.questionSeqNo+1)">Next Question</button>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-warning">Tag</button>
+          <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">Tag</button>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-danger">Erase</button>
+          <button type="button" class="btn btn-danger" (click)="clearAnswer(questionSet.questionSeqNo)">Erase</button>
         </div>
         <div class="col-sm-4">
-          <button type="button" class="btn btn-success btn-md" style="text-align: center">Preview Submit</button>
+          <button type="button" class="btn btn-success btn-md" style="text-align: center" (click)=" finalSubmit()">Preview Submit</button>
         </div>
       </div>
     </div>
@@ -162,7 +162,9 @@
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
-        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.optionIndex)">
+        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
+        (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
+        [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
         <span class="option-index-style">{{qstnOption.optionIndex}} :
         </span>
         <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
@@ -193,7 +195,9 @@
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
-        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.optionIndex)">
+        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
+        (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
+        [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
         <span class="option-index-style">{{qstnOption.optionIndex}} :
         </span>
         <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>

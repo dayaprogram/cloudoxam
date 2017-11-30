@@ -1,12 +1,46 @@
 <div class="container-fluid ">
   <div class="row">
-      <div class="col-sm-6"></div>
-    <div class="col-sm-6">
-      <form>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Favorite food" >
-        </mat-form-field>
-      </form>
+    <div class="col-sm-12" style="text-align: center;">
+      <h1>Exam Result</h1>
     </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-12 col-boarder">
+          <table>
+            <tr>
+              <td>Total No Of Question</td>
+              <td>{{examResult.totalNoOfQuestion}}</td>
+            </tr>
+            <tr>
+              <td>Attempt Question</td>
+              <td>{{examResult.attemptQuestion}}</td>
+            </tr>
+            <tr>
+              <td>Correct Answer</td>
+              <td>{{examResult.correctQuetion}}</td>
+            </tr>
+            <tr>
+              <td> Wrong Answer</td>
+              <td>{{examResult. wrongQuestion}}</td>
+            </tr>
+            <tr>
+              <td>Exam Start Time</td>
+              <td>{{examResult.examStartTime}}</td>
+            </tr>
+            <tr>
+              <td>Exam Finish Time</td>
+              <td>{{examResult.examFinalTime}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
   </div>
 </div>
