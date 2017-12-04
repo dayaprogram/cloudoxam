@@ -38,6 +38,8 @@ import { DashSideMenuComponent } from './component/dashboardbody/dashtemp/dash-s
 import { DashboardMainComponent } from './component/dashboardbody/dashboard-main/dashboard-main.component';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { WebStorageModule } from 'ngx-store';
+
 
 
 @NgModule({
@@ -68,6 +70,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    WebStorageModule,
   
     AppRoutingModule,
     BrowserAnimationsModule,

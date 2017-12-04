@@ -6,14 +6,17 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import { CookieService } from 'ngx-cookie-service';
-import { Options } from '../../../model/options'
-import { QuestionSet } from '../../../model/question-set'
-import { Subject } from '../../../model/subject'
-import { ExamQuestionSet } from '../../../model/examQuestionSet'
-import { QuestionOption } from '../../../model/questionOption'
-import { AuthenticationService } from '../../../service/authentication.service'
-import { ExamcontrolService } from '../../../service/examcontrol.service'
-import { QuestionStatus } from '../../../model/questionStatus'
+import { Options } from '../../../model/options';
+import { QuestionSet } from '../../../model/question-set';
+import { Subject } from '../../../model/subject';
+import { ExamQuestionSet } from '../../../model/examQuestionSet';
+import { QuestionOption } from '../../../model/questionOption';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { ExamcontrolService } from '../../../service/examcontrol.service';
+import { QuestionStatus } from '../../../model/questionStatus';
+import { QuetStatusCount } from '../../../model/question-status-count';
+import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
+
 
 @Component({
   selector: 'app-exam',
@@ -21,6 +24,21 @@ import { QuestionStatus } from '../../../model/questionStatus'
   styleUrls: ['./exam.component.css']
 })
 export class ExamComponent implements OnInit {
+
+
+  // it will be stored under ${prefix}viewCounts name
+  @LocalStorage() viewCounts: number = 0;
+  // this under name: ${prefix}differentLocalStorageKey
+  @LocalStorage('differentLocalStorageKey') userName: string = '';
+  // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
+  @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
+  // it will be read from cookie 'user_id' (can be shared with backend) and saved to localStorage and cookies after change
+  @LocalStorage() @CookieStorage({ prefix: '', key: 'user_id' }) userId: string = '';
+  // it will be stored in a cookie named ${prefix}user_workspaces for 24 hours
+  @CookieStorage({ key: 'user_workspaces', expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000) }) userWorkspaces = [];
+
+
+
 
   constructor(
     private cookieService: CookieService,

@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpParams, } from '@angular/com
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs/Observable';
 import { Global } from '../Globel'
+import { CookiesStorageService, LocalStorageService, SessionStorageService, SharedStorageService } from 'ngx-store';
 
 @Injectable()
 export class AuthenticationService {
@@ -15,8 +16,29 @@ export class AuthenticationService {
     private _router: Router,
     private _http: HttpClient,
     private cookieService: CookieService,
-    private global: Global
+    private global: Global,
+    private localStorageService: LocalStorageService,
+    private sessionStorageService: SessionStorageService,
+    private cookiesStorageService: CookiesStorageService,
+    private sharedStorageService: SharedStorageService,
   ) { }
+
+
+
+  public saveSomeData(object: Object, array: Array<any>) {
+    this.localStorageService.set('someObject', object);
+    this.sessionStorageService.set('someArray', array);
+
+    this.localStorageService.keys.forEach((key) => {
+      console.log(key + ' =', this.localStorageService.get(key));
+    });
+  }
+
+  public clearLocalData(): void {
+    this.localStorageService.clear('decorators'); // removes only variables created by decorating functions
+    this.localStorageService.clear('prefix'); // removes variables starting with set prefix (including decorators)
+    this.sessionStorageService.clear('all'); // removes all session storage data
+  }
 
   obtainAccessToken(loginData: any) {
     let params = new HttpParams();
