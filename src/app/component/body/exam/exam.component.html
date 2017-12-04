@@ -14,9 +14,10 @@
         <div class="col-sm-6">
           <span style="font-weight: bold;">View In:</span>
           <select id="examLang" name="examLang" [(ngModel)]="questionLang" (ngModelChange)="questionLang = $event">
-            <option *ngFor='let examLang of questionLangList' [value]="examLang.value">
+         <!--   <option *ngFor='let examLang of questionLangList' [value]="examLang.value">
               {{examLang.label}}
-            </option>
+            </option>-->
+            <option value='ENG/HND'>English/Hindi</option>
           </select>
         </div>
         <div class="col-sm-2" style="height:40px; background-color:#595959;">
@@ -39,9 +40,9 @@
       <div class="row" style="font-size:16px;">
         <div class="col-sm-7"></div>
         <div class="col-sm-2">
-          <span>Marks:</span> 1</div>
+          <span>Marks:</span> {{questionSet.fullMarks}}</div>
         <div class="col-sm-3">
-          <span>Negative Marks:</span> 0.25</div>
+          <span>Negative Marks:</span>{{questionSet.negativeMarks}}</div>
       </div>
 
       <div class="row" style="font-size: 14px">

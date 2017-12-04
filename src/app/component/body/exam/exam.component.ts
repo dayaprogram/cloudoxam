@@ -59,14 +59,17 @@ export class ExamComponent implements OnInit {
   }
 
   questionNavigator(questionSeqNo: number) {
-    this.questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
-    this.createQuestionOptions(this.questionSet.noOfOpt, this.questionSet.questionSeqNo);
+    if ((this.questionSetList[this.questionSetList.length - 1].questionSeqNo >= questionSeqNo) && questionSeqNo > 0) {
+      this.questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
+      this.createQuestionOptions(this.questionSet.noOfOpt, this.questionSet.questionSeqNo);
+
+    }
     this.setQuestionStatus(questionSeqNo);
   }
 
   markForReview(questionSeqNo: number) {
-   // let questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
-   // this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
+    // let questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
+    // this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
     this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
     this.previousQnNo = questionSeqNo;
     this.setQuestionStatus(this.previousQnNo);
@@ -92,7 +95,9 @@ export class ExamComponent implements OnInit {
         this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass = this.navButtonClassNotAnswered;
       }
     }
-    this.previousQnNo = questionSeqNo;
+    if ((this.questionSetList[this.questionSetList.length - 1].questionSeqNo >= questionSeqNo) && questionSeqNo > 0) {
+      this.previousQnNo = questionSeqNo;
+    }
   }
 
 
@@ -195,7 +200,7 @@ export class ExamComponent implements OnInit {
         });
         this.questionNavigator(1);
         this.startCountDownTimer(this.examTime * 60);
-        this.cookieService.set('EXAMSEQNO',this.questionSetList[0].examSeqNo.toString());
+        this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
       }
     );
     this.api.getExamLang().subscribe(
