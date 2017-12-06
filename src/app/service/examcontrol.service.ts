@@ -6,10 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { Options } from '../model/options';
 import { QuestionSet } from '../model/question-set';
 import { ExamQuestionSet } from '../model/examQuestionSet';
-import { ExamQuestionSetSubject } from '../model/examQuestionSetSubject'
-import { QuestionStatus } from '../model/questionStatus'
-import { Global } from '../Globel'
-import { ExamResult } from '../model/examResult'
+import { ExamQuestionSetSubject } from '../model/examQuestionSetSubject';
+import { QuestionStatus } from '../model/questionStatus';
+import { Global } from '../Globel';
+import { ExamResult } from '../model/examResult';
+import { CourseDetail } from '../model/course-detail';
 
 @Injectable()
 export class ExamcontrolService {
@@ -22,7 +23,7 @@ export class ExamcontrolService {
   ) { }
   accesTcn = '?access_token=' + this.cookieService.get('access_token');
   headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Origin': '*',
     'Accept': 'application/json;charset=utf-8',
     'Authorization': 'Bearer ' + this.cookieService.get('access_token')
   });
@@ -81,6 +82,14 @@ export class ExamcontrolService {
     param.set('examseqno', examSeqNo.toString())
     //  return this.api.get<ExamResult>(url, { headers: this.headers, params: param });
     return this.api.get<ExamResult>(url, { headers: this.headers });
+  }
+
+  public getCourseExamDtl(course: string): Observable<CourseDetail> {
+    let url = this.global.BASEURL + '/exam/coursedtl/?course=' + course;
+    let param = new HttpParams();
+    param.set('course', course);
+    //  return this.api.get<ExamResult>(url, { headers: this.headers, params: param });
+    return this.api.get<CourseDetail>(url, { headers: this.headers });
 
   }
 

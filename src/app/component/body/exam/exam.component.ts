@@ -15,6 +15,8 @@ import { AuthenticationService } from '../../../service/authentication.service';
 import { ExamcontrolService } from '../../../service/examcontrol.service';
 import { QuestionStatus } from '../../../model/questionStatus';
 import { QuetStatusCount } from '../../../model/question-status-count';
+import { CourseDetail } from '../../../model/course-detail';
+
 import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
 
 
@@ -27,17 +29,15 @@ export class ExamComponent implements OnInit {
 
 
   // it will be stored under ${prefix}viewCounts name
-  @LocalStorage() viewCounts: number = 0;
+  // @LocalStorage() viewCounts: number = 0;
   // this under name: ${prefix}differentLocalStorageKey
-  @LocalStorage('differentLocalStorageKey') userName: string = '';
+  //  @LocalStorage('differentLocalStorageKey') userName: string = '';
   // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
-  @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
+  // @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
   // it will be read from cookie 'user_id' (can be shared with backend) and saved to localStorage and cookies after change
-  @LocalStorage() @CookieStorage({ prefix: '', key: 'user_id' }) userId: string = '';
+  // @LocalStorage() @CookieStorage({ prefix: '', key: 'user_id' }) userId: string = '';
   // it will be stored in a cookie named ${prefix}user_workspaces for 24 hours
-  @CookieStorage({ key: 'user_workspaces', expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000) }) userWorkspaces = [];
-
-
+  // @CookieStorage({ key: 'user_workspaces', expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000) }) userWorkspaces = [];
 
 
   constructor(
@@ -64,6 +64,10 @@ export class ExamComponent implements OnInit {
   selectedOption: string;
   previousQnNo: number = 1;
 
+  quetStatusCount: QuetStatusCount = new QuetStatusCount();
+  examSeqNo: number = 0;
+  courseExamDeatal: CourseDetail = new CourseDetail();
+  tagBtnCaption: string = 'Tag';
 
   navButtonClassNotVisited: string = 'btn btn-primary btn-custom-wid not_visited';
   navButtonClassMarkedForReviewNotAns: string = 'btn btn-primary btn-custom-wid marked_review_not_answered';
@@ -80,42 +84,60 @@ export class ExamComponent implements OnInit {
     if ((this.questionSetList[this.questionSetList.length - 1].questionSeqNo >= questionSeqNo) && questionSeqNo > 0) {
       this.questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
       this.createQuestionOptions(this.questionSet.noOfOpt, this.questionSet.questionSeqNo);
-
+      if (this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview) {
+        this.tagBtnCaption ='De-Tag';
+      } else {
+        this.tagBtnCaption = 'Tag';
+      }
     }
     this.setQuestionStatus(questionSeqNo);
   }
 
   markForReview(questionSeqNo: number) {
-    // let questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
-    // this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
-    this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
+    if (this.tagBtnCaption === 'Tag') {
+      this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
+      this.tagBtnCaption = 'De-Tag';
+    } else {
+      this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = false;
+      this.tagBtnCaption = 'Tag';
+    }
     this.previousQnNo = questionSeqNo;
     this.setQuestionStatus(this.previousQnNo);
   }
   clearAnswer(questionSeqNo: number) {
     this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = "";
+    this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = false;
     this.previousQnNo = questionSeqNo;
     this.setQuestionStatus(this.previousQnNo);
   }
+
   setQuestionStatus(questionSeqNo: number) {
     let qnStatus = this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo);
 
     if (qnStatus.markedForReview) {
       if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === "")) {
-        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass = this.navButtonClassMarkedForReviewAns;
+        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass =
+          this.navButtonClassMarkedForReviewAns;
       } else {
-        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass = this.navButtonClassMarkedForReviewNotAns;
+        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass
+          = this.navButtonClassMarkedForReviewNotAns;
       }
     } else {
       if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === "")) {
-        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass = this.navButtonClassAnswered;
+        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass
+          = this.navButtonClassAnswered;
       } else {
-        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass = this.navButtonClassNotAnswered;
+        this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass =
+          this.navButtonClassNotAnswered;
       }
     }
     if ((this.questionSetList[this.questionSetList.length - 1].questionSeqNo >= questionSeqNo) && questionSeqNo > 0) {
       this.previousQnNo = questionSeqNo;
     }
+    this.quetStatusCount.notAswared = this.questionStatusList.filter(x => x.finalSubmitAns == '' && x.markedForReview == false).length;
+    this.quetStatusCount.answered = this.questionStatusList.filter(x => x.finalSubmitAns !== '' && x.markedForReview == false).length;
+    this.quetStatusCount.markedReviewAnswered = this.questionStatusList.filter(x => x.markedForReview == true && x.finalSubmitAns !== '').length;
+    this.quetStatusCount.markedReviewNotAns = this.questionStatusList.filter(x => x.markedForReview == true && x.finalSubmitAns == '').length;
   }
 
 
@@ -219,11 +241,27 @@ export class ExamComponent implements OnInit {
         this.questionNavigator(1);
         this.startCountDownTimer(this.examTime * 60);
         this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
+        this.examSeqNo = this.questionSetList[0].examSeqNo;
+        this.quetStatusCount.notAswared = this.questionSetList.length;
+        this.quetStatusCount.answered = 0;
+        this.quetStatusCount.markedReviewAnswered = 0;
+        this.quetStatusCount.markedReviewNotAns = 0;
       }
     );
     this.api.getExamLang().subscribe(
       data => {
         this.questionLangList = data;
+      },
+      // Errors will call this callback instead:
+      err => {
+        console.log('Something went wrong!');
+      }
+    );
+
+
+    this.api.getCourseExamDtl(this.cookieService.get('course')).subscribe(
+      data => {
+        this.courseExamDeatal = data;
       },
       // Errors will call this callback instead:
       err => {

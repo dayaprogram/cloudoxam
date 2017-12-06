@@ -2,14 +2,14 @@
 
   <div class="row">
     <div class="col-sm-12" style="  background-color:rgb(56, 56, 58); border: 1px solid black;">
-      <p style="text-align: center; color:antiquewhite; padding-top: 10px; font-weight: bold; font-size:20px;">IBPS CLERK 2017 Prelim Mock Test 1</p>
+      <p style="text-align: center; color:antiquewhite; padding-top: 10px; font-weight: bold; font-size:20px;">{{courseExamDeatal.examCaption}}{{examSeqNo}}</p>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12" style="height:40px; background-color:#99ff33;">
       <div class="row">
         <div class="col-sm-4">
-          <b>SSC CGLE DRYRUN |</b>
+          <b>SSC TEST EXAM</b>
         </div>
         <div class="col-sm-6">
           <span style="font-weight: bold;">View In:</span>
@@ -86,22 +86,22 @@
                   <div class="row">
 
                     <div class="col-sm-3">
-                      <button type="button" class="btn btn-primary btn-nav-dcr answered">5</button>
+                      <button type="button" class="btn btn-primary btn-nav-dcr answered">{{quetStatusCount.answered}}</button>
                       <br>
                       <span>Attemped</span>
                     </div>
                     <div class="col-sm-3">
-                      <button type="button" class="btn btn-primary btn-nav-dcr marked_review_not_answered">10</button>
+                      <button type="button" class="btn btn-primary btn-nav-dcr marked_review_not_answered">{{quetStatusCount.markedReviewNotAns}}</button>
                       <br>
                       <span>Taged</span>
                     </div>
                     <div class="col-sm-3">
-                      <button type="button" class="btn btn-primary btn-nav-dcr marked_review_answered">75</button>
+                      <button type="button" class="btn btn-primary btn-nav-dcr marked_review_answered">{{quetStatusCount.markedReviewAnswered}}</button>
                       <br>
                       <span>Attemped & Taged</span>
                     </div>
                     <div class="col-sm-2">
-                      <button type="button" class="btn btn-primary btn-nav-dcr not_aswared">16</button>
+                      <button type="button" class="btn btn-primary btn-nav-dcr not_aswared">{{quetStatusCount.notAswared}}</button>
                       <br>
                       <span>Unattemped</span>
                     </div>
@@ -125,7 +125,7 @@
           <button type="button" class="btn btn-default btn-border" (click)="questionNavigator(questionSet.questionSeqNo+1)">Next Question</button>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">Tag</button>
+          <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">{{tagBtnCaption}}</button>
         </div>
         <div class="col-sm-2">
           <button type="button" class="btn btn-danger" (click)="clearAnswer(questionSet.questionSeqNo)">Erase</button>
@@ -135,7 +135,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -143,8 +142,8 @@
   <div class="col-sm-6 col-boarder overflow">
     <p [MathJax]="questionSet.paragraphBodyEng">{{questionSet.paragraphBodyEng}}</p>
     <p [MathJax]="questionSet.paragraphBodyHnd">{{questionSet.paragraphBodyHnd}}</p>
-    <span *ngIf='!(questionSet.paragraphImage==""||questionSet.paragraphImage==null); then ParaBodyImage'>
-    </span>
+    <div *ngIf='!(questionSet.paragraphImage==""||questionSet.paragraphImage==null); then ParaBodyImage'>
+    </div>
 
   </div>
   <ng-template #ParaBodyImage>
@@ -155,8 +154,8 @@
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
     <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
     <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
-    <span *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyWPImage'>
-    </span>
+    <div *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyWPImage'>
+    </div>
     <ng-template #QuestionBodyWPImage>
       <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" height="50%" width="50%" alt="">
     </ng-template>
@@ -166,12 +165,12 @@
         <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
         (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
         [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
-        <span class="option-index-style">{{qstnOption.optionIndex}} :
-        </span>
+        <p class="option-index-style">{{qstnOption.optionIndex}} :
+        </p>
         <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
         <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
-        <span *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
-        </span>
+        <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
+        </div>
         <ng-template #QuestionBodyImage>
           <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" height="50%" width="50%" alt="">
         </ng-template>
@@ -191,20 +190,20 @@
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
     <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
     <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
-    <span *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyImage'>
-    </span>
+    <div *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyImage'>
+    </div>
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
         <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
         (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
         [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
-        <span class="option-index-style">{{qstnOption.optionIndex}} :
-        </span>
+        <p class="option-index-style">{{qstnOption.optionIndex}} :
+        </p>
         <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
         <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
-        <span *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
-        </span>
+        <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
+        </div>
         <ng-template #QuestionBodyImage>
           <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" height="50%" width="50%" alt="">
         </ng-template>

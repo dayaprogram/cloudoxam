@@ -5,9 +5,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs/Observable';
 import { Global } from '../Globel'
 import { CookiesStorageService, LocalStorageService, SessionStorageService, SharedStorageService } from 'ngx-store';
+import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
 
 @Injectable()
 export class AuthenticationService {
+
+  // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
+  @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) accesToken: string;
+  @LocalStorage('differentLocalStorageKey') userExpairyTime: number;
 
   public static expairyTime: number = new Date().getTime() - 1;
   // + (1000 * 60 * 60 * 24 * 365 * 5);
@@ -71,11 +76,12 @@ export class AuthenticationService {
     var expireDate = new Date().getTime() + (1000 * token.expires_in);
     this.cookieService.set("access_token", token.access_token, expireDate);
     AuthenticationService.expairyTime = expireDate;
+    this.userExpairyTime = expireDate;
     this._router.navigate(['/course']);
   }
   checkCredentials() {
-
-    if (AuthenticationService.expairyTime > new Date().getTime()) {
+  //  alert(this.userExpairyTime);
+    if (this.userExpairyTime > new Date().getTime()) {
       return true;
     } else {
       return false;
