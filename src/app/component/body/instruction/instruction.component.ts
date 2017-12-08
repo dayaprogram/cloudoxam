@@ -16,7 +16,7 @@ export class InstructionComponent implements OnInit {
   selectedExamLang: string = '';
   aggreeFlag: boolean = false;
   course: string;
-  // examNature: string = 'SUB GRP';
+ // examNature: string = 'NONSUBGRP';
   examNature: string = '';
   constructor(
     private cookieService: CookieService,

@@ -1,4 +1,4 @@
-<div class="container-fluid ">
+<!--<div class="container-fluid ">
   <div class="row">
     <div class="col-sm-12">
       <app-header></app-header>
@@ -25,3 +25,130 @@
   </div>
   
 </div>
+-->
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <br>
+      <h1>Sagar Institute of General Compitition, Bardaha</h1>
+      <br>
+      <!--
+      <a class="navbar-brand" href="#">
+        <img src="./assets/image/company-banner.png" alt="" />
+        <h3>Sagar Institute of General Compitition, Bardaha</h3>
+      </a>
+    -->
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <!--li><a href="#" style="text-align:center;">SEGNETICS</a></li-->
+        <!--li><a href="#">Our work</a></li-->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <!--li class="separate"><a href="#"><i class="fa fa-user-o"></i>Sign in</a></li>
+					  <li><a href="#">Sign Up</a></li-->
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+<section class="expert">
+  <div class="expert-child-left" style="background-image: url('./assets/image/online1.jpg');"></div>
+  <div class="expert-child-right login-section">
+    <h2>User Log In </h2>
+    <div class="row">
+      <div class="col-md-6">
+        <form (ngSubmit)="getAuthentication()">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Roll No.</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" 
+            placeholder="Roll No." name="userid" [(ngModel)]="loginData.userid" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1"
+             placeholder="Password" name="pwd" [(ngModel)]="loginData.password">
+            <a class="forgot-password">Forgot password?</a>
+          </div>
+          <!--
+							  <div class="checkbox">
+							    <label>
+							      <input type="checkbox"> Remember me
+							    </label>
+							  </div>
+							  -->
+          <button type="submit" class="btn btn-sm btn-primary">Login</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="sociallogin">
+          <h2>-Cloudoxam-</h2>
+          <p>Provide most familiar exam environment</p>
+          <!--button class="btn" style="background: #0054a6"><i class="fa fa-facebook"></i>Log In With Facebook</button>
+								<button class="btn" style="background: #f0242b"><i class="fa fa-google-plus"></i>Log In With Google plus</button-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--section class="download-app2">
+			<div class="container">
+				<h2>Download the 7SEVEN Massage <br/>app</h2>
+				<p>Effortlessly book a massage from your phone.</p>
+				<ul>
+					<li><a href=""><img src="images/googlepay.png" alt="" /></a></li>
+					<li><a href=""><img src="images/appstore.png" alt="" /></a></li>
+				</ul>		
+			</div>
+		</section-->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-12">
+        <h3>About Us</h3>
+        <p>Lorem Ipsum is simply dummy text of the printing and </p>
+      </div>
+      <div class="col-md-3 col-sm-4">
+        <h3>Categories</h3>
+        <ul>
+          <li>
+            <a href="">Prenatal</a>
+          </li>
+          <li>
+            <a href="">Therapeutic</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-4">
+        <h3>Contact</h3>
+        <a href="#" class="mail">info@sagnetic.in</a>
+      </div>
+      <div class="col-md-3 col-sm-4">
+        <h3>News Letter</h3>
+        <form class="form-group">
+          <div class="col-sm-12">
+            <input type="email" class="form-control" placeholder='Email@xyz.com' required/>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-sm btn-default form-control" type="submit">Subscribe</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .navbar-nav {
+    text-align: center, !important;
+  }
+</style>
