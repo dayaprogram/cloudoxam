@@ -1,3 +1,214 @@
-<p>
-  student-details works!
-</p>
+<form [formGroup]="stdForm" name="stdForm">
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="stdFirstName" placeholder="Student First Name" name="stdFirstName">
+        <mat-error *ngIf="!stdForm.controls['stdFirstName'].valid && stdForm.controls['stdFirstName'].touched">
+          student first name is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="stdMiddleName" placeholder="Student Middle Name" name="stdMiddleName">
+        <mat-error *ngIf="!stdForm.controls['stdMiddleName'].valid && stdForm.controls['stdMiddleName'].touched">
+          Student Middle name
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="stdLastName" placeholder="Student Last Name" name="stdLastName">
+        <mat-error *ngIf="!stdForm.controls['stdLastName'].valid && stdForm.controls['stdLastName'].touched">
+          Student Last name
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="fatherFirstName" placeholder="Father First Name" name="fatherFirstName">
+        <mat-error *ngIf="!stdForm.controls['fatherFirstName'].valid && stdForm.controls['fatherFirstName'].touched">
+          Father First name
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="fatherMiddleName" placeholder="Father Middle Name" name="fatherMiddleName">
+        <mat-error *ngIf="!stdForm.controls['fatherMiddleName'].valid && stdForm.controls['fatherMiddleName'].touched">
+          Father Middle name
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="fatherLastName" placeholder="Father Last Name" name="fatherLastName">
+        <mat-error *ngIf="!stdForm.controls['fatherLastName'].valid && stdForm.controls['fatherLastName'].touched">
+          Father Last name
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input matInput [matDatepicker]="myDatepicker" placeholder="Date Of Birth" formControlName="dateOfBirth" name="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error *ngIf="!stdForm.controls['dateOfBirth'].valid && stdForm.controls['dateOfBirth'].touched">
+          Date Of Birth
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <mat-select placeholder="Sex" formControlName="gender" name="gender">
+          <mat-option>Male</mat-option>
+          <mat-option>Female</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!stdForm.controls['dateOfBirth'].valid && stdForm.controls['dateOfBirth'].touched">
+          Please select Gender </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <mat-select placeholder="Categories" formControlName="category" name="category">
+          <mat-option>General</mat-option>
+          <mat-option>OBC</mat-option>
+          <mat-option>SCST</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!stdForm.controls['dateOfBirth'].valid && stdForm.controls['dateOfBirth'].touched">
+          Please selet category </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="familyIncomeRange" placeholder="Family Income Range" name="familyIncomeRange">
+        <mat-error *ngIf="!stdForm.controls['familyIncomeRange'].valid && stdForm.controls['familyIncomeRange'].touched">
+          Family Income is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="number" matInput formControlName="stdMobNo" placeholder="Student Mobile Number" name="stdMobNo">
+        <mat-error *ngIf="!stdForm.controls['stdMobNo'].valid && stdForm.controls['stdMobNo'].touched">
+          Student Mobile is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="adharNo" placeholder="Adhar Card Number" name="adharNo">
+        <mat-error *ngIf="!stdForm.controls['adharNo'].valid && stdForm.controls['adharNo'].touched">
+          Adhar card no is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="stdPanNo" placeholder="Student Pancard Number" name="stdPanNo">
+        <mat-error *ngIf="!stdForm.controls['stdPanNo'].valid && stdForm.controls['stdPanNo'].touched">
+          Pan card no is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="email" matInput formControlName="stdEmail" placeholder="Student Emailid" name="stdEmail">
+        <mat-error *ngIf="!stdForm.controls['stdEmail'].valid && stdForm.controls['stdEmail'].touched">
+          Valid Email is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="fatherMobNo" placeholder="Father Mobile Number" name="fatherMobNo">
+        <mat-error *ngIf="!stdForm.controls['fatherMobNo'].valid && stdForm.controls['fatherMobNo'].touched">
+          Father Mobile is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <textarea matInput placeholder="Address 1" formControlName="address1" name="address1"></textarea>
+        <mat-error *ngIf="!stdForm.controls['address1'].valid && stdForm.controls['address1'].touched">
+          Address is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <textarea matInput placeholder="Address 2" formControlName="address2" name="address2"></textarea>
+        <mat-error *ngIf="!stdForm.controls['address2'].valid && stdForm.controls['address2'].touched">
+          Address is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="city" placeholder="City" name="city">
+        <mat-error *ngIf="!stdForm.controls['city'].valid && stdForm.controls['city'].touched">
+          City is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="district" placeholder="District" name="district">
+        <mat-error *ngIf="!stdForm.controls['district'].valid && stdForm.controls['district'].touched">
+          District is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="state" placeholder="State" name="state">
+        <mat-error *ngIf="!stdForm.controls['state'].valid && stdForm.controls['state'].touched">
+          State is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <input type="text" matInput formControlName="country" placeholder="Country" name="country">
+        <mat-error *ngIf="!stdForm.controls['country'].valid && stdForm.controls['country'].touched">
+          Country is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Options } from '../../../model/options'
-import { AuthenticationService } from '../../../service/authentication.service'
-import { ExamcontrolService } from '../../../service/examcontrol.service'
+import { Options } from '../../../model/options';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { ExamcontrolService } from '../../../service/examcontrol.service';
 
 @Component({
   selector: 'app-instruction',
@@ -12,12 +12,12 @@ import { ExamcontrolService } from '../../../service/examcontrol.service'
 })
 export class InstructionComponent implements OnInit {
   examLangs: Options[];
-  instructionLang: string = 'ENG';
-  selectedExamLang: string = '';
-  aggreeFlag: boolean = false;
+  instructionLang = 'ENG';
+  selectedExamLang = '';
+  aggreeFlag = false;
   course: string;
- // examNature: string = 'NONSUBGRP';
-  examNature: string = '';
+  // examNature: string = 'NONSUBGRP';
+  examNature = '';
   constructor(
     private cookieService: CookieService,
     private api: ExamcontrolService,

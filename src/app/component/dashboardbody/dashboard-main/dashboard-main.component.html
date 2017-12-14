@@ -1,43 +1,242 @@
-<div class="container-fluid text-center">
-  <div class="row">
-    <div class="col-md-12" style="  background-color:rgb(56, 56, 58); border: 1px solid black;">
-      <p style="text-align: center; color:antiquewhite; padding-top: 10px; font-weight: bold; font-size:20px;">IBPS CLERK 2017 Prelim Mock Test 1</p>
+<div class="dashboard-main-section">
+  <!---// LEFT PART -->
+  <div class="dashboard-left">
+    <!--// LEFT HEADER -->
+    <div class="left-dashboard-header">
+      <h1>User Dasboard</h1>
     </div>
+    <!---// LEFT HEADER SECTION -->
+    <!---// LEFT MID SECTION -->
+    <div class="left-dashboard-mid">
+      <ul>
+        <li>
+          <a routerLink="/adm" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/adm/question/mcq" routerLinkActive="active">
+            <i class="fa fa-bullseye"></i>
+            <span>Apps</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i>
+            <span>Forms</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="form-elements.html">Form Elements</a>
+            </li>
+            <li>
+              <a href="form-validation.html">Form Validation</a>
+            </li>
+            <li>
+              <a href="form-wizard.html">Form Wizard</a>
+            </li>
+            <li>
+              <a href="form-layouts.html">Form Layouts</a>
+            </li>
+            <li>
+              <a href="form-uploads.html">Form File Upload</a>
+            </li>
+            <li>
+              <a href="form-summernote.html">Summernote</a>
+            </li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-map-marker"></i>
+            <span>Maps</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="map-google.html">Google Maps</a>
+            </li>
+            <li>
+              <a href="map-vector.html" class="active">Vector Maps</a>
+            </li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-share"></i>
+            <span>Multilevel</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="#">Level One</a>
+            </li>
+            <li class="treeview">
+              <a href="#">Level One
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="#"> Level Two</a>
+                </li>
+                <li class="treeview">
+                  <a href="#">Level Two
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li>
+                      <a href="#">Level Three</a>
+                    </li>
+                    <li>
+                      <a href="#">Level Three</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Level One</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+    <!---// LEFT MID SECTION END -->
+    <!---// LEFT FOOTER SECTION -->
+    <div class="left-dashboard-footer">
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!---// LEFT FOOTER SECTION END -->
+
+
   </div>
-  <div class="row">
-    <div class="col-md-3" style="  background-color:rgb(56, 56, 58); border: 1px solid black;">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-nav-list>
-          <mat-list-item>
-            <a matLine href="#">test</a>
-            <button mat-icon-button>
-              <mat-icon>info</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-nav-list>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
+  <!---// LEFT PART END -->
+  <!--// RIGHT PART -->
+  <div class="dashboard-right">
+    <!--// RIGHT HEADER -->
+    <div class="right-dashboard-header">
+      <ul class="float-left">
+        <li class="slide-menu">
+          <i class="fa fa-align-justify" aria-hidden="true"></i>
+        </li>
+        <li class="right-header-search">
+          <input type="text" class="custom-search" />
+          <span>
+            <i class="fa fa-search"></i>
+          </span>
+        </li>
+      </ul>
+      <ul class="float-right">
+        <li>
+          <a href="#">
+            <i class="fa fa-bell-o"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-bell-o"></i>
+          </a>
+        </li>
+        <li class="right-header-user">
+          <img src="http://uxliner.com/niche/main/dist/img/img1.jpg" />
+          <span>Alexander Pierce</span>
+          <ul>
+            <li>
+              <a href="#">Account Settings</a>
+            </li>
+            <li>
+              <a href="#">My Profile</a>
+            </li>
+            <li>
+              <a href="#">Bookmark</a>
+            </li>
+            <li>
+              <a href="#">My Payment</a>
+            </li>
+            <li>
+              <a href="#">Log Out</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
     </div>
-    <div class="col-md-9">
+    <!---// RIGHT HEADER SECTION -->
+    <!---// RIGHT MID SECTION -->
+    <div class="right-dashboard-mid">
       <router-outlet></router-outlet>
     </div>
+    <!---// RIGHT MID SECTION END -->
+    <!---// RIGHT FOOTER SECTION -->
+    <div class="right-dashboard-footer">
+      <span class="float-left">Copyright © 2017 Yourdomian. All rights reserved.</span>
+      <span>Version 1.2</span>
+    </div>
+    <!---// RIGHT FOOTER SECTION END -->
+
   </div>
+  <!---// RIGHT PART END -->
 </div>
+
+
+<script>
+  $(document).ready(function (e) {
+    /// Give Window Height on load
+    var getWindowHeight = $(window).innerHeight();
+    $(window).resize(function (e) {
+      var getWindowHeight = $(this).innerHeight();
+    });
+    //alert(getWindowHeight);
+    //alert(getWindowHeight);
+    // Left Mid Section Height 
+    $('.left-dashboard-mid').css('max-height', getWindowHeight - 60);
+    // Right Sidebar Mid Height
+    $('.right-dashboard-mid').css('max-height', getWindowHeight - 110);
+    // Slide Menu 
+    $('.slide-menu').click(function () {
+      $('.dashboard-left').toggleClass('active-slide-menu');
+      $('.dashboard-right').toggleClass('active-slide-menu');
+      $('.right-dashboard-footer').toggleClass('active-slide-menu');
+    })
+  });
+</script>

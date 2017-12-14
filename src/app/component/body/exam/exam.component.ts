@@ -59,25 +59,31 @@ export class ExamComponent implements OnInit {
   qstnOptionList: QuestionOption[];
 
   questionLangList: Options[];
-  questionLang: string = 'ENG/HND';
+  questionLang = 'ENG/HND';
 
   selectedOption: string;
-  previousQnNo: number = 1;
+  previousQnNo = 1;
 
   quetStatusCount: QuetStatusCount = new QuetStatusCount();
-  examSeqNo: number = 0;
+  examSeqNo = 0;
   courseExamDeatal: CourseDetail = new CourseDetail();
-  tagBtnCaption: string = 'Tag';
+  tagBtnCaption = 'Tag';
 
-  navButtonClassNotVisited: string = 'btn btn-primary btn-custom-wid not_visited';
-  navButtonClassMarkedForReviewNotAns: string = 'btn btn-primary btn-custom-wid marked_review_not_answered';
-  navButtonClassMarkedForReviewAns: string = 'btn btn-primary btn-custom-wid marked_review_answered';
-  navButtonClassNotAnswered: string = 'btn btn-primary btn-custom-wid not_aswared';
-  navButtonClassAnswered: string = 'btn btn-primary btn-custom-wid answered';
+  navButtonClassNotVisited = 'btn btn-primary btn-custom-wid not_visited';
+  navButtonClassMarkedForReviewNotAns = 'btn btn-primary btn-custom-wid marked_review_not_answered';
+  navButtonClassMarkedForReviewAns = 'btn btn-primary btn-custom-wid marked_review_answered';
+  navButtonClassNotAnswered = 'btn btn-primary btn-custom-wid not_aswared';
+  navButtonClassAnswered = 'btn btn-primary btn-custom-wid answered';
+
+
+  minutesDisplay = 0;
+  hoursDisplay = 0;
+  secondsDisplay = 0;
+  sub: Subscription;
 
 
   onChangeLang(questionLang: string) {
-    this.questionLang = questionLang
+    this.questionLang = questionLang;
   }
 
   questionNavigator(questionSeqNo: number) {
@@ -85,7 +91,7 @@ export class ExamComponent implements OnInit {
       this.questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
       this.createQuestionOptions(this.questionSet.noOfOpt, this.questionSet.questionSeqNo);
       if (this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview) {
-        this.tagBtnCaption ='De-Tag';
+        this.tagBtnCaption = 'De-Tag';
       } else {
         this.tagBtnCaption = 'Tag';
       }
@@ -105,17 +111,17 @@ export class ExamComponent implements OnInit {
     this.setQuestionStatus(this.previousQnNo);
   }
   clearAnswer(questionSeqNo: number) {
-    this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = "";
+    this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = '';
     this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = false;
     this.previousQnNo = questionSeqNo;
     this.setQuestionStatus(this.previousQnNo);
   }
 
   setQuestionStatus(questionSeqNo: number) {
-    let qnStatus = this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo);
+    const qnStatus = this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo);
 
     if (qnStatus.markedForReview) {
-      if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === "")) {
+      if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === '')) {
         this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass =
           this.navButtonClassMarkedForReviewAns;
       } else {
@@ -123,7 +129,7 @@ export class ExamComponent implements OnInit {
           = this.navButtonClassMarkedForReviewNotAns;
       }
     } else {
-      if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === "")) {
+      if (!(qnStatus.finalSubmitAns === null || qnStatus.finalSubmitAns === '')) {
         this.questionStatusList.find(x => x.questionSeqNo === this.previousQnNo).navButtonClass
           = this.navButtonClassAnswered;
       } else {
@@ -134,10 +140,12 @@ export class ExamComponent implements OnInit {
     if ((this.questionSetList[this.questionSetList.length - 1].questionSeqNo >= questionSeqNo) && questionSeqNo > 0) {
       this.previousQnNo = questionSeqNo;
     }
-    this.quetStatusCount.notAswared = this.questionStatusList.filter(x => x.finalSubmitAns == '' && x.markedForReview == false).length;
-    this.quetStatusCount.answered = this.questionStatusList.filter(x => x.finalSubmitAns !== '' && x.markedForReview == false).length;
-    this.quetStatusCount.markedReviewAnswered = this.questionStatusList.filter(x => x.markedForReview == true && x.finalSubmitAns !== '').length;
-    this.quetStatusCount.markedReviewNotAns = this.questionStatusList.filter(x => x.markedForReview == true && x.finalSubmitAns == '').length;
+    this.quetStatusCount.notAswared = this.questionStatusList.filter(x => x.finalSubmitAns === '' && x.markedForReview === false).length;
+    this.quetStatusCount.answered = this.questionStatusList.filter(x => x.finalSubmitAns !== '' && x.markedForReview === false).length;
+    this.quetStatusCount.markedReviewAnswered = this.questionStatusList.filter(
+      x => x.markedForReview === true && x.finalSubmitAns !== '').length;
+    this.quetStatusCount.markedReviewNotAns = this.questionStatusList.filter(
+      x => x.markedForReview === true && x.finalSubmitAns === '').length;
   }
 
 
@@ -193,8 +201,8 @@ export class ExamComponent implements OnInit {
   }
 
   finalSubmit() {
-    console.log('finally submited')
-    console.log(this.questionStatusList)
+    console.log('finally submited');
+    console.log(this.questionStatusList);
 
     this.api.saveExam(this.questionStatusList).subscribe(
       data => {
@@ -227,13 +235,13 @@ export class ExamComponent implements OnInit {
       },
       () => {
         this.questionSetList.forEach(item => {
-          let questionStatus = new QuestionStatus();
+          const questionStatus = new QuestionStatus();
           questionStatus.course = this.cookieService.get('course');
           questionStatus.examSeqNo = item.examSeqNo;
           questionStatus.questionSeqNo = item.questionSeqNo;
           questionStatus.questionId = item.questionId;
           questionStatus.markedForReview = false;
-          questionStatus.finalSubmitAns = ''
+          questionStatus.finalSubmitAns = '';
           questionStatus.questionAttemptTime = '';
           questionStatus.visited = false;
           this.questionStatusList.push(questionStatus);
@@ -284,15 +292,10 @@ export class ExamComponent implements OnInit {
       });
       */
   }
-  /// timer 
-
-  minutesDisplay: number = 0;
-  hoursDisplay: number = 0;
-  secondsDisplay: number = 0;
-  sub: Subscription;
+  // timer
 
   private startCountDownTimer(counter: number) {
-    let countDown = Observable.timer(0, 1000)
+    const countDown = Observable.timer(0, 1000)
       .take(counter)
       .map(() => --counter)
       .subscribe(

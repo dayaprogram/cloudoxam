@@ -1,0 +1,12 @@
+.mat-full-width {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mat-full-width > * {
+    width: 100%;
+  }
+  hover {
+    cursor: pointer;
+    background: #000;
+ }

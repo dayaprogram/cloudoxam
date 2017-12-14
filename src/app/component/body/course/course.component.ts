@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Options } from '../../../model/options'
-import { AuthenticationService } from '../../../service/authentication.service'
-import { ExamcontrolService } from '../../../service/examcontrol.service'
-import { Global } from '../../../Globel'
+import { Options } from '../../../model/options';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { ExamcontrolService } from '../../../service/examcontrol.service';
+import { Global } from '../../../Globel';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -13,7 +13,7 @@ import { Global } from '../../../Globel'
 export class CourseComponent implements OnInit {
   // couses = new Option();
   couses: Options[];
-  selectedCourse: string = '';
+  selectedCourse = '';
 
   constructor(private auth: AuthenticationService,
     private api: ExamcontrolService,
@@ -22,10 +22,10 @@ export class CourseComponent implements OnInit {
     private globels: Global
   ) { }
   chehk() {
-    console.log(this.auth.checkCredentials())
+    console.log(this.auth.checkCredentials());
   }
   submitCourse() {
-    this.cookieService.set('course', this.selectedCourse)
+    this.cookieService.set('course', this.selectedCourse);
     this.api.getExamNature(this.selectedCourse).subscribe(
       data => {
         this.cookieService.set('EXAMNATURE', data.toString());
@@ -34,7 +34,7 @@ export class CourseComponent implements OnInit {
       }, () => {
         this.router.navigate(['/instruction']);
       }
-    )
+    );
   }
 
   ngOnInit() {

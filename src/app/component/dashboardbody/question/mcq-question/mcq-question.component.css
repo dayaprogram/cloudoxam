@@ -20,13 +20,13 @@
   color: #fff;
   background: #222;
   border-radius: .4em;
-  transition: background .3s;
-  
-  &:hover {
+  transition: background 0.3s;
+}
+  hover {
      cursor: pointer;
      background: #000;
   }
-}
+
     
 .file-upload__input {
     position: absolute;

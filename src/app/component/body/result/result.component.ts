@@ -22,7 +22,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.examResult = new ExamResult();
-    let examSeqNo: number = parseInt(this.cookieService.get('EXAMSEQNO'));
+    const examSeqNo: number = parseInt(this.cookieService.get('EXAMSEQNO'));
     this.api.getResult(this.cookieService.get('course'), examSeqNo
     ).subscribe(
       data => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../../service/authentication.service'
-import { Global } from '../../../Globel'
+import { AuthenticationService } from '../../../service/authentication.service';
+import { Global } from '../../../Globel';
 import { PlatformLocation } from '@angular/common';
 
 @Component({
