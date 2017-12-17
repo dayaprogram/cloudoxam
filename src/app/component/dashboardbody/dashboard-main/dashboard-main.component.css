@@ -165,7 +165,10 @@ li.right-header-user img {
 	 left:0px; 
 	 margin-left:250px;
 	 }
-.right-dashboard-mid,.left-dashboard-mid{ overflow-y:auto;overflow-x:hidden; }	 
+.right-dashboard-mid{
+    overflow-y:auto;overflow-x:hidden;height: 85%;
+}
+.left-dashboard-mid{ overflow-y:auto;overflow-x:hidden;height: 95%; }	 
 .right-dashboard-mid{padding:15px;}
 .right-dashboard-mid p{ color:#fff;}
 /*

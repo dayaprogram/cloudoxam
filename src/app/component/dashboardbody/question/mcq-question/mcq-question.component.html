@@ -1,168 +1,165 @@
-<div class="row">
-  <div class="col-sm-4 mat-full-width">
-
-    <mat-form-field>
-      <mat-select placeholder="Select">
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-  </div>
-  <div class="col-sm-4 mat-full-width">
-    <mat-form-field>
-      <mat-select placeholder="Select">
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-4 mat-full-width">
-    <mat-form-field>
-      <mat-select placeholder="Select">
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6 mat-full-width">
-    <mat-form-field>
-      <input matInput placeholder="Full Marks">
-    </mat-form-field>
-  </div>
-  <div class="col-sm-6 mat-full-width">
-    <mat-form-field>
-      <input matInput placeholder="Negative Marks">
-    </mat-form-field>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2">
-    Course
-  </div>
-  <div class="col-sm-4 mat-full-width">
-    <div style="height:55px;overflow-y: scroll">
-      <mat-selection-list #shoes>
-        <mat-list-option *ngFor="let shoe of typesOfShoes">
-          {{shoe}}
-        </mat-list-option>
-      </mat-selection-list>
-      <p>
-        Options selected: {{shoes.selectedOptions.selected.length}}
-      </p>
+<form [formGroup]="mcqBodyForm" name="mcqBodyForm" (ngSubmit)="onSubmitMCQBodyForm()" accept-charset="utf-8">
+  <div class="row">
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <mat-select placeholder="Subject" formControlName="subject" name="subject" [(ngModel)]="selectedSubject" (change)="getCourses(selectedSubject)">
+          <mat-option *ngFor='let subject of subjectList' [value]="subject.value">
+            {{subject.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!mcqBodyForm.controls['subject'].valid && mcqBodyForm.controls['subject'].touched">
+          Select Subject!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <mat-select placeholder="Question Level" formControlName="level" name="level">
+          <mat-option *ngFor='let level of levelList' [value]="level.value">
+            {{level.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!mcqBodyForm.controls['level'].valid && mcqBodyForm.controls['level'].touched">
+          Select Question Level!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <mat-form-field>
+        <mat-select placeholder="Chapter" formControlName="chapter" name="chapter">
+          <mat-option *ngFor='let chapter of chapterList' [value]="chapter.value">
+            {{chapter.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!mcqBodyForm.controls['level'].valid && mcqBodyForm.controls['level'].touched">
+          Select Chapter!
+        </mat-error>
+      </mat-form-field>
     </div>
   </div>
-  <div class="col-sm-6 mat-full-width">
-    <mat-form-field>
-      <mat-chip-list>
-        <mat-chip>Chip 1
-        </mat-chip>
-        <mat-chip>Chip 2
-        </mat-chip>
-      </mat-chip-list>
-    </mat-form-field>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-5 mat-full-width">
-    <mat-form-field>
-      <textarea matInput placeholder="Question Body in English" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-5 mat-full-width">
-    <mat-form-field>
-      <textarea matInput placeholder="Question Body in Hindi" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-2 mat-full-width">
-    <mat-form-field>
-      <input matInput placeholder="Image for question">
-    </mat-form-field>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-1 mat-full-width">
-    <p>Option:</p>
-  </div>
-  <div class="col-sm-4 mat-full-width">
-    <mat-form-field>
-      <textarea matInput placeholder=" Option Body in English" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"></textarea>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-4 mat-full-width">
-    <mat-form-field>
-      <textarea matInput placeholder="Option Body in Hindi" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"></textarea>
-    </mat-form-field>
-  </div>
-  <div class="col-sm-2 mat-full-width">
-    <mat-form-field>
-      <input matInput placeholder="Negative Marks">
-    </mat-form-field>
-  </div>
-  <div class="col-sm-1">
-    <button mat-mini-fab>
-      <strong>+</strong>
-    </button>
-  </div>
-</div>
-<div class="row" style=" margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;">
-  <div class="col-sm-12">
-    guiyiuyiyiyiyiyiyi
-  </div>
-  <div class="col-sm-12">
-    hihiiiiyiyiyiyiyiyiiyii
-  </div>
-  <div class="col-sm-12" style="text-align: center;">
-    <img src="../../../../assets/image/company-banner.png" alt="Smiley face" height="100px" width="200px">
-  </div>
-  <div class="col-sm-12">
-    Option:A hihiiiiyiyiyiyiyiyiiyii
-  </div>
-  <div class="col-sm-12">
-    Option:B hihiiiiyiyiyiyiyiyiiyii
-  </div>
-  <div class="col-sm-12">
-    Option:C hihiiiiyiyiyiyiyiyiiyii
-  </div>
-  <div class="col-sm-12">
-    Option:d hihiiiiyiyiyiyiyiyiiyii
-  </div>
-</div>
 
-<div class="file-upload">
-  <label for="upload" class="file-upload__label">Css only file upload button</label>
-  <input id="upload" class="file-upload__input" type="file" name="file-upload">
-</div>
-<!--
-<mat-form-field>
-  <mat-chip-list #chipList>
-    <mat-chip>Chip 1<mat-chip>
-    <mat-chip>Chip 2<mat-chip>
-  </mat-chip-list>
-  <input matChipInputFor="chipList">
-</mat-form-field>
+  <div class="row">
+    <div class="col-sm-6 mat-full-width">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Full Marks" formControlName="fullMarks" name="fullMarks">
+        <mat-error *ngIf="!mcqBodyForm.controls['fullMarks'].valid && mcqBodyForm.controls['fullMarks'].touched">
+          Fill Full Marks !
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6 mat-full-width">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Negative Marks" formControlName="negativeMarks" name="negativeMarks">
+        <mat-error *ngIf="!mcqBodyForm.controls['negativeMarks'].valid && mcqBodyForm.controls['negativeMarks'].touched">
+          Fill Negative Marks !
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-sm-2">
+      Course
+    </div>
+    <div class="col-sm-4 mat-full-width">
+      <div style="height:55px;overflow-y: scroll">
+        <mat-selection-list #courses>
+          <mat-list-option *ngFor="let course of courseList">
+            {{course.label}}
+          </mat-list-option>
+        </mat-selection-list>
+        <p>
+          Options selected: {{courses.selectedOptions.selected.length}}
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6 mat-full-width">
+      <mat-form-field>
+        <mat-chip-list>
+          <mat-chip>Chip 1
+          </mat-chip>
+          <mat-chip>Chip 2
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-5 mat-full-width">
+      <mat-form-field>
+        <textarea matInput placeholder="Question Body in English" matTextareaAutosize matAutosizeMinRows="2" formControlName="qutnBodyEng"
+          name="qutnBodyEng" matAutosizeMaxRows="5"></textarea>
+        <mat-error *ngIf="!mcqBodyForm.controls['qutnBodyEng'].valid && mcqBodyForm.controls['qutnBodyEng'].touched">
+          Fill Question Body in English !
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-5 mat-full-width">
+      <mat-form-field>
+        <textarea matInput placeholder="Question Body in Hindi" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
+          formControlName="qutnBodyHnd" name="qutnBodyHnd"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2 mat-full-width">
+      <div class="file-upload">
+        <label for="upload" class="file-upload__label">Question image
+          <i class="fa  fa-file-picture-o"></i>
+        </label>
+        <input id="upload" class="file-upload__input" type="file" formControlName="qutnBodyImg" name="qutnBodyImg" (change)="handleFileSelect($event,'QuestionImg')">
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="mcqOptionForm" name="mcqOptionForm" (ngSubmit)="onSubmitMCQOptionForm()">
     <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4"></div>
-    <div class="col-sm-4">
-        
+      <div class="col-sm-4 mat-full-width">
+        <mat-form-field>
+          <textarea matInput placeholder=" Option Body in English" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"
+            formControlName="optionBodyEng" name="optionBodyEng"></textarea>
+          <mat-error *ngIf="!mcqOptionForm.controls['optionBodyEng'].valid && mcqOptionForm.controls['optionBodyEng'].touched">
+            Fill Option Body in English !
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4 mat-full-width">
+        <mat-form-field>
+          <textarea class="hindi-input" matInput placeholder="Option Body in Hindi" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"
+            formControlName="optionBodyHnd" name="optionBodyHnd"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-2 mat-full-width">
+        <div class="file-upload">
+          <label for="upload" class="file-upload__label">Option image
+            <i class="fa fa-file-picture-o"></i>
+          </label>
+          <input id="upload" class="file-upload__input" type="file" formControlName="optionBodyImg" name="optionBodyImg" (change)="handleFileSelect($event,'OptionImg')">
+        </div>
+      </div>
+      <div class="col-sm-2" style="text-align: center;">
+        <button mat-mini-fab type="submit">
+          <strong>+</strong>
+        </button>
+      </div>
+
+    </div>
+  </form>
+  <div class="row" style="margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;">
+    <div class="col-sm-12">
+      <p [MathJax]="mcqBodyForm.value.qutnBodyEng">{{mcqBodyForm.value.qutnBodyEng}}</p>
+      <p [MathJax]="mcqBodyForm.value.qutnBodyHnd">{{mcqBodyForm.value.qutnBodyHnd}}</p>
+      <img [src]="'data:image/png;base64,'+base64textQuestionBodyImg" class="qstn-body-img" alt="" style="text-align: center;">
+    </div>
+    <div class="col-sm-12" *ngFor='let questionOption of questionOptionList'>
+      <span>Option:</span>
+      <span>{{questionOption.optionIndex}}</span>
+      <p [MathJax]="questionOption.optionTextBodyEng">{{questionOption.optionTextBodyEng}}</p>
+      <p [MathJax]="questionOption.optionTextBodyHnd">{{questionOption.optionTextBodyHnd}}</p>
+      <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
     </div>
   </div>
-
-
-   <mat-form-field>
-            <input matInput placeholder="Input">
-          </mat-form-field>
-        
-          <mat-form-field>
-            <textarea matInput placeholder="Textarea"></textarea>
-          </mat-form-field>
-        
-          <mat-form-field>
-            <mat-select placeholder="Select">
-              <mat-option value="option">Option</mat-option>
-            </mat-select>
-          </mat-form-field>
--->
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </div>
+</form>

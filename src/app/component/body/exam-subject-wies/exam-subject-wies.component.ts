@@ -188,8 +188,6 @@ export class ExamSubjectWiesComponent implements OnInit {
     */
   }
 
-
-
   createQuestionOptions(number: number, questionSeqNo: number) {
     this.qstnOptionList = [];
     for (let i = 65; i < (number + 65); i++) {
