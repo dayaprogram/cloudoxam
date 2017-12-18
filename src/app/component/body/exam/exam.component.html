@@ -198,7 +198,6 @@
         <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
         <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
       </label>
-      <br>
       <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
       </div>
       <ng-template #QuestionBodyImage>

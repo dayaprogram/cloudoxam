@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-4 mat-full-width">
       <div style="height:55px;overflow-y: scroll">
-        <mat-selection-list #courses>
+        <mat-selection-list #courses dense>
           <mat-list-option *ngFor="let course of courseList">
             {{course.label}}
           </mat-list-option>
@@ -137,18 +137,33 @@
       </div>
       <div class="col-sm-2" style="text-align: center;">
         <button mat-mini-fab type="submit">
-          <strong>+</strong>
+          <strong>
+            <i class="fa fa-plus"></i>
+          </strong>
         </button>
       </div>
 
     </div>
   </form>
+  <mat-divider>Question Preview</mat-divider>
   <div class="row" style="margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;">
     <div class="col-sm-12">
       <p [MathJax]="mcqBodyForm.value.qutnBodyEng">{{mcqBodyForm.value.qutnBodyEng}}</p>
       <p [MathJax]="mcqBodyForm.value.qutnBodyHnd">{{mcqBodyForm.value.qutnBodyHnd}}</p>
-      <img [src]="'data:image/png;base64,'+base64textQuestionBodyImg" class="qstn-body-img" alt="" style="text-align: center;">
+      <img [src]="'data:image/png;base64,'+base64textQuestionBodyImg" class="qstn-body-img" alt="">
     </div>
+
+
+    <div class="radio" *ngFor='let questionOption of questionOptionList'>
+      <label>
+        <input type="radio" name="optradio" [value]="questionOption.optionIndex" [(ngModel)]="currectOption">
+        <span class="option-index-style">{{questionOption.optionIndex}} : </span>
+        <p [MathJax]="questionOption.optionTextBodyEng">{{questionOption.optionTextBodyEng}}</p>
+        <p [MathJax]="questionOption.optionTextBodyHnd">{{questionOption.optionTextBodyHnd}}</p>
+      </label>
+      <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
+    </div>
+    <!--
     <div class="col-sm-12" *ngFor='let questionOption of questionOptionList'>
       <span>Option:</span>
       <span>{{questionOption.optionIndex}}</span>
@@ -156,6 +171,7 @@
       <p [MathJax]="questionOption.optionTextBodyHnd">{{questionOption.optionTextBodyHnd}}</p>
       <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
     </div>
+  -->
   </div>
   <div class="row">
     <div class="col-sm-12 text-center">

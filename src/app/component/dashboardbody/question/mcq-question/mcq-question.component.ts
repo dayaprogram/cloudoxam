@@ -35,9 +35,7 @@ export class McqQuestionComponent implements OnInit {
   levelList: Options[];
   chapterList: Options[];
   questionOptionList: QuestionOption[] = [];
-  fullMarks: number;
-  negativeMarks: number;
-  selectedSubject = '';
+
   callFromFlag = '';
   base64textQuestionBodyImg = '';
   base64textOptionBodyImg = '';
@@ -45,11 +43,14 @@ export class McqQuestionComponent implements OnInit {
 
   mcqQuestionSaveStatus: String;
 
+  selectedSubject = '';
+  currectOption = '';
+
   onSubmitMCQBodyForm() {
     if (this.mcqBodyForm.valid) {
-      
+
       this.mcqQuestionSet = new QuestionSet();
-     this.createMcqQuestionSet();
+      this.createMcqQuestionSet();
       this.admApi.saveMcqQuestionSet(this.mcqQuestionSet).subscribe(
         data => {
           this.mcqQuestionSaveStatus = data;
@@ -67,7 +68,7 @@ export class McqQuestionComponent implements OnInit {
   }
 
   onSubmitMCQOptionForm() {
-    if (this.mcqOptionForm.valid) {
+    if (this.mcqOptionForm.valid && this.questionOptionList.length <= 5) {
       const questionOption: QuestionOption = new QuestionOption();
       questionOption.optionTextBodyEng = this.mcqOptionForm.value.optionBodyEng;
       questionOption.optionTextBodyHnd = this.mcqOptionForm.value.optionBodyHnd;
@@ -114,7 +115,7 @@ export class McqQuestionComponent implements OnInit {
     }
 
     this.mcqQuestionSet.noOfOpt = this.questionOptionList.length;
-    this.mcqQuestionSet.correctAns = 'A';
+    this.mcqQuestionSet.correctAns = this.currectOption;
   }
 
   handleFileSelect(evt, callFrom: string) {
