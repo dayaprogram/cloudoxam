@@ -36,7 +36,7 @@ export class McqQuestionComponent implements OnInit {
   chapterList: Options[];
   questionOptionList: QuestionOption[] = [];
 
-  callFromFlag = '';
+  callFromFlag: String = '';
   base64textQuestionBodyImg = '';
   base64textOptionBodyImg = '';
   mcqQuestionSet: QuestionSet;
@@ -44,11 +44,19 @@ export class McqQuestionComponent implements OnInit {
   mcqQuestionSaveStatus: String;
 
   selectedSubject = '';
-  currectOption = '';
+  currectOption: string;
 
   onSubmitMCQBodyForm() {
     if (this.mcqBodyForm.valid) {
+      if (this.questionOptionList.length > 5 || this.questionOptionList.length < 4) {
+        alert('Question must have four or five option');
+        return;
+      }
 
+      if (this.currectOption === '') {
+        alert('Select Currect Opption !');
+        return;
+      }
       this.mcqQuestionSet = new QuestionSet();
       this.createMcqQuestionSet();
       this.admApi.saveMcqQuestionSet(this.mcqQuestionSet).subscribe(
@@ -59,8 +67,15 @@ export class McqQuestionComponent implements OnInit {
           console.log('Something went wrong!');
         },
         () => {
-          this.mcqBodyForm.reset();
+          this.mcqBodyForm.reset({
+            qutnBodyEng: '',
+            qutnBodyHnd: '',
+            qutnBodyImg: ''
+          });
           this.mcqQuestionSet = new QuestionSet();
+          this.questionOptionList = [];
+          this.base64textQuestionBodyImg = '';
+          this.base64textOptionBodyImg = '';
           alert(this.mcqQuestionSaveStatus);
         }
       );
@@ -68,7 +83,7 @@ export class McqQuestionComponent implements OnInit {
   }
 
   onSubmitMCQOptionForm() {
-    if (this.mcqOptionForm.valid && this.questionOptionList.length <= 5) {
+    if (this.mcqOptionForm.valid && this.questionOptionList.length < 5) {
       const questionOption: QuestionOption = new QuestionOption();
       questionOption.optionTextBodyEng = this.mcqOptionForm.value.optionBodyEng;
       questionOption.optionTextBodyHnd = this.mcqOptionForm.value.optionBodyHnd;
@@ -78,8 +93,25 @@ export class McqQuestionComponent implements OnInit {
       this.questionOptionList[this.questionOptionList.length - 1].optionIndex = questionOption.optionIndex;
       this.mcqOptionForm.reset();
     }
+    // alert(this.currectOption);
   }
+  deleteOption(index: string) {
+    /* this.questionOptionList.splice(this.questionOptionList.indexOf(
+       this.questionOptionList.find(x => x.optionIndex === index)), 1);
+ */
+    this.questionOptionList = this.questionOptionList.filter(x => x.optionIndex !== index);
 
+    this.questionOptionList.forEach(itm => {
+      const tempList: QuestionOption[] = [];
+      const indexNo: number = this.questionOptionList.indexOf(itm);
+      this.questionOptionList[indexNo].optionIndex =
+        String.fromCharCode(65 + indexNo);
+      itm.optionIndex = String.fromCharCode(65 + indexNo);
+    });
+  }
+  selectCorrectOption(option: string) {
+    this.currectOption = option;
+  }
   createMcqQuestionSet() {
     this.mcqQuestionSet.subjectId = this.mcqBodyForm.value.subject;
     this.mcqQuestionSet.questionLevel = this.mcqBodyForm.value.level;

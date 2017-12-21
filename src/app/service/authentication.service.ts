@@ -47,12 +47,12 @@ export class AuthenticationService {
   obtainAccessToken(loginData: any) {
     const params = new HttpParams();
     params.append('username', 'bill');
-    params.append('password', 'abc123');
+    params.append('password', '123456');
     params.append('grant_type', 'password');
     params.append('client_id', 'my-trusted-client');
 
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Origin': '*',
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       'Accept': 'application/json',
       //  'Authorization': 'Basic ' + btoa("my-trusted-client:secret")

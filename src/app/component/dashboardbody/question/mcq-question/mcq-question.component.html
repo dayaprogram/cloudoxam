@@ -152,26 +152,25 @@
       <p [MathJax]="mcqBodyForm.value.qutnBodyHnd">{{mcqBodyForm.value.qutnBodyHnd}}</p>
       <img [src]="'data:image/png;base64,'+base64textQuestionBodyImg" class="qstn-body-img" alt="">
     </div>
-
-
-    <div class="radio" *ngFor='let questionOption of questionOptionList'>
-      <label>
-        <input type="radio" name="optradio" [value]="questionOption.optionIndex" [(ngModel)]="currectOption">
-        <span class="option-index-style">{{questionOption.optionIndex}} : </span>
-        <p [MathJax]="questionOption.optionTextBodyEng">{{questionOption.optionTextBodyEng}}</p>
-        <p [MathJax]="questionOption.optionTextBodyHnd">{{questionOption.optionTextBodyHnd}}</p>
-      </label>
-      <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
-    </div>
-    <!--
-    <div class="col-sm-12" *ngFor='let questionOption of questionOptionList'>
-      <span>Option:</span>
-      <span>{{questionOption.optionIndex}}</span>
-      <p [MathJax]="questionOption.optionTextBodyEng">{{questionOption.optionTextBodyEng}}</p>
-      <p [MathJax]="questionOption.optionTextBodyHnd">{{questionOption.optionTextBodyHnd}}</p>
-      <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
-    </div>
-  -->
+    <br>
+    <mat-radio-group class="example-radio-group">
+      <div class="col-sm-12" *ngFor='let questionOption of questionOptionList'>
+        <mat-divider></mat-divider>
+        <mat-radio-button class="example-radio-button" [value]="questionOption.optionIndex"
+        (click)="selectCorrectOption(questionOption.optionIndex)">
+          <span class="option-index-style" >
+            {{questionOption.optionIndex}} : </span>
+          <p [MathJax]="questionOption.optionTextBodyEng"></p>
+          <p [MathJax]="questionOption.optionTextBodyHnd"></p>
+        </mat-radio-button>
+        <img [src]="'data:image/png;base64,'+questionOption.optionTextImage" class="option-body-img" alt="">
+        <button mat-mini-fab color="warn" (click)="deleteOption(questionOption.optionIndex)">
+          <strong>
+            <i class="fa fa-times"></i>
+          </strong>
+        </button>
+      </div>
+    </mat-radio-group>
   </div>
   <div class="row">
     <div class="col-sm-12 text-center">
