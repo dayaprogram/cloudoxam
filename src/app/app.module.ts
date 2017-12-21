@@ -20,6 +20,8 @@ import { AdminService } from './service/admin.service';
 import { CookieService } from 'ngx-cookie-service';
 
 import { SecurityGuard } from './guard/security.guard';
+import { AccessGuard } from './guard/access.guard';
+import { ExamAccessGuard } from './guard/exam-access.guard';
 import { Global } from './Globel';
 
 import { FooterComponent } from './component/templet/footer/footer.component';
@@ -42,7 +44,9 @@ import { DashboardMainComponent } from './component/dashboardbody/dashboard-main
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WebStorageModule } from 'ngx-store';
 
-
+// import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+// npm install ngx-progressbar --save
 
 @NgModule({
   declarations: [
@@ -83,9 +87,12 @@ import { WebStorageModule } from 'ngx-store';
     ExamcontrolService,
     AdminService,
     SecurityGuard,
+    AccessGuard,
+    ExamAccessGuard,
     CookieService,
     Global,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    //  { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

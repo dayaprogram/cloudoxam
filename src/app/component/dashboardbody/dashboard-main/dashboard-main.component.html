@@ -3,7 +3,7 @@
   <div class="dashboard-left">
     <!--// LEFT HEADER -->
     <div class="left-dashboard-header">
-      <h1>User Dasboard</h1>
+      <h1>Dashboard</h1>
     </div>
     <!---// LEFT HEADER SECTION -->
     <!---// LEFT MID SECTION -->
@@ -151,19 +151,20 @@
         <li class="slide-menu">
           <i class="fa fa-align-justify" aria-hidden="true"></i>
         </li>
+        <!--
         <li class="right-header-search">
           <input type="text" class="custom-search" />
           <span>
             <i class="fa fa-search"></i>
           </span>
         </li>
+      -->
+        <li>
+          <h3>{{userDtl.instName}}</h3>
+        </li>
       </ul>
       <ul class="float-right">
-        <li>
-          <a href="#">
-            <i class="fa fa-bell-o"></i>
-          </a>
-        </li>
+
         <li>
           <a href="#">
             <i class="fa fa-bell-o"></i>
@@ -171,7 +172,7 @@
         </li>
         <li class="right-header-user">
           <img src="http://uxliner.com/niche/main/dist/img/img1.jpg" />
-          <span>Alexander Pierce</span>
+          <span>{{userDtl.firstName}}</span>
           <ul>
             <li>
               <a href="#">Account Settings</a>
@@ -191,7 +192,6 @@
           </ul>
         </li>
       </ul>
-
     </div>
     <!---// RIGHT HEADER SECTION -->
     <!---// RIGHT MID SECTION -->
@@ -201,7 +201,7 @@
     <!---// RIGHT MID SECTION END -->
     <!---// RIGHT FOOTER SECTION -->
     <div class="right-dashboard-footer">
-      <span class="float-left">Copyright © 2017 Yourdomian. All rights reserved.</span>
+      <span class="float-left">Copyright © 2017 sagnetic.in. All rights reserved.</span>
       <span>Version 1.2</span>
     </div>
     <!---// RIGHT FOOTER SECTION END -->
@@ -212,23 +212,23 @@
 
 
 <script>
- // $(document).ready(function (e) {
-    /// Give Window Height on load
+  // $(document).ready(function (e) {
+  /// Give Window Height on load
   //  var getWindowHeight = $(window).innerHeight();
   //  $(window).resize(function (e) {
   //    var getWindowHeight = $(this).innerHeight();
- //   });
+  //   });
   //  alert(getWindowHeight);
-   // alert(getWindowHeight);
-    // Left Mid Section Height 
-   // $('.left-dashboard-mid').css('max-height', getWindowHeight - 60);
-    // Right Sidebar Mid Height
-   // $('.right-dashboard-mid').css('max-height', getWindowHeight - 110);
-    // Slide Menu 
-    $('.slide-menu').click(function () {
-      $('.dashboard-left').toggleClass('active-slide-menu');
-      $('.dashboard-right').toggleClass('active-slide-menu');
-      $('.right-dashboard-footer').toggleClass('active-slide-menu');
-    })
+  // alert(getWindowHeight);
+  // Left Mid Section Height 
+  // $('.left-dashboard-mid').css('max-height', getWindowHeight - 60);
+  // Right Sidebar Mid Height
+  // $('.right-dashboard-mid').css('max-height', getWindowHeight - 110);
+  // Slide Menu 
+  $('.slide-menu').click(function () {
+    $('.dashboard-left').toggleClass('active-slide-menu');
+    $('.dashboard-right').toggleClass('active-slide-menu');
+    $('.right-dashboard-footer').toggleClass('active-slide-menu');
+  })
  // });
 </script>

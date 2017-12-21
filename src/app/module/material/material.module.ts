@@ -35,42 +35,43 @@ import {
   MatStepperModule
 } from '@angular/material';
 
+
 @NgModule({
   imports: [
     CommonModule,
-   // MatAutocompleteModule,
+    // MatAutocompleteModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatMenuModule,
-   /* MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatGridListModule,
-   
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
     MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatStepperModule
-    */
+    MatSelectModule,
+    MatRadioModule,
+    /* MatButtonToggleModule,
+     MatCardModule,
+     MatCheckboxModule,
+     MatChipsModule,
+     MatDatepickerModule,
+     MatDialogModule,
+     MatExpansionModule,
+     MatGridListModule,
+     MatNativeDateModule,
+     MatPaginatorModule,
+     MatProgressBarModule,
+     MatProgressSpinnerModule,
+     MatRippleModule,
+     MatSidenavModule,
+     MatSliderModule,
+     MatSlideToggleModule,
+     MatSortModule,
+     MatTableModule,
+     MatTabsModule,
+     MatToolbarModule,
+     MatTooltipModule,
+     MatStepperModule
+     */
+
   ],
   declarations: []
   ,

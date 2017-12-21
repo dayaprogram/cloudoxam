@@ -28,7 +28,7 @@ li.right-header-user ul {
     top: 36px;
     display: none;
 }
-.left-dashboard-footer ul{ margin:0px; padding-top:15px; padding-bottom:15px;}
+.left-dashboard-footer ul{ margin:0px; padding-top:8px; padding-bottom:8px;}
 .left-dashboard-footer ul li{ margin-left:10px; margin-right:10px;}
 li.right-header-user:hover ul{ display:block;}
 li.right-header-user ul{ background:#fff;}
@@ -153,8 +153,8 @@ li.right-header-user img {
     float: left;
 }
 .right-dashboard-footer{
-	 padding-top:15px; 
-	 padding-bottom:15px; 
+    padding-top: 8px;
+    padding-bottom: 8px; 
 	 background:#000; 
 	 color:#fff; 
 	 position:fixed; 

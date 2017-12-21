@@ -1,3 +1,4 @@
+
 <form [formGroup]="mcqBodyForm" name="mcqBodyForm" (ngSubmit)="onSubmitMCQBodyForm()" accept-charset="utf-8">
   <div class="row">
     <div class="col-sm-4 mat-full-width">
@@ -102,10 +103,11 @@
     </div>
     <div class="col-sm-2 mat-full-width">
       <div class="file-upload">
-        <label for="upload" class="file-upload__label">Question image
+        <label for="upload" class="file-upload__label">Qn. image
           <i class="fa  fa-file-picture-o"></i>
         </label>
-        <input id="upload" class="file-upload__input" type="file" formControlName="qutnBodyImg" name="qutnBodyImg" (change)="handleFileSelect($event,'QuestionImg')">
+        <input id="upload" class="file-upload__input" type="file" formControlName="qutnBodyImg" 
+        name="qutnBodyImg" (change)="handleFileSelect($event,'QuestionImg')">
       </div>
     </div>
   </div>
@@ -123,8 +125,8 @@
       </div>
       <div class="col-sm-4 mat-full-width">
         <mat-form-field>
-          <textarea class="hindi-input" matInput placeholder="Option Body in Hindi" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3"
-            formControlName="optionBodyHnd" name="optionBodyHnd"></textarea>
+          <textarea matInput placeholder="Option Body in Hindi" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="3" formControlName="optionBodyHnd"
+            name="optionBodyHnd"></textarea>
         </mat-form-field>
       </div>
       <div class="col-sm-2 mat-full-width">
@@ -156,9 +158,8 @@
     <mat-radio-group class="example-radio-group">
       <div class="col-sm-12" *ngFor='let questionOption of questionOptionList'>
         <mat-divider></mat-divider>
-        <mat-radio-button class="example-radio-button" [value]="questionOption.optionIndex"
-        (click)="selectCorrectOption(questionOption.optionIndex)">
-          <span class="option-index-style" >
+        <mat-radio-button class="example-radio-button" [value]="questionOption.optionIndex" (click)="selectCorrectOption(questionOption.optionIndex)">
+          <span class="option-index-style">
             {{questionOption.optionIndex}} : </span>
           <p [MathJax]="questionOption.optionTextBodyEng"></p>
           <p [MathJax]="questionOption.optionTextBodyHnd"></p>

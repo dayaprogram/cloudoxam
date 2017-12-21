@@ -7,13 +7,16 @@ import { Global } from '../Globel';
 import { CookiesStorageService, LocalStorageService, SessionStorageService, SharedStorageService } from 'ngx-store';
 import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
 
+import { UserDetails } from '../model/user-details';
+
 @Injectable()
 export class AuthenticationService {
   public static expairyTime: number = new Date().getTime() - 1;
 
   // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
   @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) accesToken: string;
-  @LocalStorage('differentLocalStorageKey') userExpairyTime: number;
+  @SessionStorage({ key: 'loginUserDetail' }) loginUserDetail: UserDetails = new UserDetails();
+  @LocalStorage('userExpairyTime') userExpairyTime: number;
   // + (1000 * 60 * 60 * 24 * 365 * 5);
 
   constructor(
@@ -27,12 +30,15 @@ export class AuthenticationService {
     private sharedStorageService: SharedStorageService,
   ) { }
 
-
+  headers = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Accept': 'application/json;charset=utf-8',
+    'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+  });
 
   public saveSomeData(object: Object, array: Array<any>) {
     this.localStorageService.set('someObject', object);
     this.sessionStorageService.set('someArray', array);
-
     this.localStorageService.keys.forEach((key) => {
       console.log(key + ' =', this.localStorageService.get(key));
     });
@@ -68,7 +74,7 @@ export class AuthenticationService {
         console.log('POST call in error', response);
       },
       () => {
-        console.log('The POST observable is now completed.');
+
       });
   }
 
@@ -77,8 +83,18 @@ export class AuthenticationService {
     this.cookieService.set('access_token', token.access_token, expireDate);
     AuthenticationService.expairyTime = expireDate;
     this.userExpairyTime = expireDate;
-    this._router.navigate(['/course']);
+    this.getLoginUserDetails().subscribe(
+      data => {
+        this.loginUserDetail = data;
+      },
+      err => {
+        console.log('Something went wrong!');
+      }, () => {
+        this.redirectManage();
+      }
+    );
   }
+
   checkCredentials() {
     //  alert(this.userExpairyTime);
     if (this.userExpairyTime > new Date().getTime()) {
@@ -91,5 +107,18 @@ export class AuthenticationService {
   logout() {
     this.cookieService.delete('access_token');
     this._router.navigate(['/']);
+  }
+
+  public getLoginUserDetails(): Observable<UserDetails> {
+    const url = this.global.BASEURL + '/redirect/userdetail';
+    return this._http.get<UserDetails>(url, { headers: this.headers });
+  }
+
+  private redirectManage() {
+    if (this.loginUserDetail.roleId !== 3) {
+      this._router.navigate(['/adm']);
+    } else {
+      this._router.navigate(['/course']);
+    }
   }
 }

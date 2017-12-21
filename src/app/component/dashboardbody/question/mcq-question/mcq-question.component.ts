@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { AuthenticationService } from '../../../../service/authentication.service';
 import { AdminService } from '../../../../service/admin.service';
 import 'rxjs/add/observable/timer';
@@ -24,7 +25,8 @@ export class McqQuestionComponent implements OnInit {
     private cookieService: CookieService,
     private admApi: AdminService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public snackBar: MatSnackBar,
   ) { }
 
   mcqBodyForm: FormGroup;
@@ -39,22 +41,24 @@ export class McqQuestionComponent implements OnInit {
   callFromFlag: String = '';
   base64textQuestionBodyImg = '';
   base64textOptionBodyImg = '';
+  questionBodyEng = '';
+  questionBodyHnd = '';
   mcqQuestionSet: QuestionSet;
 
-  mcqQuestionSaveStatus: String;
+  mcqQuestionSaveStatus: string;
 
   selectedSubject = '';
-  currectOption: string;
+  currectOption = '';
 
   onSubmitMCQBodyForm() {
     if (this.mcqBodyForm.valid) {
       if (this.questionOptionList.length > 5 || this.questionOptionList.length < 4) {
-        alert('Question must have four or five option');
+        this.alertSnack('Question must have four or five option', 'Close');
         return;
       }
 
       if (this.currectOption === '') {
-        alert('Select Currect Opption !');
+        this.alertSnack('Select Currect Option !', 'Close');
         return;
       }
       this.mcqQuestionSet = new QuestionSet();
@@ -64,19 +68,18 @@ export class McqQuestionComponent implements OnInit {
           this.mcqQuestionSaveStatus = data;
         },
         err => {
-          console.log('Something went wrong!');
+          this.alertSnack('Something went wrong!', 'Close');
         },
         () => {
-          this.mcqBodyForm.reset({
-            qutnBodyEng: '',
-            qutnBodyHnd: '',
-            qutnBodyImg: ''
-          });
+
+          this.mcqBodyForm.value.qutnBodyEng = '';
+          this.mcqBodyForm.value.qutnBodyHnd = '';
+          this.mcqBodyForm.value.qutnBodyImg = '';
           this.mcqQuestionSet = new QuestionSet();
           this.questionOptionList = [];
           this.base64textQuestionBodyImg = '';
           this.base64textOptionBodyImg = '';
-          alert(this.mcqQuestionSaveStatus);
+          this.alertSnack(this.mcqQuestionSaveStatus, 'Close');
         }
       );
     }
@@ -93,14 +96,9 @@ export class McqQuestionComponent implements OnInit {
       this.questionOptionList[this.questionOptionList.length - 1].optionIndex = questionOption.optionIndex;
       this.mcqOptionForm.reset();
     }
-    // alert(this.currectOption);
   }
   deleteOption(index: string) {
-    /* this.questionOptionList.splice(this.questionOptionList.indexOf(
-       this.questionOptionList.find(x => x.optionIndex === index)), 1);
- */
     this.questionOptionList = this.questionOptionList.filter(x => x.optionIndex !== index);
-
     this.questionOptionList.forEach(itm => {
       const tempList: QuestionOption[] = [];
       const indexNo: number = this.questionOptionList.indexOf(itm);
@@ -185,7 +183,7 @@ export class McqQuestionComponent implements OnInit {
   }
 
   getChapters(subject: string) {
-    this.admApi.getCoursesSubjectWies(subject).subscribe(
+    this.admApi.getSubjestChapters(subject).subscribe(
       data => {
         this.chapterList = data;
       },
@@ -195,24 +193,28 @@ export class McqQuestionComponent implements OnInit {
       () => { }
     );
   }
-
+  alertSnack(message: string, action: string) {
+    action = 'Close';
+    this.snackBar.open(message, action, { duration: 10000 });
+  }
   ngOnInit() {
+
     this.mcqBodyForm = this.formBuilder.group({
-      'subject': [null, Validators.required],
-      'level': [null, Validators.required],
-      'chapter': [null],
+      'subject': ['', Validators.required],
+      'level': ['', Validators.required],
+      'chapter': [''],
       'fullMarks': [null, Validators.required],
       'negativeMarks': [null, Validators.required],
-      'course': [null],
-      'qutnBodyEng': [null, Validators.required],
-      'qutnBodyHnd': [null],
-      'qutnBodyImg': [null],
+      'course': [''],
+      'qutnBodyEng': ['', Validators.required],
+      'qutnBodyHnd': [''],
+      'qutnBodyImg': [''],
     });
 
     this.mcqOptionForm = this.formBuilder.group({
-      'optionBodyEng': [null, Validators.required],
-      'optionBodyHnd': [null],
-      'optionBodyImg': [null]
+      'optionBodyEng': ['', Validators.required],
+      'optionBodyHnd': [''],
+      'optionBodyImg': ['']
     });
     this.admApi.getAllSubject().subscribe(
       data => {
@@ -230,7 +232,10 @@ export class McqQuestionComponent implements OnInit {
       err => {
         console.log('Something went wrong!');
       },
-      () => { }
+      () => {
+
+      }
     );
+
   }
 }

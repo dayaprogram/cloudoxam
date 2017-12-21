@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Options } from '../model/options';
 import { Global } from '../Globel';
 import { QuestionSet } from '../model/question-set';
+
 @Injectable()
 export class AdminService {
 
@@ -42,8 +43,10 @@ export class AdminService {
     return this.api.get<Array<Options>>(url, { headers: this.headers });
   }
 
-  public saveMcqQuestionSet(mcqQuestionSet: QuestionSet): Observable<String> {
+  public saveMcqQuestionSet(mcqQuestionSet: QuestionSet): Observable<string> {
     const url = this.global.BASEURL + '/adm/savemcq';
-    return this.api.post<String>(url, mcqQuestionSet, { headers: this.headers });
+    return this.api.post<string>(url, mcqQuestionSet, { headers: this.headers });
   }
+
+
 }

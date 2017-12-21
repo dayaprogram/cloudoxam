@@ -3,22 +3,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
-
+import { LocalStorageService, LocalStorage } from 'ngx-store';
 @Injectable()
 export class SecurityGuard implements CanActivate {
-  // canActivate(
-  //  next: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-  //    return true;
-  // }
-  // }
-
   constructor(private router: Router, private auth: AuthenticationService) { }
-
+  @LocalStorage('userExpairyTime') userExpairyTime: number;
   canActivate() {
-    if (this.auth.checkCredentials()) {
+    if (this.userExpairyTime > new Date().getTime()) {
       // logged in so return true
-
       return true;
     } else {
       // not logged in so redirect to login page
