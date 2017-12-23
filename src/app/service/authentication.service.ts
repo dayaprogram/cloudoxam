@@ -30,11 +30,7 @@ export class AuthenticationService {
     private sharedStorageService: SharedStorageService,
   ) { }
 
-  headers = new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Accept': 'application/json;charset=utf-8',
-    'Authorization': 'Bearer ' + this.cookieService.get('access_token')
-  });
+  headers: any;
 
   public saveSomeData(object: Object, array: Array<any>) {
     this.localStorageService.set('someObject', object);
@@ -83,6 +79,11 @@ export class AuthenticationService {
     this.cookieService.set('access_token', token.access_token, expireDate);
     AuthenticationService.expairyTime = expireDate;
     this.userExpairyTime = expireDate;
+    this.headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json;charset=utf-8',
+      'Authorization': 'Bearer ' + this.cookieService.get('access_token')
+    });
     this.getLoginUserDetails().subscribe(
       data => {
         this.loginUserDetail = data;

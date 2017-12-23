@@ -1,4 +1,3 @@
-
 <form [formGroup]="mcqBodyForm" name="mcqBodyForm" (ngSubmit)="onSubmitMCQBodyForm()" accept-charset="utf-8">
   <div class="row">
     <div class="col-sm-4 mat-full-width">
@@ -64,22 +63,24 @@
     </div>
     <div class="col-sm-4 mat-full-width">
       <div style="height:55px;overflow-y: scroll">
-        <mat-selection-list #courses dense>
-          <mat-list-option *ngFor="let course of courseList">
+        <mat-list role="list" dense>
+          <mat-list-item role="listitem" *ngFor="let course of courseList">
             {{course.label}}
-          </mat-list-option>
-        </mat-selection-list>
-        <p>
-          Options selected: {{courses.selectedOptions.selected.length}}
-        </p>
+            <button mat-icon-button (click)='addCourses(course)'>
+              <i class="fa fa-arrow-right" style="color: rgb(9, 112, 23)"></i>
+            </button>
+          </mat-list-item>
+        </mat-list>
       </div>
     </div>
     <div class="col-sm-6 mat-full-width">
       <mat-form-field>
         <mat-chip-list>
-          <mat-chip>Chip 1
-          </mat-chip>
-          <mat-chip>Chip 2
+          <mat-chip *ngFor="let cour of selectedCourses">
+            {{cour.label}}
+            <strong>
+              <i class="fa fa-times" style="color: red" (click)='removeCourses(cour.value)'></i>
+            </strong>
           </mat-chip>
         </mat-chip-list>
       </mat-form-field>
@@ -89,7 +90,7 @@
     <div class="col-sm-5 mat-full-width">
       <mat-form-field>
         <textarea matInput placeholder="Question Body in English" matTextareaAutosize matAutosizeMinRows="2" formControlName="qutnBodyEng"
-          name="qutnBodyEng" matAutosizeMaxRows="5"></textarea>
+          name="qutnBodyEng" matAutosizeMaxRows="5" [(ngModel)]="questionBodyEng"></textarea>
         <mat-error *ngIf="!mcqBodyForm.controls['qutnBodyEng'].valid && mcqBodyForm.controls['qutnBodyEng'].touched">
           Fill Question Body in English !
         </mat-error>
@@ -98,7 +99,7 @@
     <div class="col-sm-5 mat-full-width">
       <mat-form-field>
         <textarea matInput placeholder="Question Body in Hindi" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
-          formControlName="qutnBodyHnd" name="qutnBodyHnd"></textarea>
+          formControlName="qutnBodyHnd" name="qutnBodyHnd" [(ngModel)]="questionBodyHnd"></textarea>
       </mat-form-field>
     </div>
     <div class="col-sm-2 mat-full-width">
@@ -106,8 +107,7 @@
         <label for="upload" class="file-upload__label">Qn. image
           <i class="fa  fa-file-picture-o"></i>
         </label>
-        <input id="upload" class="file-upload__input" type="file" formControlName="qutnBodyImg" 
-        name="qutnBodyImg" (change)="handleFileSelect($event,'QuestionImg')">
+        <input id="upload" class="file-upload__input" type="file" formControlName="qutnBodyImg" name="qutnBodyImg" (change)="handleFileSelect($event,'QuestionImg')">
       </div>
     </div>
   </div>
@@ -148,7 +148,7 @@
     </div>
   </form>
   <mat-divider>Question Preview</mat-divider>
-  <div class="row" style="margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;">
+  <div class="row" style="margin: 2px; text-align: left; border:2px solid #928d92;border-style: dotted;border-radius: 4px;font-size: 12px">
     <div class="col-sm-12">
       <p [MathJax]="mcqBodyForm.value.qutnBodyEng">{{mcqBodyForm.value.qutnBodyEng}}</p>
       <p [MathJax]="mcqBodyForm.value.qutnBodyHnd">{{mcqBodyForm.value.qutnBodyHnd}}</p>

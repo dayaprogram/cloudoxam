@@ -49,6 +49,19 @@ export class McqQuestionComponent implements OnInit {
 
   selectedSubject = '';
   currectOption = '';
+  selectedCourses: Options[] = [];
+  coursePipeString = '';
+  selectedCoursesStr: any = [];
+  addCourses(course: any) {
+    this.selectedCourses.push(course);
+    this.selectedCourses = Array.from(new Set(this.selectedCourses));
+    this.selectedCourses.forEach(itm => {
+      this.selectedCoursesStr.push(itm.value);
+    });
+  }
+  removeCourses(course: string) {
+    this.selectedCourses = this.selectedCourses.filter(x => x.value !== course);
+  }
 
   onSubmitMCQBodyForm() {
     if (this.mcqBodyForm.valid) {
@@ -79,6 +92,8 @@ export class McqQuestionComponent implements OnInit {
           this.questionOptionList = [];
           this.base64textQuestionBodyImg = '';
           this.base64textOptionBodyImg = '';
+          this.questionBodyEng = '';
+          this.questionBodyHnd = '';
           this.alertSnack(this.mcqQuestionSaveStatus, 'Close');
         }
       );
@@ -146,6 +161,7 @@ export class McqQuestionComponent implements OnInit {
 
     this.mcqQuestionSet.noOfOpt = this.questionOptionList.length;
     this.mcqQuestionSet.correctAns = this.currectOption;
+    this.mcqQuestionSet.courseGroup = this.selectedCoursesStr.join('|');
   }
 
   handleFileSelect(evt, callFrom: string) {
