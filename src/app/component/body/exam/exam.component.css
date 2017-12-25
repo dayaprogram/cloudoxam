@@ -60,3 +60,9 @@ border: 2px solid #025aa5;
  .option-body-img{
     width:100%;max-width:140px;max-height:70px;height:100%; 
 }
+p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+    font-size: 14px;
+  }
+  

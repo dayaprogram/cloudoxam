@@ -9,7 +9,7 @@
     <div class="col-sm-12" style="height:40px; background-color:#99ff33;">
       <div class="row">
         <div class="col-sm-4">
-          <b>SSC TEST EXAM</b>
+          <b>SSC DEMO EXAMINATION</b>
         </div>
         <div class="col-sm-6">
           <span style="font-weight: bold;">View In:</span>
@@ -21,8 +21,8 @@
           <div id="showTime" style="float:left; color:#fff;">
             <b>Time Left :
               <span id="timeInMins">
-                {{hoursDisplay ? hoursDisplay : '00'}} : {{(minutesDisplay) && (minutesDisplay <=59) ? minutesDisplay : '00'}} : {{(secondsDisplay) && (secondsDisplay <=59) ? secondsDisplay : '00'}} 
-              </span>
+                {{hoursDisplay ? hoursDisplay : '00'}} : {{(minutesDisplay) && (minutesDisplay
+                <=59) ? minutesDisplay : '00'}} : {{(secondsDisplay) && (secondsDisplay <=59) ? secondsDisplay : '00'}} </span>
             </b>
           </div>
         </div>
@@ -116,10 +116,19 @@
     <div class="col-sm-12">
       <div class="row" style="margin-top: 15px">
         <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border" (click)="questionNavigator(questionSet.questionSeqNo-1)">Previous Question</button>
+          <button type="button" class="btn btn-default btn-border" style="background-color: #adadad" (click)="questionNavigator(questionSet.questionSeqNo-1)">
+            <strong>
+              <i class="fa fa-chevron-left"></i>
+            </strong>Next Question
+          </button>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border" (click)="questionNavigator(questionSet.questionSeqNo+1)">Next Question</button>
+          <button type="button" class="btn btn-default btn-border" style="background-color: #adadad" (click)="questionNavigator(questionSet.questionSeqNo+1)">
+            Next Question
+            <strong>
+              <i class="fa fa-chevron-right"></i>
+            </strong>
+          </button>
         </div>
         <div class="col-sm-2">
           <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">{{tagBtnCaption}}</button>
@@ -128,7 +137,11 @@
           <button type="button" class="btn btn-danger" (click)="clearAnswer(questionSet.questionSeqNo)">Erase</button>
         </div>
         <div class="col-sm-4">
-          <button type="button" class="btn btn-success btn-md" style="text-align: center" (click)=" finalSubmit()">Preview Submit</button>
+          <button type="button" class="btn btn-success btn-md" style="text-align: center" (click)=" finalSubmit()">
+
+            <strong>
+              <i class="fa fa-check"></i>
+            </strong>Preview Submit</button>
         </div>
       </div>
     </div>
@@ -201,7 +214,7 @@
       <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
       </div>
       <ng-template #QuestionBodyImage>
-        <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img"  alt="">
+        <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
       </ng-template>
       <ng-template #OptionBodyHindi>
         <p [MathJax]="qstnOption.optionTextBodyHnd">{{qstnOption.optionTextBodyHnd}}</p>

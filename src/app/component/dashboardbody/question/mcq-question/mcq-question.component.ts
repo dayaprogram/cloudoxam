@@ -58,9 +58,16 @@ export class McqQuestionComponent implements OnInit {
     this.selectedCourses.forEach(itm => {
       this.selectedCoursesStr.push(itm.value);
     });
+    this.selectedCoursesStr = Array.from(new Set(this.selectedCoursesStr));
+
   }
   removeCourses(course: string) {
     this.selectedCourses = this.selectedCourses.filter(x => x.value !== course);
+    this.selectedCourses.forEach(itm => {
+      this.selectedCoursesStr.push(itm.value);
+    });
+    this.selectedCoursesStr = Array.from(new Set(this.selectedCoursesStr));
+
   }
 
   onSubmitMCQBodyForm() {
@@ -94,6 +101,7 @@ export class McqQuestionComponent implements OnInit {
           this.base64textOptionBodyImg = '';
           this.questionBodyEng = '';
           this.questionBodyHnd = '';
+          this.currectOption = '';
           this.alertSnack(this.mcqQuestionSaveStatus, 'Close');
         }
       );

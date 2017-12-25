@@ -64,6 +64,7 @@ export class AuthenticationService {
       'client_id=my-trusted-client&client_secret=secret&username=' + loginData.userid + '&password=' + loginData.password;
     this._http.post(url, { headers: headers }).subscribe(
       (val) => {
+        this.cookieService.delete('access_token');
         this.saveToken(val);
       },
       response => {
@@ -107,7 +108,8 @@ export class AuthenticationService {
 
   logout() {
     this.cookieService.delete('access_token');
-    this._router.navigate(['/']);
+    this.userExpairyTime = 0;
+    this._router.navigate(['/login']);
   }
 
   public getLoginUserDetails(): Observable<UserDetails> {

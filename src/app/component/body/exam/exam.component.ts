@@ -31,7 +31,7 @@ export class ExamComponent implements OnInit {
   // it will be stored under ${prefix}viewCounts name
   // @LocalStorage() viewCounts: number = 0;
   // this under name: ${prefix}differentLocalStorageKey
-  //  @LocalStorage('differentLocalStorageKey') userName: string = '';
+  @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
   // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
   // @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
   // it will be read from cookie 'user_id' (can be shared with backend) and saved to localStorage and cookies after change
@@ -248,7 +248,8 @@ export class ExamComponent implements OnInit {
         });
         this.questionNavigator(1);
         this.startCountDownTimer(this.examTime * 60);
-        this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
+        this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
+        // this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
         this.examSeqNo = this.questionSetList[0].examSeqNo;
         this.quetStatusCount.notAswared = this.questionSetList.length;
         this.quetStatusCount.answered = 0;
