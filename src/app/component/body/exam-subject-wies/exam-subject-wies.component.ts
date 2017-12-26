@@ -16,6 +16,7 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/interval';
+import { LocalStorage, SessionStorage } from 'ngx-store';
 @Component({
   selector: 'app-exam-subject-wies',
   templateUrl: './exam-subject-wies.component.html',
@@ -28,6 +29,11 @@ export class ExamSubjectWiesComponent implements OnInit {
     private api: ExamcontrolService,
     private router: Router
   ) { }
+
+  @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
+  @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
+  @SessionStorage('EXAMQUESTIONSETSUBJECT') examQuestionSetSubjectLocal: ExamQuestionSetSubject = new ExamQuestionSetSubject();
+
 
   questionSetSubjectList: QuestionSetSubject[];
   questionSetSubject: QuestionSetSubject;
@@ -152,12 +158,7 @@ export class ExamSubjectWiesComponent implements OnInit {
   }
 
   finalSubmit() {
-    console.log('finally submited');
-    console.log('finally submited');
-    console.log('finally submited');
-    console.log(this.questionStatusList);
-
-    this.api.saveExam(this.questionStatusList).subscribe(
+    this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
       data => {
         console.log(data);
         alert(data);
@@ -170,22 +171,6 @@ export class ExamSubjectWiesComponent implements OnInit {
         this.router.navigate(['/result']);
       }
     );
-    /*
-    Observable.interval(1000 * 60).subscribe(x => {
-      alert('schedular submit');
-      this.api.saveExam(this.questionStatusList).subscribe(
-        data => {
-          console.log(data);
-          alert(data);
-        },
-        // Errors will call this callback instead:
-        err => {
-          console.log('Something went wrong!' + err);
-          console.log(err);
-        }
-      );
-    });
-    */
   }
 
   createQuestionOptions(number: number, questionSeqNo: number) {
@@ -198,35 +183,30 @@ export class ExamSubjectWiesComponent implements OnInit {
       if (questionOption.optionIndex === 'A') {
         questionOption.optionTextBodyEng = this.questionSet.optionBodyAEng;
         questionOption.optionTextBodyHnd = this.questionSet.optionBodyAHnd;
-
         questionOption.optionTextImage = this.questionSet.optionBodyAImg;
 
       }
       if (questionOption.optionIndex === 'B') {
         questionOption.optionTextBodyEng = this.questionSet.optionBodyBEng;
         questionOption.optionTextBodyHnd = this.questionSet.optionBodyBHnd;
-
         questionOption.optionTextImage = this.questionSet.optionBodyBImg;
 
       }
       if (questionOption.optionIndex === 'C') {
         questionOption.optionTextBodyEng = this.questionSet.optionBodyCEng;
         questionOption.optionTextBodyHnd = this.questionSet.optionBodyCHnd;
-
         questionOption.optionTextImage = this.questionSet.optionBodyCImg;
 
       }
       if (questionOption.optionIndex === 'D') {
         questionOption.optionTextBodyEng = this.questionSet.optionBodyDEng;
         questionOption.optionTextBodyHnd = this.questionSet.optionBodyDHnd;
-
         questionOption.optionTextImage = this.questionSet.optionBodyDImg;
 
       }
       if (questionOption.optionIndex === 'E') {
         questionOption.optionTextBodyEng = this.questionSet.optionBodyEEng;
         questionOption.optionTextBodyHnd = this.questionSet.optionBodyEHnd;
-
         questionOption.optionTextImage = this.questionSet.optionBodyEImg;
 
       }
@@ -236,50 +216,55 @@ export class ExamSubjectWiesComponent implements OnInit {
   createQuestionStaus(questionSeqNo: number) {
     this.questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
   }
+  initializeExam() {
+    this.questionSetSubjectList.forEach(item => {
+      item.mcqQuestionList.forEach(itemCh => {
+        const questionStatus = new QuestionStatus();
+        questionStatus.course = this.cookieService.get('course');
+        questionStatus.examSeqNo = itemCh.examSeqNo;
+        questionStatus.questionSeqNo = itemCh.questionSeqNo;
+        questionStatus.questionId = itemCh.questionId;
+        questionStatus.markedForReview = false;
+        questionStatus.finalSubmitAns = '';
+        questionStatus.questionAttemptTime = '';
+        questionStatus.visited = false;
+        this.questionStatusList.push(questionStatus);
+      });
+    });
+
+    this.questionSetSubject = this.questionSetSubjectList[0];
+    this.questionSetList = this.questionSetSubject.mcqQuestionList;
+    this.selectedSubject = this.questionSetSubject.subjectId;
+    this.questionNavigator(1);
+    this.startCountDownTimer(this.examTime * 60);
+    this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
+    this.examTime = this.examQuestionSetSubjectLocal.examTime;
+  }
 
   ngOnInit() {
     this.questionSet = new QuestionSet();
     this.qstnOptionList = [];
     this.questionSetList = [];
     this.questionSetSubjectList = [];
-
-    this.api.getQuestionSetSubject(this.cookieService.get('course')).subscribe(
-      data => {
-        console.log('examquestiomsert');
-        console.log(data);
-        // this.examQuestionSetSubject = data;
-        this.questionSetSubjectList = data.mcqQuestionSubjectList;
-        this.examTime = data.examTime;
-
-      },
-      // Errors will call this callback instead:
-      err => {
-        console.log('Something went wrong!');
-      },
-      () => {
-        this.questionSetSubjectList.forEach(item => {
-          item.mcqQuestionList.forEach(itemCh => {
-            const questionStatus = new QuestionStatus();
-            questionStatus.course = this.cookieService.get('course');
-            questionStatus.examSeqNo = itemCh.examSeqNo;
-            questionStatus.questionSeqNo = itemCh.questionSeqNo;
-            questionStatus.questionId = itemCh.questionId;
-            questionStatus.markedForReview = false;
-            questionStatus.finalSubmitAns = '';
-            questionStatus.questionAttemptTime = '';
-            questionStatus.visited = false;
-            this.questionStatusList.push(questionStatus);
-          });
-        });
-
-        this.questionSetSubject = this.questionSetSubjectList[0];
-        this.questionSetList = this.questionSetSubject.mcqQuestionList;
-        this.selectedSubject = this.questionSetSubject.subjectId;
-        this.questionNavigator(1);
-        this.startCountDownTimer(this.examTime * 60);
-        this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
-      }
-    );
+    if (this.examCompleteFlag === 'COMPLETE' || this.examCompleteFlag === 'FRESH') {
+      this.api.getQuestionSetSubjectRequest(this.cookieService.get('course')).subscribe(
+        data => {
+          this.examQuestionSetSubjectLocal = data;
+          this.questionSetSubjectList = data.mcqQuestionSubjectList;
+        },
+        // Errors will call this callback instead:
+        err => {
+          console.log('Something went wrong!');
+        },
+        () => {
+          this.initializeExam();
+          this.examCompleteFlag = 'UNCOMPLETE';
+        }
+      );
+    } else {
+      this.questionSetSubjectList = this.examQuestionSetSubjectLocal.mcqQuestionSubjectList;
+      this.initializeExam();
+    }
     this.api.getExamLang().subscribe(
       data => {
         this.questionLangList = data;
@@ -290,10 +275,6 @@ export class ExamSubjectWiesComponent implements OnInit {
       }
     );
   }
-  /// timer
-
-
-
   private startCountDownTimer(counter: number) {
     const countDown = Observable.timer(0, 1000)
       .take(counter)
@@ -303,6 +284,23 @@ export class ExamSubjectWiesComponent implements OnInit {
         this.secondsDisplay = this.getSeconds(counter);
         this.minutesDisplay = this.getMinutes(counter);
         this.hoursDisplay = this.getHours(counter);
+        if ((this.getMinutesNum(counter) % 15) === 0) {
+          this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
+            data => {
+              console.log(data);
+            },
+            // Errors will call this callback instead:
+            err => {
+              console.log('Something went wrong!' + err);
+            }
+          );
+        }
+        if (this.getMinutesNum(counter) === 5) {
+          alert('Only Five Left to over the exam! its automatically save after five minuts');
+        }
+      },
+      () => {
+        alert('hello Complete');
       }
       );
   }
@@ -313,6 +311,9 @@ export class ExamSubjectWiesComponent implements OnInit {
 
   private getMinutes(ticks: number) {
     return this.pad((Math.floor(ticks / 60)) % 60);
+  }
+  private getMinutesNum(ticks: number): number {
+    return (Math.floor(ticks / 60)) % 60;
   }
 
   private getHours(ticks: number) {

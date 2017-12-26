@@ -17,7 +17,7 @@ import { QuestionStatus } from '../../../model/questionStatus';
 import { QuetStatusCount } from '../../../model/question-status-count';
 import { CourseDetail } from '../../../model/course-detail';
 
-import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
+import { LocalStorage, SessionStorage } from 'ngx-store';
 
 
 @Component({
@@ -31,7 +31,11 @@ export class ExamComponent implements OnInit {
   // it will be stored under ${prefix}viewCounts name
   // @LocalStorage() viewCounts: number = 0;
   // this under name: ${prefix}differentLocalStorageKey
+  // import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
   @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
+  @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
+  @SessionStorage('EXAMQUESTIONSET') examQuestionSetLocal: ExamQuestionSet = new ExamQuestionSet();
+
   // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
   // @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
   // it will be read from cookie 'user_id' (can be shared with backend) and saved to localStorage and cookies after change
@@ -202,9 +206,7 @@ export class ExamComponent implements OnInit {
 
   finalSubmit() {
     console.log('finally submited');
-    console.log(this.questionStatusList);
-
-    this.api.saveExam(this.questionStatusList).subscribe(
+    this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
       data => {
         console.log(data);
         alert(data);
@@ -214,58 +216,58 @@ export class ExamComponent implements OnInit {
         console.log('Something went wrong!' + err);
         console.log(err);
       }, () => {
+        this.examCompleteFlag = 'COMPLETE';
         this.router.navigate(['/result']);
       }
     );
+  }
+  initializeExam() {
+    this.questionSetList = this.examQuestionSet.mcqQuestionList;
+    this.examTime = this.examQuestionSet.examTime;
+
+    this.questionSetList.forEach(item => {
+      const questionStatus = new QuestionStatus();
+      questionStatus.course = this.cookieService.get('course');
+      questionStatus.examSeqNo = item.examSeqNo;
+      questionStatus.questionSeqNo = item.questionSeqNo;
+      questionStatus.questionId = item.questionId;
+      questionStatus.markedForReview = false;
+      questionStatus.finalSubmitAns = '';
+      questionStatus.questionAttemptTime = '';
+      questionStatus.visited = false;
+      this.questionStatusList.push(questionStatus);
+    });
+    this.questionNavigator(1);
+    this.startCountDownTimer(this.examTime * 60);
+    this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
+    this.examSeqNo = this.questionSetList[0].examSeqNo;
+    this.quetStatusCount.notAswared = this.questionSetList.length;
+    this.quetStatusCount.answered = 0;
+    this.quetStatusCount.markedReviewAnswered = 0;
+    this.quetStatusCount.markedReviewNotAns = 0;
   }
 
   ngOnInit() {
     this.questionSet = new QuestionSet();
     this.qstnOptionList = [];
-    this.api.getQuestionSet(this.cookieService.get('course')).subscribe(
-      data => {
-        this.questionSetList = data.mcqQuestionList;
-        this.examTime = data.examTime;
-        this.examQuestionSet = data;
-        //   this.questionNavigator(1);
-      },
-      // Errors will call this callback instead:
-      err => {
-        console.log('Something went wrong!');
-      },
-      () => {
-        this.questionSetList.forEach(item => {
-          const questionStatus = new QuestionStatus();
-          questionStatus.course = this.cookieService.get('course');
-          questionStatus.examSeqNo = item.examSeqNo;
-          questionStatus.questionSeqNo = item.questionSeqNo;
-          questionStatus.questionId = item.questionId;
-          questionStatus.markedForReview = false;
-          questionStatus.finalSubmitAns = '';
-          questionStatus.questionAttemptTime = '';
-          questionStatus.visited = false;
-          this.questionStatusList.push(questionStatus);
-        });
-        this.questionNavigator(1);
-        this.startCountDownTimer(this.examTime * 60);
-        this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
-        // this.cookieService.set('EXAMSEQNO', this.questionSetList[0].examSeqNo.toString());
-        this.examSeqNo = this.questionSetList[0].examSeqNo;
-        this.quetStatusCount.notAswared = this.questionSetList.length;
-        this.quetStatusCount.answered = 0;
-        this.quetStatusCount.markedReviewAnswered = 0;
-        this.quetStatusCount.markedReviewNotAns = 0;
-      }
-    );
-    this.api.getExamLang().subscribe(
-      data => {
-        this.questionLangList = data;
-      },
-      // Errors will call this callback instead:
-      err => {
-        console.log('Something went wrong!');
-      }
-    );
+    if (this.examCompleteFlag === 'COMPLETE' || this.examCompleteFlag === 'FRESH') {
+      this.api.getQuestionSetRequest(this.cookieService.get('course')).subscribe(
+        data => {
+          this.examQuestionSetLocal = data;
+          this.examQuestionSet = this.examQuestionSetLocal;
+        },
+        // Errors will call this callback instead:
+        err => {
+          console.log('Something went wrong!');
+        }, () => {
+          this.initializeExam();
+          this.examCompleteFlag = 'UNCOMPLETE';
+        }
+      );
+    } else {
+      this.examQuestionSet = this.api.getQuestionSetLocal();
+      this.initializeExam();
+    }
 
 
     this.api.getCourseExamDtl(this.cookieService.get('course')).subscribe(
@@ -292,6 +294,15 @@ export class ExamComponent implements OnInit {
         );
       });
       */
+    this.api.getExamLang().subscribe(
+      data => {
+        this.questionLangList = data;
+      },
+      // Errors will call this callback instead:
+      err => {
+        console.log('Something went wrong!');
+      }
+    );
   }
   // timer
 

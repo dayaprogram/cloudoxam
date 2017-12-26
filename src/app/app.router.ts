@@ -27,7 +27,7 @@ const routes: Routes =
     [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'login', component: LoginComponent },
-        { path: 'course', component: CourseComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
+        { path: 'course', component: CourseComponent, canActivate: [SecurityGuard] },
         { path: 'instruction', component: InstructionComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
         { path: 'exam', component: ExamComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
         { path: 'examsubject', component: ExamSubjectWiesComponent, canActivate: [SecurityGuard, ExamAccessGuard] },

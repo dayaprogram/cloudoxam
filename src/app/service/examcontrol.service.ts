@@ -11,10 +11,13 @@ import { QuestionStatus } from '../model/questionStatus';
 import { Global } from '../Globel';
 import { ExamResult } from '../model/examResult';
 import { CourseDetail } from '../model/course-detail';
+import { SessionStorage } from 'ngx-store';
 
 @Injectable()
 export class ExamcontrolService {
-
+  @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String = 'FRESH';
+  @SessionStorage('EXAMQUESTIONSET') examQuestionSetLocal: ExamQuestionSet;
+  @SessionStorage('EXAMQUESTIONSETSUBJECT') examQuestionSetSubjectLocal: ExamQuestionSetSubject;
   constructor(
     private _router: Router,
     private api: HttpClient,
@@ -28,10 +31,10 @@ export class ExamcontrolService {
     'Authorization': 'Bearer ' + this.cookieService.get('access_token')
   });
 
- // const url='';
+  // const url='';
 
   public getCourses(): Observable<Array<Options>> {
-    const  url = this.global.BASEURL + '/options/courses';
+    const url = this.global.BASEURL + '/options/courses';
     return this.api.get<Array<Options>>(url, { headers: this.headers });
   }
 
@@ -40,17 +43,26 @@ export class ExamcontrolService {
     return this.api.get<Array<Options>>(url, { headers: this.headers });
   }
 
-  public getQuestionSet(course: string): Observable<ExamQuestionSet> {
+  public getQuestionSetRequest(course: string): Observable<ExamQuestionSet> {
     const url = this.global.BASEURL + '/exam/questions/?course=' + course;
     const param = new HttpParams();
     param.set('course', course);
     return this.api.get<ExamQuestionSet>(url, { params: param, headers: this.headers });
   }
-  public getQuestionSetSubject(course: string): Observable<ExamQuestionSetSubject> {
+
+  public getQuestionSetLocal() {
+    return this.examQuestionSetLocal;
+  }
+
+
+  public getQuestionSetSubjectRequest(course: string): Observable<ExamQuestionSetSubject> {
     const url = this.global.BASEURL + '/exam/questionssubject/?course=' + course;
     const param = new HttpParams();
     param.set('course', course);
     return this.api.get<ExamQuestionSetSubject>(url, { params: param, headers: this.headers });
+  }
+  public getQuestionSetSubjectLocal() {
+    return this.examQuestionSetSubjectLocal;
   }
   // /subjects
 
@@ -61,12 +73,9 @@ export class ExamcontrolService {
     return this.api.get<Array<Options>>(url, { headers: this.headers });
   }
 
-
-  public saveExam(questionStatusList: QuestionStatus[]): Observable<string> {
-    console.log('course---' + questionStatusList);
-    const url = this.global.BASEURL + '/exam/saveexam';
+  public saveExam(questionStatusList: QuestionStatus[], examCompleteFlag: String): Observable<string> {
+    const url = this.global.BASEURL + '/exam/saveexam/?examCompleteFlag=' + examCompleteFlag;
     const param = new HttpParams();
-    //  param.set('course', course)
     return this.api.post<string>(url, questionStatusList, { headers: this.headers });
   }
 
@@ -93,6 +102,14 @@ export class ExamcontrolService {
     //  return this.api.get<ExamResult>(url, { headers: this.headers, params: param });
     return this.api.get<CourseDetail>(url, { headers: this.headers });
 
+  }
+
+  public validateStudent(course: string): Observable<Boolean> {
+    const url = this.global.BASEURL + '/exam/validatestudent/?course=' + course;
+    const param = new HttpParams();
+    param.set('course', course);
+    //  return this.api.get<ExamResult>(url, { headers: this.headers, params: param });
+    return this.api.get<Boolean>(url, { headers: this.headers });
   }
 
 }

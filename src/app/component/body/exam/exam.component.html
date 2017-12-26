@@ -21,8 +21,7 @@
           <div id="showTime" style="float:left; color:#fff;">
             <b>Time Left :
               <span id="timeInMins">
-                {{hoursDisplay ? hoursDisplay : '00'}} : {{(minutesDisplay) && (minutesDisplay
-                <=59) ? minutesDisplay : '00'}} : {{(secondsDisplay) && (secondsDisplay <=59) ? secondsDisplay : '00'}} </span>
+                {{hoursDisplay ? hoursDisplay : '00'}} : {{(minutesDisplay) && (minutesDisplay<=59) ? minutesDisplay : '00'}} : {{(secondsDisplay) && (secondsDisplay <=59) ? secondsDisplay : '00'}} </span>
             </b>
           </div>
         </div>
@@ -55,7 +54,6 @@
       </ng-template>
       <!-- <div class="divider"></div> -->
     </div>
-
 
     <div class="col-sm-3">
       <div style="height: 120px; background-color:#99ff33;border-top-right-radius: 25px; border-top-left-radius: 25px; margin-top:10px; margin-left:1px; margin-bottom: 10px">
@@ -174,10 +172,11 @@
       <label>
         <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
-        <span class="option-index-style">{{qstnOption.optionIndex}} :
-        </span>
-        <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
-        <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
+
+        <span [MathJax]="qstnOption.optionTextBodyEng">
+          <span class="option-index-style">{{qstnOption.optionIndex}} :
+          </span>{{qstnOption.optionTextBodyEng}}</span>
+        <span *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></span>
       </label>
       <br>
       <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>

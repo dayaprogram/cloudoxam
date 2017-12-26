@@ -5,6 +5,7 @@ import { Options } from '../../../model/options';
 import { AuthenticationService } from '../../../service/authentication.service';
 import { ExamcontrolService } from '../../../service/examcontrol.service';
 import { Global } from '../../../Globel';
+import { SessionStorage } from 'ngx-store';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -14,7 +15,7 @@ export class CourseComponent implements OnInit {
   // couses = new Option();
   couses: Options[];
   selectedCourse = '';
-
+  @SessionStorage({ key: 'VALIDFOREXAM' }) validStudent: Boolean = false;
   constructor(private auth: AuthenticationService,
     private api: ExamcontrolService,
     private router: Router,
@@ -26,15 +27,29 @@ export class CourseComponent implements OnInit {
   }
   submitCourse() {
     this.cookieService.set('course', this.selectedCourse);
-    this.api.getExamNature(this.selectedCourse).subscribe(
+    this.api.validateStudent(this.selectedCourse).subscribe(
       data => {
-        this.cookieService.set('EXAMNATURE', data.toString());
+        this.validStudent = data;
       }, err => {
-        console.log('Something went wrong to getting exam nature!');
+        console.log('Something went wrong to getting valid student!');
       }, () => {
-        this.router.navigate(['/instruction']);
+        if (this.validStudent) {
+          this.api.getExamNature(this.selectedCourse).subscribe(
+            data => {
+              this.cookieService.set('EXAMNATURE', data.toString());
+            }, err => {
+              console.log('Something went wrong to getting exam nature!');
+            }, () => {
+              this.router.navigate(['/instruction']);
+            }
+          );
+        } else {
+          alert('Please Contact to Administration');
+        }
       }
+
     );
+
   }
 
   ngOnInit() {

@@ -11,10 +11,15 @@ export class ExamAccessGuard implements CanActivate {
     private auth: AuthenticationService,
     private sessionStorageService: SessionStorageService) { }
   @SessionStorage('loginUserDetail') userDtl: UserDetails;
+  @SessionStorage({ key: 'VALIDFOREXAM' }) validStudent: Boolean;
   canActivate() {
 
     if (this.userDtl.roleId === 3) {
-      return true;
+      if (this.validStudent) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       this.router.navigate(['/adm']);
       return false;
