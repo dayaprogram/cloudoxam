@@ -48,16 +48,17 @@ import {
     MatSnackBarModule,
     MatSelectModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatNativeDateModule,
+    MatStepperModule
     /* MatButtonToggleModule,
      MatCardModule,
      MatCheckboxModule,
      MatChipsModule,
-     MatDatepickerModule,
-     MatDialogModule,
-     MatExpansionModule,
+        MatExpansionModule,
      MatGridListModule,
-     MatNativeDateModule,
-     MatPaginatorModule,
+         MatPaginatorModule,
      MatProgressBarModule,
      MatProgressSpinnerModule,
      MatRippleModule,
@@ -69,8 +70,7 @@ import {
      MatTabsModule,
      MatToolbarModule,
      MatTooltipModule,
-     MatStepperModule
-     */
+       */
 
   ],
   declarations: []
