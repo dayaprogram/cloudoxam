@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Options } from '../model/options';
 import { Global } from '../Globel';
 import { QuestionSet } from '../model/question-set';
+import { StudentDetails } from '../model/student-details';
 
 @Injectable()
 export class AdminService {
@@ -48,5 +49,25 @@ export class AdminService {
     return this.api.post<string>(url, mcqQuestionSet, { headers: this.headers });
   }
 
+  public saveStudentDetail(studentDetails: StudentDetails): Observable<string> {
+    const url = this.global.BASEURL + '/student/savestudentdetail';
+    return this.api.post<string>(url, studentDetails, { headers: this.headers });
+  }
+
+
+  public getGender(): Observable<Array<Options>> {
+    const url = this.global.BASEURL + '/options/gender';
+    return this.api.get<Array<Options>>(url, { headers: this.headers });
+  }
+
+  public getCatagory(): Observable<Array<Options>> {
+    const url = this.global.BASEURL + '/options/catagory';
+    return this.api.get<Array<Options>>(url, { headers: this.headers });
+  }
+
+  public getFamilyIncomeRange(): Observable<Array<Options>> {
+    const url = this.global.BASEURL + '/options/familyincomrange';
+    return this.api.get<Array<Options>>(url, { headers: this.headers });
+  }
 
 }

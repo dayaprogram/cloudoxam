@@ -1,4 +1,4 @@
-<form [formGroup]="stdForm" name="stdForm">
+<form [formGroup]="stdForm" name="stdForm" (ngSubmit)="submitStudentDetail()">
   <div class="row">
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
@@ -74,10 +74,12 @@
     </div>
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
-        <mat-select placeholder="Sex" formControlName="gender" name="gender">
-          <mat-option>Male</mat-option>
-          <mat-option>Female</mat-option>
+        <mat-select placeholder="Gender" formControlName="gender" name="gender">
+          <mat-option *ngFor='let gender of genderList' [value]="gender.value">
+            {{gender.label}}
+          </mat-option>
         </mat-select>
+
         <mat-error *ngIf="!stdForm.controls['dateOfBirth'].valid && stdForm.controls['dateOfBirth'].touched">
           Please select Gender </mat-error>
       </mat-form-field>
@@ -86,9 +88,9 @@
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
         <mat-select placeholder="Categories" formControlName="category" name="category">
-          <mat-option>General</mat-option>
-          <mat-option>OBC</mat-option>
-          <mat-option>SCST</mat-option>
+          <mat-option *ngFor='let category of categoryList' [value]="category.value">
+            {{category.label}}
+          </mat-option>
         </mat-select>
         <mat-error *ngIf="!stdForm.controls['dateOfBirth'].valid && stdForm.controls['dateOfBirth'].touched">
           Please selet category </mat-error>
@@ -98,7 +100,11 @@
   <div class="row">
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
-        <input type="text" matInput formControlName="familyIncomeRange" placeholder="Family Income Range" name="familyIncomeRange">
+        <mat-select placeholder="Family Income Range" formControlName="familyIncomeRange" name="familyIncomeRange">
+          <mat-option *ngFor='let familyIncomeRange of familyIncomeRangeList' [value]="familyIncomeRange.value">
+            {{familyIncomeRange.label}}
+          </mat-option>
+        </mat-select>
         <mat-error *ngIf="!stdForm.controls['familyIncomeRange'].valid && stdForm.controls['familyIncomeRange'].touched">
           Family Income is
           <strong>Required</strong>
@@ -107,7 +113,7 @@
     </div>
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
-        <input type="number" matInput formControlName="stdMobNo" placeholder="Student Mobile Number" name="stdMobNo">
+        <input type="tel" matInput formControlName="stdMobNo" placeholder="Student Mobile Number" name="stdMobNo">
         <mat-error *ngIf="!stdForm.controls['stdMobNo'].valid && stdForm.controls['stdMobNo'].touched">
           Student Mobile is
           <strong>Required</strong>
@@ -145,7 +151,7 @@
     </div>
     <div class="col-sm-4 mat-full-width">
       <mat-form-field>
-        <input type="text" matInput formControlName="fatherMobNo" placeholder="Father Mobile Number" name="fatherMobNo">
+        <input type="tel" matInput formControlName="fatherMobNo" placeholder="Father Mobile Number" name="fatherMobNo">
         <mat-error *ngIf="!stdForm.controls['fatherMobNo'].valid && stdForm.controls['fatherMobNo'].touched">
           Father Mobile is
           <strong>Required</strong>
@@ -209,6 +215,11 @@
           <strong>Required</strong>
         </mat-error>
       </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" style="text-align: center">
+      <button type="submit" mat-raised-button color="primary">Save</button>
     </div>
   </div>
 </form>

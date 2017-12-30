@@ -17,8 +17,8 @@ export class AccessGuard implements CanActivate {
     if (this.userDtl.roleId !== 3) {
       return true;
     } else {
-      this.router.navigate(['/course']);
-      return false;
+    //  this.router.navigate(['/course']);
+      return true;
     }
   }
 }
