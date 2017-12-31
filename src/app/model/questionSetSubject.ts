@@ -1,5 +1,5 @@
 
-import { QuestionSet } from './question-set'
+import { QuestionSet } from './question-set';
 export class QuestionSetSubject {
     subjectId: string;
     subjectName: string;

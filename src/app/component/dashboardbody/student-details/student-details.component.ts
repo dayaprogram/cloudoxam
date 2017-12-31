@@ -11,7 +11,11 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./student-details.component.css']
 })
 export class StudentDetailsComponent implements OnInit {
+  isLinear = false;
+
   stdForm: FormGroup;
+  courseMappingForm: FormGroup;
+  paymentForm: FormGroup;
   studentDetail: StudentDetails;
   result = '';
 
@@ -79,8 +83,15 @@ export class StudentDetailsComponent implements OnInit {
       'address2': ['', Validators.required],
       'city': ['', Validators.required],
       'district': ['', Validators.required],
-      'state': ['BIHAR', Validators.required],
-      'country': ['INDIA', Validators.required],
+      'state': ['BR', Validators.required],
+      'country': ['IN', Validators.required],
+    });
+
+    this.courseMappingForm = this.fb.group({
+      'stdFirstName': ['', Validators.required],
+      'stdMiddleName': [''],
+      'stdLastName': ['', Validators.required],
+      'fatherFirstName': ['', Validators.required]
     });
 
     this.adminApi.getFamilyIncomeRange().subscribe(
