@@ -7,6 +7,7 @@ import { Options } from '../model/options';
 import { Global } from '../Globel';
 import { QuestionSet } from '../model/question-set';
 import { StudentDetails } from '../model/student-details';
+import { ExamRateDetail } from '../model/exam-rate-detail';
 
 @Injectable()
 export class AdminService {
@@ -34,6 +35,10 @@ export class AdminService {
     return this.api.get<Array<Options>>(url, { headers: this.headers });
   }
 
+  public getAllCources(): Observable<Array<Options>> {
+    const url = this.global.BASEURL + '/options/allcourse';
+    return this.api.get<Array<Options>>(url, { headers: this.headers });
+  }
   public getQuestionLevel(): Observable<Array<Options>> {
     const url = this.global.BASEURL + '/options/questionlevel';
     return this.api.get<Array<Options>>(url, { headers: this.headers });
@@ -54,7 +59,6 @@ export class AdminService {
     return this.api.post<string>(url, studentDetails, { headers: this.headers });
   }
 
-
   public getGender(): Observable<Array<Options>> {
     const url = this.global.BASEURL + '/options/gender';
     return this.api.get<Array<Options>>(url, { headers: this.headers });
@@ -68,6 +72,11 @@ export class AdminService {
   public getFamilyIncomeRange(): Observable<Array<Options>> {
     const url = this.global.BASEURL + '/options/familyincomrange';
     return this.api.get<Array<Options>>(url, { headers: this.headers });
+  }
+
+  public getExamRateList(): Observable<Array<ExamRateDetail>> {
+    const url = this.global.BASEURL + '/options/examratelist';
+    return this.api.get<Array<ExamRateDetail>>(url, { headers: this.headers });
   }
 
 }

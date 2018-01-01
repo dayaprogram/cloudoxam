@@ -1,9 +1,7 @@
 <mat-horizontal-stepper [linear]="isLinear">
-  <mat-step [stepControl]="stdForm">
+  <mat-step [stepControl]="stdForm" [editable]="result===''">
     <form [formGroup]="stdForm" name="stdForm" (ngSubmit)="submitStudentDetail()">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-
-
+      <ng-template matStepLabel>Student Detalils</ng-template>
       <div class="row">
         <div class="col-sm-4 mat-full-width">
           <mat-form-field>
@@ -127,9 +125,9 @@
         </div>
         <div class="col-sm-4 mat-full-width">
           <mat-form-field>
-            <input type="text" matInput formControlName="adharNo" placeholder="Adhar Card Number" name="adharNo">
-            <mat-error *ngIf="!stdForm.controls['adharNo'].valid && stdForm.controls['adharNo'].touched">
-              Adhar card no is
+            <input type="email" matInput formControlName="stdEmail" placeholder="Student Email Id" name="stdEmail">
+            <mat-error *ngIf="!stdForm.controls['stdEmail'].valid && stdForm.controls['stdEmail'].touched">
+              Valid Email is
               <strong>Required</strong>
             </mat-error>
           </mat-form-field>
@@ -138,18 +136,18 @@
       <div class="row">
         <div class="col-sm-4 mat-full-width">
           <mat-form-field>
-            <input type="text" matInput formControlName="stdPanNo" placeholder="Student Pancard Number" name="stdPanNo">
-            <mat-error *ngIf="!stdForm.controls['stdPanNo'].valid && stdForm.controls['stdPanNo'].touched">
-              Pan card no is
+            <input type="text" matInput formControlName="adharNo" placeholder="Adhar Card Number" name="adharNo">
+            <mat-error *ngIf="!stdForm.controls['adharNo'].valid && stdForm.controls['adharNo'].touched">
+              Adhar card no is
               <strong>Required</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col-sm-4 mat-full-width">
           <mat-form-field>
-            <input type="email" matInput formControlName="stdEmail" placeholder="Student Emailid" name="stdEmail">
-            <mat-error *ngIf="!stdForm.controls['stdEmail'].valid && stdForm.controls['stdEmail'].touched">
-              Valid Email is
+            <input type="text" matInput formControlName="stdPanNo" placeholder="Student Pancard Number" name="stdPanNo">
+            <mat-error *ngIf="!stdForm.controls['stdPanNo'].valid && stdForm.controls['stdPanNo'].touched">
+              Pan card no is
               <strong>Required</strong>
             </mat-error>
           </mat-form-field>
@@ -223,12 +221,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6" style="text-align: right">
-          <button type="submit" mat-raised-button color="primary">Save</button>
-        </div>
-        <div class="col-sm-6" style="text-align: right">
-          <button mat-raised-button color="warn" matStepperNext [disabled]="false">Next</button>
-
+        <div class="col-sm-12" style="text-align: right">
+          <button type="submit" mat-raised-button color="warn" matStepperNext [disabled]="!this.stdForm.valid && result === ''">Save & Next</button>
         </div>
       </div>
       <div>
@@ -236,51 +230,54 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="courseMappingForm">
-    <form [formGroup]="courseMappingForm" name="courseMappingForm" (ngSubmit)="submitStudentDetail()">
-      <ng-template matStepLabel>Course Mapping & Payment</ng-template>
+    <ng-template matStepLabel>Course Mapping & Payment</ng-template>
+    <h3 style="color: rgb(216, 135, 14)">Student Id:{{result}}</h3>
+    <div class="row">
+      <div class="col-sm-6">
 
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="row">
-            <div class="col-sm-4 mat-full-width">
-              <mat-form-field>
-                <input type="text" matInput formControlName="stdFirstName" placeholder="Student First Name" name="stdFirstName">
-                <mat-error *ngIf="!courseMappingForm.controls['stdFirstName'].valid && courseMappingForm.controls['stdFirstName'].touched">
-                  student first name is
-                  <strong>Required</strong>
-                </mat-error>
-              </mat-form-field>
-
-            </div>
-            <div class="col-sm-4 mat-full-width">
-              <mat-form-field>
-                <input type="text" matInput formControlName="stdMiddleName" placeholder="Student Middle Name" name="stdMiddleName">
-                <mat-error *ngIf="!courseMappingForm.controls['stdMiddleName'].valid && courseMappingForm.controls['stdMiddleName'].touched">
-                  Student Middle name
-                  <strong>Required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4 mat-full-width">
-              <mat-form-field>
-                <input type="text" matInput formControlName="stdLastName" placeholder="Student Last Name" name="stdLastName">
-                <mat-error *ngIf="!courseMappingForm.controls['stdLastName'].valid && courseMappingForm.controls['stdLastName'].touched">
-                  Student Last name
-                  <strong>Required</strong>
-                </mat-error>
-              </mat-form-field>
+        <div class="row">
+          <div class="col-sm-12 mat-full-width">
+            <div>
+              <mat-list role="list" dense>
+                <mat-list-item role="listitem" *ngFor="let course of courseList">
+                  {{course.label}}
+                  <i class="fa fa-arrow-right" style="color: rgb(9, 112, 23)" (click)='addCourses(course)'></i>
+                </mat-list-item>
+              </mat-list>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          Payment Details
+      </div>
+      <div class="col-sm-6">
+        <div class="row" *ngFor="let cour of selectedCourses">
+          <div class="col-sm-12">
+            <mat-card class="mat-full-width">
+              <mat-card-header>
+                <mat-card-title> {{cour.label}}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <form [formGroup]="courseMappingForm" name="courseMappingForm">
+                  <mat-form-field>
+                    <mat-select placeholder="Exam Set" formControlName="examCount" name="examCount">
+                      <mat-option *ngFor=' let examRateDetail of examRateDetailList ' [value]="examRateDetail.itemRateCode">
+                        {{examRateDetail.rateFor}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  {{rateBill}}
+                </form>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
       </div>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+    </div>
+    <div class="row">
+      <div class="col-sm-12" style="text-align: right;">
+        <button mat-button matStepperNext>Make Payment</button>
       </div>
-    </form>
+    </div>
+
   </mat-step>
 
   <mat-step>

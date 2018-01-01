@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../../service/admin.service';
 import { StudentDetails } from '../../../model/student-details';
 import { Options } from '../../../model/options';
+import { ExamRateDetail } from '../../../model/exam-rate-detail';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -11,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./student-details.component.css']
 })
 export class StudentDetailsComponent implements OnInit {
-  isLinear = false;
+  isLinear = true;
 
   stdForm: FormGroup;
   courseMappingForm: FormGroup;
@@ -23,19 +24,36 @@ export class StudentDetailsComponent implements OnInit {
   categoryList: Options[];
   familyIncomeRangeList: Options[];
 
+  courseList: Options[];
+  selectedCourses: Options[] = [];
+
+  examRateDetailList: ExamRateDetail[];
+  selectedExamRateDetail: ExamRateDetail;
+
   constructor(private fb: FormBuilder,
     private adminApi: AdminService,
     public snackBar: MatSnackBar) { }
   submitStudentDetail() {
+    if (this.stdForm.valid) {
+      this.adminApi.saveStudentDetail(this.formToStudentDetail()).subscribe(
+        data => {
+          this.result = data;
+        },
+        err => {
+          this.alertSnack('Something went wrong!', 'Close');
+        },
+        () => {
+          this.alertSnack('Student Detail Succesfully Saved. Student Id:-' + this.result, 'Close');
+        });
+    }
+  }
 
-    this.adminApi.saveStudentDetail(this.formToStudentDetail()).subscribe(
-      data => {
-        this.result = data;
-      },
-      err => {
-        this.alertSnack('Something went wrong!', 'Close');
-      },
-      () => { });
+  addCourses(course: any) {
+    this.selectedCourses.push(course);
+    this.selectedCourses = Array.from(new Set(this.selectedCourses));
+  }
+  removeCourses(course: string) {
+    this.selectedCourses = this.selectedCourses.filter(x => x.value !== course);
   }
 
   formToStudentDetail() {
@@ -47,9 +65,11 @@ export class StudentDetailsComponent implements OnInit {
     this.studentDetail.fatherMiddleName = this.stdForm.value.fatherMiddleName;
     this.studentDetail.fatherLastName = this.stdForm.value.fatherLastName;
     this.studentDetail.gender = this.stdForm.value.gender;
+    this.studentDetail.dateOfBirth = this.stdForm.value.dateOfBirth;
     this.studentDetail.category = this.stdForm.value.category;
     this.studentDetail.familyIncomeRange = this.stdForm.value.familyIncomeRange;
     this.studentDetail.stdMobNo = this.stdForm.value.stdMobNo;
+    this.studentDetail.fatherMobNo = this.stdForm.value.fatherMobNo;
     this.studentDetail.adharNo = this.stdForm.value.adharNo;
     this.studentDetail.stdPanNo = this.stdForm.value.stdPanNo;
     this.studentDetail.stdEmail = this.stdForm.value.stdEmail;
@@ -80,7 +100,7 @@ export class StudentDetailsComponent implements OnInit {
       'stdEmail': ['', Validators.email],
       'fatherMobNo': [''],
       'address1': ['', Validators.required],
-      'address2': ['', Validators.required],
+      'address2': [''],
       'city': ['', Validators.required],
       'district': ['', Validators.required],
       'state': ['BR', Validators.required],
@@ -88,10 +108,7 @@ export class StudentDetailsComponent implements OnInit {
     });
 
     this.courseMappingForm = this.fb.group({
-      'stdFirstName': ['', Validators.required],
-      'stdMiddleName': [''],
-      'stdLastName': ['', Validators.required],
-      'fatherFirstName': ['', Validators.required]
+      'examCount': ['', Validators.required]
     });
 
     this.adminApi.getFamilyIncomeRange().subscribe(
@@ -118,6 +135,29 @@ export class StudentDetailsComponent implements OnInit {
         this.alertSnack('Something went wrong!', 'Close');
       },
       () => { });
+    this.adminApi.getAllCources().subscribe(
+      data => {
+        this.courseList = data;
+      },
+      err => {
+        console.log('Something went wrong!');
+      },
+      () => {
+
+      }
+    );
+    this.adminApi.getExamRateList().subscribe(
+      data => {
+        this.examRateDetailList = data;
+      },
+      err => {
+        console.log('Something went wrong!');
+      },
+      () => {
+
+      }
+    );
+
 
   }
   alertSnack(message: string, action: string) {
