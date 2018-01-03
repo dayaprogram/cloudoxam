@@ -54,6 +54,11 @@ export class AdminService {
     return this.api.post<string>(url, mcqQuestionSet, { headers: this.headers });
   }
 
+  public makeExamCoursePayment(examRateDetailList: ExamRateDetail[]): Observable<string> {
+    const url = this.global.BASEURL + '/adm/makecoursepayment';
+    return this.api.post<string>(url, examRateDetailList, { headers: this.headers });
+  }
+
   public saveStudentDetail(studentDetails: StudentDetails): Observable<string> {
     const url = this.global.BASEURL + '/student/savestudentdetail';
     return this.api.post<string>(url, studentDetails, { headers: this.headers });

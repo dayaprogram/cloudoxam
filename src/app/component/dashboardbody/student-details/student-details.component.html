@@ -229,12 +229,11 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="courseMappingForm">
+  <mat-step [stepControl]="courseMappingForm" [editable]="paymentResult===''">
     <ng-template matStepLabel>Course Mapping & Payment</ng-template>
-    <h3 style="color: rgb(216, 135, 14)">Student Id:{{result}}</h3>
+    <h4 style="color: rgb(216, 135, 14);text-align: center">Student Id:{{result}}</h4>
     <div class="row">
-      <div class="col-sm-6">
-
+      <div class=" col-md-6 col-sm-12">
         <div class="row">
           <div class="col-sm-12 mat-full-width">
             <div>
@@ -248,43 +247,69 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class=" col-md-6 col-sm-12">
         <div class="row" *ngFor="let cour of selectedCourses">
           <div class="col-sm-12">
             <mat-card class="mat-full-width">
               <mat-card-header>
-                <mat-card-title> {{cour.label}}</mat-card-title>
+                <mat-card-title>
+                  <button mat-mini-fab color="warn">
+                    <i class="fa fa-times" (click)='removeCourses(cour.value)'></i>
+                  </button>
+                  {{cour.label}}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <form [formGroup]="courseMappingForm" name="courseMappingForm">
-                  <mat-form-field>
-                    <mat-select placeholder="Exam Set" formControlName="examCount" name="examCount">
-                      <mat-option *ngFor=' let examRateDetail of examRateDetailList ' [value]="examRateDetail.itemRateCode">
-                        {{examRateDetail.rateFor}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  {{rateBill}}
+                  <div class="mat-full-width">
+                    <mat-form-field>
+                      <mat-select placeholder="Exam Set" formControlName="examCount" name="examCount">
+                        <mat-option *ngFor='let examRateDetail of examRateDetailList' [value]="examRateDetail.itemRateCode" (click)="addRateToSelectedCourse(examRateDetail.itemRateCode,cour.value)">
+                          {{examRateDetail.rateFor}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </form>
               </mat-card-content>
             </mat-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mat-full-width">
+            <mat-list dense>
+              <mat-list-item *ngFor='let mappedExam of mappedExamRateDetail'>
+                <h6> {{mappedExam.courseId}}</h6>
+                <h6 style="text-align: right"> {{mappedExam.rateBill}}</h6>
+              </mat-list-item>
+              <mat-list-item>
+                <h6> Total:</h6>
+                <h6 style="text-align: right"> {{getTotalCourseFee()}}</h6>
+              </mat-list-item>
+            </mat-list>
+            <div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12" style="text-align: right;">
-        <button mat-button matStepperNext>Make Payment</button>
+        <button mat-button matStepperNext (click)="makePaymentOfCousre()" mat-raised-button color="warn" [disabled]="!this.mappedExamRateDetail.length>0">Make Payment</button>
       </div>
     </div>
-
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Final</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
+    <ng-template matStepLabel>Done</ng-template>
+    <h4 style="color: rgb(216, 135, 14);text-align: center">Student Id:{{result}}</h4>
+    <h4 style="color: rgb(67, 116, 32);text-align: center">{{paymentResult}}</h4>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-12" style="text-align: center;">
+        <button mat-button (click)="resetRegistrationForm()" mat-raised-button color="warn">New Registration</button>
+      </div>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

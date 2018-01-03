@@ -20,6 +20,7 @@ export class StudentDetailsComponent implements OnInit {
   studentDetail: StudentDetails;
   result = '';
 
+  paymentResult = '';
   genderList: Options[];
   categoryList: Options[];
   familyIncomeRangeList: Options[];
@@ -28,7 +29,7 @@ export class StudentDetailsComponent implements OnInit {
   selectedCourses: Options[] = [];
 
   examRateDetailList: ExamRateDetail[];
-  selectedExamRateDetail: ExamRateDetail;
+  mappedExamRateDetail: ExamRateDetail[] = [];
 
   constructor(private fb: FormBuilder,
     private adminApi: AdminService,
@@ -48,14 +49,64 @@ export class StudentDetailsComponent implements OnInit {
     }
   }
 
+  makePaymentOfCousre() {
+    this.paymentResult = '';
+    if (this.mappedExamRateDetail.length > 0 || this.mappedExamRateDetail.length !== undefined) {
+      this.adminApi.makeExamCoursePayment(this.mappedExamRateDetail).subscribe(
+        data => {
+          this.paymentResult = data;
+        },
+        err => {
+          this.alertSnack('Something went wrong!', 'Close');
+        },
+        () => {
+          this.alertSnack(this.paymentResult, 'Close');
+        });
+    }
+  }
+  resetRegistrationForm() {
+    alert('reset');
+    this.selectedCourses = [];
+    this.mappedExamRateDetail = [];
+    this.stdForm.reset();
+    this.courseMappingForm.reset();
+    this.paymentForm.reset();
+    this.studentDetail = new StudentDetails();
+    this.result = '';
+    this.paymentResult = '';
+  }
+
   addCourses(course: any) {
     this.selectedCourses.push(course);
     this.selectedCourses = Array.from(new Set(this.selectedCourses));
   }
   removeCourses(course: string) {
     this.selectedCourses = this.selectedCourses.filter(x => x.value !== course);
+    this.mappedExamRateDetail = this.mappedExamRateDetail.filter(x => x.courseId !== course);
   }
 
+  addRateToSelectedCourse(itemRateCode: String, course: string) {
+    const examRateDetail = this.examRateDetailList.find(itm => itm.itemRateCode === itemRateCode);
+    const examRateDetailTemp: ExamRateDetail = new ExamRateDetail();
+    examRateDetailTemp.courseId = course;
+    examRateDetailTemp.examCount = examRateDetail.examCount;
+    examRateDetailTemp.itemRateCode = examRateDetail.itemRateCode;
+    examRateDetailTemp.rateBill = examRateDetail.rateBill;
+    examRateDetailTemp.studentId = this.result;
+    if (this.mappedExamRateDetail.length === 0 || this.mappedExamRateDetail.length === undefined) {
+      this.mappedExamRateDetail.push(examRateDetailTemp);
+    } else {
+      this.mappedExamRateDetail = this.mappedExamRateDetail.filter(x => x.courseId !== course);
+      this.mappedExamRateDetail.push(examRateDetailTemp);
+    }
+  }
+  getTotalCourseFee() {
+    let totalAmt = 0;
+    this.mappedExamRateDetail.forEach(itm => {
+      totalAmt = totalAmt + itm.rateBill;
+    });
+    return totalAmt;
+  }
   formToStudentDetail() {
     this.studentDetail = new StudentDetails();
     this.studentDetail.stdFirstName = this.stdForm.value.stdFirstName;
@@ -84,25 +135,25 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.stdForm = this.fb.group({
-      'stdFirstName': ['', Validators.required],
+      'stdFirstName': ['Dayanand', Validators.required],
       'stdMiddleName': [''],
-      'stdLastName': ['', Validators.required],
-      'fatherFirstName': ['', Validators.required],
+      'stdLastName': ['Sagar', Validators.required],
+      'fatherFirstName': ['Vidya', Validators.required],
       'fatherMiddleName': [''],
-      'fatherLastName': ['', Validators.required],
+      'fatherLastName': ['Sagar', Validators.required],
       'dateOfBirth': ['', Validators.required],
-      'gender': ['', Validators.required],
+      'gender': ['M', Validators.required],
       'category': ['', Validators.required],
       'familyIncomeRange': [''],
-      'stdMobNo': ['', Validators.required],
+      'stdMobNo': ['7890197952', Validators.required],
       'adharNo': [''],
       'stdPanNo': [''],
-      'stdEmail': ['', Validators.email],
+      'stdEmail': ['daya@gmail', Validators.email],
       'fatherMobNo': [''],
-      'address1': ['', Validators.required],
+      'address1': ['Bardaha', Validators.required],
       'address2': [''],
-      'city': ['', Validators.required],
-      'district': ['', Validators.required],
+      'city': ['Sirdala', Validators.required],
+      'district': ['Nawada', Validators.required],
       'state': ['BR', Validators.required],
       'country': ['IN', Validators.required],
     });
@@ -154,11 +205,8 @@ export class StudentDetailsComponent implements OnInit {
         console.log('Something went wrong!');
       },
       () => {
-
       }
     );
-
-
   }
   alertSnack(message: string, action: string) {
     action = 'Close';

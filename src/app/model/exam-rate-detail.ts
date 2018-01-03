@@ -8,4 +8,6 @@ export class ExamRateDetail {
     examCount: number;
     description: String;
     taxableFlag: String;
+    courseId: string;
+    studentId: String;
 }
