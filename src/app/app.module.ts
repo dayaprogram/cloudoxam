@@ -43,6 +43,7 @@ import { DashboardMainComponent } from './component/dashboardbody/dashboard-main
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WebStorageModule } from 'ngx-store';
+import { StudentDashboardRedirectComponent } from './component/body/student-dashboard-redirect/student-dashboard-redirect.component';
 
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
@@ -68,7 +69,8 @@ import { WebStorageModule } from 'ngx-store';
     McqQuestionParaComponent,
     DashHeaderComponent,
     DashSideMenuComponent,
-    DashboardMainComponent
+    DashboardMainComponent,
+    StudentDashboardRedirectComponent
   ],
   imports: [
     BrowserModule,

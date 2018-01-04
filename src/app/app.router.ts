@@ -10,6 +10,8 @@ import { ExamAccessGuard } from './guard/exam-access.guard';
 
 import { LoginComponent } from './component/body/login/login.component';
 import { CourseComponent } from './component/body/course/course.component';
+import { StudentDashboardRedirectComponent } from './component/body/student-dashboard-redirect/student-dashboard-redirect.component';
+
 import { InstructionComponent } from './component/body/instruction/instruction.component';
 import { ExamComponent } from './component/body/exam/exam.component';
 import { ExamSubjectWiesComponent } from './component/body/exam-subject-wies/exam-subject-wies.component';
@@ -27,6 +29,7 @@ const routes: Routes =
     [
         { path: '', redirectTo: 'login', pathMatch: 'full' },
         { path: 'login', component: LoginComponent },
+        { path: 'stdtempdash', component: StudentDashboardRedirectComponent, canActivate: [SecurityGuard] },
         { path: 'course', component: CourseComponent, canActivate: [SecurityGuard] },
         { path: 'instruction', component: InstructionComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
         { path: 'exam', component: ExamComponent, canActivate: [SecurityGuard, ExamAccessGuard] },

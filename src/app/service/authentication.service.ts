@@ -121,7 +121,7 @@ export class AuthenticationService {
     if (this.loginUserDetail.roleId !== 3) {
       this._router.navigate(['/adm']);
     } else {
-      this._router.navigate(['/course']);
+      this._router.navigate(['/stdtempdash']);
     }
   }
 }
