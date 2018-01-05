@@ -295,7 +295,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12" style="text-align: right;">
-        <button mat-button matStepperNext (click)="makePaymentOfCousre()" mat-raised-button color="warn" [disabled]="!this.mappedExamRateDetail.length>0">Make Payment</button>
+        <button mat-button matStepperNext (click)="makePaymentOfCousre()" mat-raised-button color="warn" [disabled]="!(this.mappedExamRateDetail.length>0)">Make Payment</button>
       </div>
     </div>
   </mat-step>
