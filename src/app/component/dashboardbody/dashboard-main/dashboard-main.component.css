@@ -171,6 +171,7 @@ li.right-header-user img {
 .left-dashboard-mid{ overflow-y:auto;overflow-x:hidden;height: 95%; }	 
 .right-dashboard-mid{padding:15px;}
 .right-dashboard-mid p{ color:#fff;}
+
 /*
 Right Section END 
 */
@@ -182,4 +183,8 @@ Bootstarp
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+a {
+    cursor:pointer;
 }

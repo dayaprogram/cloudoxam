@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2 mat-dialog-title>Question Paper
+      <h4>{{data.courseName}}</h4>
+    </h2>
+    <mat-dialog-content>
+      <div class="row" style="margin: 2px; text-align: left;font-size: 12px">
+        <div class="col-sm-12" *ngFor='let questionSet of data.questionSetList'>
+            <mat-divider></mat-divider>
+          <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
+          <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
+          <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
+        </div>
+        <div class="col-sm-12">
+
+        </div>
+
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary">Print</button>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button mat-button [mat-dialog-close]="true" color="warn">Close</button>
+    </mat-dialog-actions>
+  </div>
+</div>

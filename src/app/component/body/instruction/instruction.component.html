@@ -6,7 +6,9 @@
   <div class="row">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
+    
       <form (ngSubmit)="onSubmit()">
+<!--
         <div class="form-group" aria-autocomplete="off">
           <select id="examLang" name="examLang" [(ngModel)]="selectedExamLang" required>
             <option value="">Select Language</option>
@@ -15,6 +17,7 @@
             </option>
           </select>
         </div>
+      -->
         <div class="checkbox">
           <label>
             <input type="checkbox" name="agreeBox" id="agreeBox" [(ngModel)]="aggreeFlag"
@@ -341,8 +344,8 @@
           </p>
           <ol>
             <li>1) यह अभ्‍यास परीक्षण आपके अभ्‍यास हेतु और आपको कंप्‍यूटर आधारित परीक्षा से परिचित कराने के लिए केवल एक प्रदर्शन
-              है । इस अभ्‍यास परीक्षण में 200 प्रश्‍न हैं, जिन्‍हें 120 मिनट में हल करना होगा।</li>
-            <li>2) परीक्षा के लिये वास्तविक प्रश्नपत्र में 200 प्रश्न होगें जिन्हें 2 घंटे के समय में हल करना होगा।</li>
+              है । इस अभ्‍यास परीक्षण में 100 प्रश्‍न हैं, जिन्‍हें 60 मिनट में हल करना होगा।</li>
+            <li>2) परीक्षा के लिये वास्तविक प्रश्नपत्र में 100 प्रश्न होगें जिन्हें 1 घंटे के समय में हल करना होगा।</li>
           </ol>
           <p class="textLeft">
             <b>प्रश्‍नपत्र के बारे में:</b>
@@ -393,8 +396,8 @@
               <img border="0" width="60" vspace="10" hspace="10" height="27" style="vertical-align:middle;" src="./assets/image/ins3_1.jpg"> नहीं करता है।</li>
             <li>13) परीक्षा की अवधि पूर्ण होने पर, यदि अभ्‍यर्थी उत्‍तर पर क्लिक नहीं करता है अथवा
               <img border="0" width="144" vspace="10" hspace="10" height="26" style="vertical-align:middle;" src="./assets/image/ins5_1.jpg"> बटन पर क्लिक नहीं करता है तो कंप्‍यूटर द्वारा स्‍वत: शून्‍य परिणाम सहेज लिया जाएगा ।</li>
-            <li>14) अभ्‍यर्थी निर्धारित 2 घंटे (120 मिनट ) के पूर्ण होने पर ही परीक्षा को submit करने में समर्थ होंगें। यदि अभ्‍यर्थी
-              ने 2 घंटे (120 मिनट) के पूर्ण होने पर अपनी परीक्षा पूर्ण नहीं की तो सिस्‍टम स्‍वत: परीक्षा को submit कर देगा।</li>
+            <li>14) अभ्‍यर्थी निर्धारित 1 घंटे (60 मिनट ) के पूर्ण होने पर ही परीक्षा को submit करने में समर्थ होंगें। यदि अभ्‍यर्थी
+              ने 1 घंटे (60 मिनट) के पूर्ण होने पर अपनी परीक्षा पूर्ण नहीं की तो सिस्‍टम स्‍वत: परीक्षा को submit कर देगा।</li>
           </ol>
           <p>
             <b>शुभकामनाएँ</b>
@@ -409,8 +412,8 @@
           </p>
           <ol>
             <li>1) This Practice Test is a demo for a "Computer Based Examination" for your practice and familiarization purpose
-              only. This "Practice test" consist of 200 questions to be attempted in 120 Minutes.</li>
-            <li>2) The actual question paper for the examination consist of 200 questions to be attempted in 2 hour time.</li>
+              only. This "Practice test" consist of 100 questions to be attempted in 60 Minutes.</li>
+            <li>2) The actual question paper for the examination consist of 100 questions to be attempted in 1 hour time.</li>
           </ol>
           <p class="textLeft">
             <b>About Question Paper:</b>
@@ -462,8 +465,8 @@
             <li>13) On the completion of the test duration, even if the candidate does not click on an answer or does not click
               on the
               <img border="0" width="144" vspace="10" hspace="10" height="26" style="vertical-align:middle;" src="./assets/image/ins5_1.jpg"> button, a NIL result will be saved automatically by the computer.</li>
-            <li>14) The candidate will only be able to submit the test on completion of the stipulated 2 hours (120 Minutes).
-              In case a candidate not completed his/her test at the completion of stipulated 2 hours (120 Minutes), the system
+            <li>14) The candidate will only be able to submit the test on completion of the stipulated 1 hours (60 Minutes).
+              In case a candidate not completed his/her test at the completion of stipulated 1 hours (60 Minutes), the system
               shall automatically submit the test</li>
           </ol>
           <p>

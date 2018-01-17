@@ -18,6 +18,7 @@ import { QuetStatusCount } from '../../../model/question-status-count';
 import { CourseDetail } from '../../../model/course-detail';
 
 import { LocalStorage, SessionStorage } from 'ngx-store';
+import { UserDetails } from '../../../model/user-details';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ExamComponent implements OnInit {
   // @LocalStorage() viewCounts: number = 0;
   // this under name: ${prefix}differentLocalStorageKey
   // import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
+  @SessionStorage('loginUserDetail') userDtl: UserDetails;
   @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
   @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
   @SessionStorage('EXAMQUESTIONSET') examQuestionSetLocal: ExamQuestionSet = new ExamQuestionSet();
@@ -206,9 +208,8 @@ export class ExamComponent implements OnInit {
 
   finalSubmit() {
     console.log('finally submited');
-    this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
+    this.api.saveExam(this.questionStatusList, 'COMPLETE').subscribe(
       data => {
-        console.log(data);
         alert(data);
       },
       // Errors will call this callback instead:
@@ -315,6 +316,9 @@ export class ExamComponent implements OnInit {
         this.secondsDisplay = this.getSeconds(counter);
         this.minutesDisplay = this.getMinutes(counter);
         this.hoursDisplay = this.getHours(counter);
+        if (counter === 0) {
+          this.finalSubmit();
+        }
       }
       );
   }

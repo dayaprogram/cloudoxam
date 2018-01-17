@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SecurityGuard } from './guard/security.guard';
 import { AccessGuard } from './guard/access.guard';
 import { ExamAccessGuard } from './guard/exam-access.guard';
+// import { RouteAccessGuard } from './guard/route-access.guard';
 
 
 import { LoginComponent } from './component/body/login/login.component';
@@ -36,17 +37,31 @@ const routes: Routes =
         { path: 'examsubject', component: ExamSubjectWiesComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
         { path: 'result', component: ResultComponent, canActivate: [SecurityGuard, ExamAccessGuard] },
         {
-            path: 'adm', component: DashboardMainComponent, canActivate: [SecurityGuard, AccessGuard],
+            path: 'adm', component: DashboardMainComponent,
+            canActivate: [SecurityGuard, AccessGuard],
             children: [
                 { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-                { path: 'dashboard', component: DashboardComponent, canActivate: [SecurityGuard, AccessGuard] },
-                { path: 'studentdtl', component: StudentDetailsComponent, canActivate: [SecurityGuard, AccessGuard] },
                 {
-                    path: 'question', component: QuestionBodyComponent, canActivate: [SecurityGuard, AccessGuard],
+                    path: 'dashboard', component: DashboardComponent,
+                    canActivate: [SecurityGuard, AccessGuard]
+                },
+                {
+                    path: 'studentdtl', component: StudentDetailsComponent,
+                    canActivate: [SecurityGuard, AccessGuard]
+                },
+                {
+                    path: 'question', component: QuestionBodyComponent,
+                    canActivate: [SecurityGuard, AccessGuard],
                     children: [
                         { path: '', redirectTo: 'mcq', pathMatch: 'full' },
-                        { path: 'mcq', component: McqQuestionComponent, canActivate: [SecurityGuard, AccessGuard] },
-                        { path: 'paramcq', component: McqQuestionParaComponent, canActivate: [SecurityGuard, AccessGuard] }
+                        {
+                            path: 'mcq', component: McqQuestionComponent,
+                            canActivate: [SecurityGuard, AccessGuard]
+                        },
+                        {
+                            path: 'paramcq', component: McqQuestionParaComponent,
+                            canActivate: [SecurityGuard, AccessGuard]
+                        }
                     ]
                 }
             ]

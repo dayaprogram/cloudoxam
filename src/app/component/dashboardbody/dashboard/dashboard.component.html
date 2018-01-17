@@ -1,3 +1,106 @@
-<p>
-  dashboard works!
-</p>
+<div *ngIf="userDtl.roleId===3; then StudentDashboard else AdninDashboard"></div>
+
+<ng-template #AdninDashboard>Hello Admin</ng-template>
+<ng-template #StudentDashboard>
+    <div class="row">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <strong>Examination Progress </strong>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <strong>Exan Set</strong>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="container">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Exam Set</th>
+                                    <th style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let examSetDetail of examSetDetailList">
+                                    <td>{{examSetDetail.examSetDesc}}</td>
+                                    <td style="text-align: right;">
+                                        <div *ngIf='examSetDetail.examCompleteFlag!==""; then ExamResultAndQnPaper else TakeExam'></div>
+
+                                    </td>
+                                    <ng-template #ExamResultAndQnPaper>
+                                        <div>
+                                            <button type="button" mat-raised-button color="primary" 
+                                            (click)="openDialogQuestionPaerWithResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Question Paper</button>
+                                            <button type="button" mat-raised-button color="accent" 
+                                            (click)="openDialogSubjectsResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Result</button>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template #TakeExam>
+                                        <div>
+                                            <button type="button" mat-raised-button color="primary" [disabled]="examSetDetail.lastAttemptexamSeqNo+1!==examSetDetail.examSeqNo"
+                                                (click)="takeExam()">Take Exam</button>
+                                        </div>
+                                    </ng-template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6 col-sm-12">
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <strong>Recent Exam Result</strong>
+                    </mat-card-title>
+                    <mat-card-subtitle>12/12/2018</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <br>
+                    <div>
+                        <strong>General Aptitude</strong>
+                        <strong>50</strong>
+                        <section class="example-section">
+                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="100" [bufferValue]="100">
+                            </mat-progress-bar>
+                        </section>
+                    </div>
+                    <br>
+                    <div>
+                        <strong>General Aptitude</strong>
+                        <strong>50</strong>
+                        <section class="example-section">
+                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="90" [bufferValue]="100">
+                            </mat-progress-bar>
+                        </section>
+                    </div>
+                    <br>
+                    <div>
+                        <strong>General Aptitude</strong>
+                        <strong>50</strong>
+                        <section class="example-section">
+                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="60" [bufferValue]="100">
+                            </mat-progress-bar>
+                        </section>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</ng-template>

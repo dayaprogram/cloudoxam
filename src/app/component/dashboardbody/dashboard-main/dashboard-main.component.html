@@ -18,97 +18,44 @@
             </span>
           </a>
         </li>
-        <li>
-          <a routerLink="/adm/studentdtl" routerLinkActive="active">
-            <i class="fa fa-address-book-o"></i>
-            <span>Student Details</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a>
-            <i class="fa fa-question-circle-o"></i>
-            <span>Question</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-double-down pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a routerLink="/adm/question/mcq" routerLinkActive="active">
-                <span>MCQ Question</span>
-              </a>
-            </li>
-            <li>
-              <a routerLink="/adm/question/paramcq" routerLinkActive="active">
-                <span>Paragraph Question</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-map-marker"></i>
-            <span>Maps</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="map-google.html">Google Maps</a>
-            </li>
-            <li>
-              <a href="map-vector.html" class="active">Vector Maps</a>
-            </li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i>
-            <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="#">Level One</a>
-            </li>
-            <li class="treeview">
-              <a href="#">Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li>
-                  <a href="#"> Level Two</a>
-                </li>
-                <li class="treeview">
-                  <a href="#">Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li>
-                      <a href="#">Level Three</a>
-                    </li>
-                    <li>
-                      <a href="#">Level Three</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Level One</a>
-            </li>
-          </ul>
-        </li>
+
+        <div *ngIf="userDtl.roleId===3; then StudentMenu else AdninMenu"></div>
+
+        <ng-template #AdninMenu>
+          <li>
+            <a routerLink="/adm/studentdtl" routerLinkActive="active">
+              <i class="fa fa-address-book-o"></i>
+              <span>Student Details</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a>
+              <i class="fa fa-question-circle-o"></i>
+              <span>Question</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-double-down pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a routerLink="/adm/question/mcq" routerLinkActive="active">
+                  <span>MCQ Question</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/adm/question/paramcq" routerLinkActive="active">
+                  <span>Paragraph Question</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+
+
+        <ng-template #StudentMenu></ng-template>
       </ul>
 
     </div>
@@ -139,8 +86,6 @@
       </ul>
     </div>
     <!---// LEFT FOOTER SECTION END -->
-
-
   </div>
   <!---// LEFT PART END -->
   <!--// RIGHT PART -->
@@ -164,9 +109,8 @@
         </li>
       </ul>
       <ul class="float-right">
-
         <li>
-          <a href="#">
+          <a >
             <i class="fa fa-bell-o"></i>
           </a>
         </li>
@@ -174,6 +118,7 @@
           <img src="http://uxliner.com/niche/main/dist/img/img1.jpg" />
           <span>{{userDtl.firstName}}</span>
           <ul>
+            <!--
             <li>
               <a href="#">Account Settings</a>
             </li>
@@ -186,10 +131,19 @@
             <li>
               <a href="#">My Payment</a>
             </li>
-            <li>
-              <a href="#">Log Out</a>
+              <li>
+              <a (click)="logout()">Log Out</a>
             </li>
+          -->
+          
           </ul>
+        </li>
+        <li>
+          <a  style="color: brown">
+            <Strong>
+              <i class="fa fa-lock" (click)="logout()">Logout</i>
+            </Strong>
+          </a>
         </li>
       </ul>
     </div>

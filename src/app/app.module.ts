@@ -22,6 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SecurityGuard } from './guard/security.guard';
 import { AccessGuard } from './guard/access.guard';
 import { ExamAccessGuard } from './guard/exam-access.guard';
+import { RouteAccessGuard } from './guard/route-access.guard';
 import { Global } from './Globel';
 
 import { FooterComponent } from './component/templet/footer/footer.component';
@@ -44,6 +45,8 @@ import { DashboardMainComponent } from './component/dashboardbody/dashboard-main
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WebStorageModule } from 'ngx-store';
 import { StudentDashboardRedirectComponent } from './component/body/student-dashboard-redirect/student-dashboard-redirect.component';
+import { QuestionPaperComponent } from './component/dashboardbody/question-paper/question-paper.component';
+import { SubjectsResultDilogComponent } from './component/dialog/subjects-result-dilog/subjects-result-dilog.component';
 
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
@@ -70,8 +73,11 @@ import { StudentDashboardRedirectComponent } from './component/body/student-dash
     DashHeaderComponent,
     DashSideMenuComponent,
     DashboardMainComponent,
-    StudentDashboardRedirectComponent
+    StudentDashboardRedirectComponent,
+    QuestionPaperComponent,
+    SubjectsResultDilogComponent
   ],
+  entryComponents: [QuestionPaperComponent, SubjectsResultDilogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -91,6 +97,7 @@ import { StudentDashboardRedirectComponent } from './component/body/student-dash
     SecurityGuard,
     AccessGuard,
     ExamAccessGuard,
+    RouteAccessGuard,
     CookieService,
     Global,
     { provide: LocationStrategy, useClass: HashLocationStrategy },

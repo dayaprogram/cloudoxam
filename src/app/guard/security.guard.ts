@@ -14,8 +14,8 @@ export class SecurityGuard implements CanActivate {
       return true;
     } else {
       // not logged in so redirect to login page
-    //  this.router.navigate(['/login']);
-      return true;
+      this.router.navigate(['/login']);
+      return false;
     }
   }
 }

@@ -25,8 +25,9 @@ export class ResultComponent implements OnInit {
   examResult: ExamResult;
   @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
 
-  onExit() {
-    this.authApi.logout();
+  gotoHome() {
+    //  this.authApi.logout();
+    this.router.navigate(['/adm']);
   }
   ngOnInit() {
     this.examResult = new ExamResult();

@@ -8,6 +8,10 @@ import { Global } from '../Globel';
 import { QuestionSet } from '../model/question-set';
 import { StudentDetails } from '../model/student-details';
 import { ExamRateDetail } from '../model/exam-rate-detail';
+import { MenuUrl } from '../model/menu-url';
+import { ExamSetDetail } from '../model/exam-set-detail';
+import { ResultDetail } from '../model/result-detail';
+
 
 @Injectable()
 export class AdminService {
@@ -84,4 +88,23 @@ export class AdminService {
     return this.api.get<Array<ExamRateDetail>>(url, { headers: this.headers });
   }
 
+  public getAllMenu(): Observable<Array<MenuUrl>> {
+    const url = this.global.BASEURL + '/options/examratelist';
+    return this.api.get<Array<MenuUrl>>(url, { headers: this.headers });
+  }
+
+  public getExamSetDtlList(): Observable<Array<ExamSetDetail>> {
+    const url = this.global.BASEURL + '/adm/examsetlist';
+    return this.api.get<Array<ExamSetDetail>>(url, { headers: this.headers });
+  }
+
+  public getQuestionPaperWithResult(courseId: string, examSeqNo: number): Observable<Array<QuestionSet>> {
+    const url = this.global.BASEURL + '/adm/questionpaper/?course=' + courseId + '&examseqno=' + examSeqNo;
+    return this.api.get<Array<QuestionSet>>(url, { headers: this.headers });
+  }
+
+  public getSubjectResult(courseId: string, examSeqNo: number): Observable<Array<ResultDetail>> {
+    const url = this.global.BASEURL + '/adm/getsubjectresult/?course=' + courseId + '&examseqno=' + examSeqNo;
+    return this.api.get<Array<ResultDetail>>(url, { headers: this.headers });
+  }
 }

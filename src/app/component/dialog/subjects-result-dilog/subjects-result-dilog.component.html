@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2 mat-dialog-title>Result
+      <h4>{{data.courseName}} Set {{data.examSeqNo}}</h4>
+    </h2>
+    <mat-dialog-content>
+      <div *ngFor="let resultDetail of data.resultDetailList">
+        <strong>{{resultDetail.subjectName}}</strong>
+        <strong  style="color: rgb(17, 97, 178)">Full Marks:</strong>
+        <strong  style="color: rgb(17, 97, 178)">{{resultDetail.fullMarks}}</strong>
+        <strong style="color: rgb(11, 125, 47)">Obtained Marks:</strong>
+        <strong style="color: rgb(11, 125, 47)">{{resultDetail.obtainedMarks}}</strong>
+        <strong style="color: brown">Negative Marks:</strong>
+        <strong style="color: brown">{{resultDetail.deductMarks}}</strong>
+        <section class="example-section">
+          <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="(resultDetail.obtainedMarks-resultDetail.deductMarks)*(100/resultDetail.fullMarks)"
+            [bufferValue]="(resultDetail.fullMarks)*(100/resultDetail.fullMarks)">
+          </mat-progress-bar>
+        </section>
+        <br>
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button mat-button [mat-dialog-close]="true" color="warn">Close</button>
+    </mat-dialog-actions>
+  </div>
+</div>
