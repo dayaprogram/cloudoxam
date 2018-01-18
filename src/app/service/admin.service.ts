@@ -107,4 +107,9 @@ export class AdminService {
     const url = this.global.BASEURL + '/adm/getsubjectresult/?course=' + courseId + '&examseqno=' + examSeqNo;
     return this.api.get<Array<ResultDetail>>(url, { headers: this.headers });
   }
+
+  public getLastExamResult(): Observable<Array<ResultDetail>> {
+    const url = this.global.BASEURL + '/adm/getlastexamresult';
+    return this.api.get<Array<ResultDetail>>(url, { headers: this.headers });
+  }
 }

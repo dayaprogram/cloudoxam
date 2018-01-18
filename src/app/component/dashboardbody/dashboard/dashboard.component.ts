@@ -16,7 +16,7 @@ import { SubjectsResultDilogComponent } from '../../dialog/subjects-result-dilog
 export class DashboardComponent implements OnInit {
   @SessionStorage('loginUserDetail') userDtl: UserDetails;
   examSetDetailList: ExamSetDetail[];
-
+  lastExamResult: ResultDetail[];
   constructor(private elementRef: ElementRef,
     private adminApi: AdminService,
     private router: Router,
@@ -40,6 +40,11 @@ export class DashboardComponent implements OnInit {
       () => {
 
       });
+    this.adminApi.getLastExamResult().subscribe(
+      data => { this.lastExamResult = data; },
+      err => { console.log(err); },
+      () => { }
+    );
     this.inItChart();
   }
   openDialogSubjectsResult(courseId: string, examSeqNo: number, courseName: String): void {

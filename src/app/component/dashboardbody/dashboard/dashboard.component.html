@@ -43,10 +43,8 @@
                                     </td>
                                     <ng-template #ExamResultAndQnPaper>
                                         <div>
-                                            <button type="button" mat-raised-button color="primary" 
-                                            (click)="openDialogQuestionPaerWithResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Question Paper</button>
-                                            <button type="button" mat-raised-button color="accent" 
-                                            (click)="openDialogSubjectsResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Result</button>
+                                            <button type="button" mat-raised-button color="primary" (click)="openDialogQuestionPaerWithResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Question Paper</button>
+                                            <button type="button" mat-raised-button color="accent" (click)="openDialogSubjectsResult(examSetDetail.courseId,examSetDetail.examSeqNo,examSetDetail.courseName)">Result</button>
                                         </div>
                                     </ng-template>
                                     <ng-template #TakeExam>
@@ -73,31 +71,20 @@
                 </mat-card-header>
                 <mat-card-content>
                     <br>
-                    <div>
-                        <strong>General Aptitude</strong>
-                        <strong>50</strong>
+                    <div *ngFor="let resultDetail of lastExamResult">
+                        <strong>{{resultDetail.subjectName}}</strong>
+                        <strong style="color: rgb(17, 97, 178)">Full Marks:</strong>
+                        <strong style="color: rgb(17, 97, 178)">{{resultDetail.fullMarks}}</strong>
+                        <strong style="color: rgb(11, 125, 47)">Obtained Marks:</strong>
+                        <strong style="color: rgb(11, 125, 47)">{{resultDetail.obtainedMarks}}</strong>
+                        <strong style="color: brown">Negative Marks:</strong>
+                        <strong style="color: brown">{{resultDetail.deductMarks}}</strong>
                         <section class="example-section">
-                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="100" [bufferValue]="100">
+                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="(resultDetail.obtainedMarks-resultDetail.deductMarks)*(100/resultDetail.fullMarks)"
+                                [bufferValue]="(resultDetail.fullMarks)*(100/resultDetail.fullMarks)">
                             </mat-progress-bar>
                         </section>
-                    </div>
-                    <br>
-                    <div>
-                        <strong>General Aptitude</strong>
-                        <strong>50</strong>
-                        <section class="example-section">
-                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="90" [bufferValue]="100">
-                            </mat-progress-bar>
-                        </section>
-                    </div>
-                    <br>
-                    <div>
-                        <strong>General Aptitude</strong>
-                        <strong>50</strong>
-                        <section class="example-section">
-                            <mat-progress-bar class="example-margin" [color]="primary" [mode]="determinate" [value]="60" [bufferValue]="100">
-                            </mat-progress-bar>
-                        </section>
+                        <br>
                     </div>
                 </mat-card-content>
             </mat-card>
