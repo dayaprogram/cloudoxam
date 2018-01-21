@@ -21,8 +21,8 @@ export class ExamAccessGuard implements CanActivate {
         return false;
       }
     } else {
-    //  this.router.navigate(['/adm']);
-      return true;
+      this.router.navigate(['/adm']);
+      return false;
     }
   }
 }

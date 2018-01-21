@@ -77,7 +77,10 @@ import { SubjectsResultDilogComponent } from './component/dialog/subjects-result
     QuestionPaperComponent,
     SubjectsResultDilogComponent
   ],
-  entryComponents: [QuestionPaperComponent, SubjectsResultDilogComponent],
+  entryComponents: [
+    QuestionPaperComponent,
+    SubjectsResultDilogComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -6,20 +6,70 @@
     <mat-dialog-content>
       <div class="row" style="margin: 2px; text-align: left;font-size: 12px">
         <div class="col-sm-12" *ngFor='let questionSet of data.questionSetList'>
-            <mat-divider></mat-divider>
-          <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
-          <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
-          <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
-        </div>
-        <div class="col-sm-12">
+          <input type="text" [(ngModel)]="previousParagaraphId"[value]="questionSet.paragraphQuestionid" hidden>
+          <mat-divider></mat-divider>
+          <div *ngIf="questionSet.paragraphQuestionid===''||questionSet.paragraphQuestionid===null; then WithoutPara; else WithPara"></div>
 
-        </div>
+          <ng-template #WithoutParaQuestion>
+            <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
+            <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
+            <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
+            <div class="row">
+              <div class="col-sm-3">
+                {{questionSet.optionBodyAEng}}
+                /{{questionSet.optionBodyAHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyBEng}}
+                /{{questionSet.optionBodyBHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyCEng}}
+                /{{questionSet.optionBodyCHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyDEng}}
+                <br>{{questionSet.optionBodyDHnd}}
+              </div>
+            </div>
+          </ng-template>
 
+          <ng-template #WithPara>
+            <div *ngIf="questionSet.paragraphQuestionid===previousParagaraphId; then WithoutParaQuestion; else ParaAndQuestion"></div>
+            <ng-template #ParaAndQuestion>
+              <p [MathJax]="questionSet.questionBodyEng">{{questionSet.paragraphBodyEng}}</p>
+              <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.paragraphBodyHnd}}</p>
+              <img [src]="'data:image/png;base64,'+questionSet.paragraphImage" class="qstn-body-img" alt="">
+              <mat-divider></mat-divider>
+              <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
+              <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
+              <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
+               <div class="row">
+              <div class="col-sm-3">
+                {{questionSet.optionBodyAEng}}
+                <br>{{questionSet.optionBodyAHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyBEng}}
+                <br>{{questionSet.optionBodyBHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyCEng}}
+                <br>{{questionSet.optionBodyCHnd}}
+              </div>
+              <div class="col-sm-3">
+                {{questionSet.optionBodyDEng}}
+                <br>{{questionSet.optionBodyDHnd}}
+              </div>
+            </div>
+            </ng-template>
+          </ng-template>
+        </div>
       </div>
 
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button color="primary">Print</button>
+      <button mat-raised-button color="primary">Print</button>
       <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
       <button mat-button [mat-dialog-close]="true" color="warn">Close</button>
     </mat-dialog-actions>

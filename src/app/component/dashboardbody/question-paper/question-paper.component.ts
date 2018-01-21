@@ -13,6 +13,8 @@ export class QuestionPaperComponent implements OnInit {
   constructor(private adminApi: AdminService,
     public dialogRef: MatDialogRef<QuestionPaperComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
+  previousParagaraphId: any;
+
   ngOnInit() {
 
 
