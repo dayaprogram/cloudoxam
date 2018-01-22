@@ -6,30 +6,89 @@
     <mat-dialog-content>
       <div class="row" style="margin: 2px; text-align: left;font-size: 12px">
         <div class="col-sm-12" *ngFor='let questionSet of data.questionSetList'>
-          <input type="text" [(ngModel)]="previousParagaraphId"[value]="questionSet.paragraphQuestionid" hidden>
-          <mat-divider></mat-divider>
-          <div *ngIf="questionSet.paragraphQuestionid===''||questionSet.paragraphQuestionid===null; then WithoutPara; else WithPara"></div>
+          <input type="text" [(ngModel)]="previousParagaraphId" [value]="questionSet.paragraphQuestionid" hidden>
+          <br>
+          <div *ngIf="questionSet.paragraphQuestionid===''||questionSet.paragraphQuestionid===null; then WithoutParaQuestion; else WithPara"></div>
 
           <ng-template #WithoutParaQuestion>
-            <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
-            <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
-            <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
             <div class="row">
-              <div class="col-sm-3">
-                {{questionSet.optionBodyAEng}}
-                /{{questionSet.optionBodyAHnd}}
+              <div class="col-sm-12">
+                <p class="sameline">
+                  <strong>Qn No {{questionSet.questionSeqNo}} :</strong>
+                </p>
+                <p [MathJax]="questionSet.questionBodyEng" class="sameline">{{questionSet.questionBodyEng}}</p>
+                <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">A: </div>
+                    <div class="sameline"> {{questionSet.optionBodyAEng}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyAImg" class="option-body-img" alt="">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">B: </div>
+                    <div class="sameline"> {{questionSet.optionBodyBEng}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyBImg" class="option-body-img" alt="">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">C: </div>
+                    <div class="sameline"> {{questionSet.optionBodyCEng}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyCImg" class="option-body-img" alt="">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">D: </div>
+                    <div class="sameline"> {{questionSet.optionBodyDEng}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyDImg" class="option-body-img" alt="">
+                  </div>
+                </div>
               </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyBEng}}
-                /{{questionSet.optionBodyBHnd}}
+              <div class="col-sm-12" *ngIf="questionSet.questionBodyHindi!==''">
+                <p class="sameline">
+                  <strong>प्रश्न सं. {{questionSet.questionSeqNo}} :</strong>
+                </p>
+                <p [MathJax]="questionSet.questionBodyHindi" class="sameline">{{questionSet.questionBodyHindi}}</p>
+                <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">A: </div>
+                    <div class="sameline"> {{questionSet.optionBodyAHnd}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyAImg" class="option-body-img" alt="">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">B: </div>
+                    <div class="sameline"> {{questionSet.optionBodyBHnd}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyBImg" class="option-body-img" alt="">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">C: </div>
+                    <div class="sameline"> {{questionSet.optionBodyCHnd}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyCImg" class="option-body-img" alt="">
+
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="sameline index-style">D: </div>
+                    <div class="sameline"> {{questionSet.optionBodyDHnd}}</div>
+                    <img [src]="'data:image/png;base64,'+questionSet.optionBodyDImg" class="option-body-img" alt="">
+                  </div>
+                </div>
               </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyCEng}}
-                /{{questionSet.optionBodyCHnd}}
-              </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyDEng}}
-                <br>{{questionSet.optionBodyDHnd}}
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-6">
+                      <strong>  Correct Ans :  {{questionSet.correctAns}}</strong> 
+                  </div>
+                  <div class="col-sm-6">
+                    <p *ngIf="questionSet.finalSubmitAns!==''" class="sameline">
+                      <strong> Attemped Ans :  {{questionSet.finalSubmitAns}}</strong>
+                    </p>
+                    <strong>
+                      <i class="fa fa-check sameline" *ngIf="questionSet.finalSubmitAns===questionSet.correctAns" style="color: rgb(8, 118, 48)"></i>
+                    </strong>
+                    <strong>
+                      <i class="fa fa-times sameline" *ngIf="questionSet.finalSubmitAns!==questionSet.correctAns&&questionSet.finalSubmitAns!==''"
+                        style="color: brown"></i>
+                    </strong>
+                  </div>
+                </div>
               </div>
             </div>
           </ng-template>
@@ -41,27 +100,7 @@
               <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.paragraphBodyHnd}}</p>
               <img [src]="'data:image/png;base64,'+questionSet.paragraphImage" class="qstn-body-img" alt="">
               <mat-divider></mat-divider>
-              <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
-              <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
-              <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
-               <div class="row">
-              <div class="col-sm-3">
-                {{questionSet.optionBodyAEng}}
-                <br>{{questionSet.optionBodyAHnd}}
-              </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyBEng}}
-                <br>{{questionSet.optionBodyBHnd}}
-              </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyCEng}}
-                <br>{{questionSet.optionBodyCHnd}}
-              </div>
-              <div class="col-sm-3">
-                {{questionSet.optionBodyDEng}}
-                <br>{{questionSet.optionBodyDHnd}}
-              </div>
-            </div>
+              <div *ngIf="questionSet then WithoutParaQuestion"></div>
             </ng-template>
           </ng-template>
         </div>
