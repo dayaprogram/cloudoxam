@@ -230,13 +230,13 @@ export class McqQuestionComponent implements OnInit {
       'fullMarks': [null, Validators.required],
       'negativeMarks': [null, Validators.required],
       'course': [''],
-      'qutnBodyEng': ['', Validators.required],
+      'qutnBodyEng': [''],
       'qutnBodyHnd': [''],
       'qutnBodyImg': [''],
     });
 
     this.mcqOptionForm = this.formBuilder.group({
-      'optionBodyEng': ['', Validators.required],
+      'optionBodyEng': [''],
       'optionBodyHnd': [''],
       'optionBodyImg': ['']
     });
