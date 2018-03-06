@@ -152,8 +152,8 @@
 
 <ng-template #QuenBodyWithPara>
   <div class="col-sm-6 col-boarder overflow">
-    <p [MathJax]="questionSet.paragraphBodyEng">{{questionSet.paragraphBodyEng}}</p>
-    <p [MathJax]="questionSet.paragraphBodyHnd">{{questionSet.paragraphBodyHnd}}</p>
+    <p [MathJax]="questionSet.paragraphBodyEng"></p>
+    <p [MathJax]="questionSet.paragraphBodyHnd"></p>
     <div *ngIf='!(questionSet.paragraphImage==""||questionSet.paragraphImage==null); then ParaBodyImage'>
     </div>
 
@@ -164,8 +164,8 @@
 
   <div class="col-sm-6 col-boarder overflow">
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
-    <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
-    <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
+    <p [MathJax]="questionSet.questionBodyEng"></p>
+    <p [MathJax]="questionSet.questionBodyHindi"></p>
     <div class="qstn-body-img" *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyWPImage'>
     </div>
     <ng-template #QuestionBodyWPImage>
@@ -176,11 +176,9 @@
       <label>
         <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
-
-        <span [MathJax]="qstnOption.optionTextBodyEng">
-          <span class="option-index-style">{{qstnOption.optionIndex}} :
-          </span>{{qstnOption.optionTextBodyEng}}</span>
-        <span *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></span>
+        <span class="option-index-style sameline">{{qstnOption.optionIndex}} : </span>
+        <p class="sameline" [MathJax]="qstnOption.optionTextBodyEng" ></p>
+        <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
       </label>
       <br>
       <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
@@ -189,7 +187,7 @@
         <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
       </ng-template>
       <ng-template #OptionBodyHindi>
-        <p [MathJax]="qstnOption.optionTextBodyHnd">{{qstnOption.optionTextBodyHnd}}</p>
+        <p class="secondline-margin" [MathJax]="qstnOption.optionTextBodyHnd"></p>
       </ng-template>
       <ng-template #OptionBodyImage>
         <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" class="option-body-img" alt="">
@@ -201,8 +199,8 @@
 <ng-template #QuenBodyWithoutPara>
   <div class="col-sm-12 col-boarder overflow">
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
-    <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
-    <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
+    <p [MathJax]="questionSet.questionBodyEng"></p>
+    <p [MathJax]="questionSet.questionBodyHindi"></p>
     <div *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyImage'>
     </div>
     <br>
@@ -210,9 +208,9 @@
       <label>
         <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
-        <span class="option-index-style">{{qstnOption.optionIndex}} : </span>
-        <p [MathJax]="qstnOption.optionTextBodyEng">{{qstnOption.optionTextBodyEng}}</p>
-        <p *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
+        <span class="option-index-style sameline">{{qstnOption.optionIndex}} : </span>
+        <p class="sameline" [MathJax]="qstnOption.optionTextBodyEng" ></p>
+        <p  *ngIf="qstnOption.optionTextBodyEng!==qstnOption.optionTextBodyHnd; then OptionBodyHindi"></p>
       </label>
       <div *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
       </div>
@@ -220,7 +218,7 @@
         <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
       </ng-template>
       <ng-template #OptionBodyHindi>
-        <p [MathJax]="qstnOption.optionTextBodyHnd">{{qstnOption.optionTextBodyHnd}}</p>
+        <p class="secondline-margin" [MathJax]="qstnOption.optionTextBodyHnd"></p>
       </ng-template>
       <ng-template #OptionBodyImage>
         <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" class="option-body-img" alt="">

@@ -41,9 +41,11 @@ export class AuthenticationService {
   }
 
   public clearLocalData(): void {
-    this.localStorageService.clear('decorators'); // removes only variables created by decorating functions
-    this.localStorageService.clear('prefix'); // removes variables starting with set prefix (including decorators)
+    // this.localStorageService.clear('decorators'); // removes only variables created by decorating functions
+    // this.localStorageService.clear('prefix'); // removes variables starting with set prefix (including decorators)
     this.sessionStorageService.clear('all'); // removes all session storage data
+    this.localStorageService.clear('all'); // removes all session storage data
+
   }
 
   obtainAccessToken(loginData: any) {
@@ -107,6 +109,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.clearLocalData();
     this.cookieService.delete('access_token');
     this.userExpairyTime = 0;
     this._router.navigate(['/login']);
