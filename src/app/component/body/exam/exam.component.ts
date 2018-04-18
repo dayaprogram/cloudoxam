@@ -29,22 +29,10 @@ import { UserDetails } from '../../../model/user-details';
 export class ExamComponent implements OnInit {
 
 
-  // it will be stored under ${prefix}viewCounts name
-  // @LocalStorage() viewCounts: number = 0;
-  // this under name: ${prefix}differentLocalStorageKey
-  // import { CookieStorage, LocalStorage, SessionStorage } from 'ngx-store';
   @SessionStorage('loginUserDetail') userDtl: UserDetails;
   @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
   @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
   @SessionStorage('EXAMQUESTIONSET') examQuestionSetLocal: ExamQuestionSet = new ExamQuestionSet();
-
-  // it will be stored under ${prefix}itWillBeRemovedAfterBrowserClose in session storage
-  // @SessionStorage({ key: 'itWillBeRemovedAfterBrowserClose' }) previousUserNames: Array<string> = [];
-  // it will be read from cookie 'user_id' (can be shared with backend) and saved to localStorage and cookies after change
-  // @LocalStorage() @CookieStorage({ prefix: '', key: 'user_id' }) userId: string = '';
-  // it will be stored in a cookie named ${prefix}user_workspaces for 24 hours
-  // @CookieStorage({ key: 'user_workspaces', expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000) }) userWorkspaces = [];
-
 
   constructor(
     private cookieService: CookieService,
@@ -280,21 +268,7 @@ export class ExamComponent implements OnInit {
         console.log('Something went wrong!');
       }
     );
-    /*  Observable.interval(1000 * 60).subscribe(x => {
-        alert('schedular submit');
-        this.api.saveExam(this.questionStatusList).subscribe(
-          data => {
-            console.log(data);
-            alert(data);
-          },
-          // Errors will call this callback instead:
-          err => {
-            console.log('Something went wrong!' + err);
-            console.log(err);
-          }
-        );
-      });
-      */
+
     this.api.getExamLang().subscribe(
       data => {
         this.questionLangList = data;
@@ -318,6 +292,8 @@ export class ExamComponent implements OnInit {
         this.hoursDisplay = this.getHours(counter);
         if (counter === 0) {
           this.finalSubmit();
+        } if (counter === 300) {
+          alert('Only Five Minutes Left to over the exam! its automatically save after five minuts.');
         }
       }
       );

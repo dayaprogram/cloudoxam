@@ -86,3 +86,17 @@
     .div-qtn-info{
         font-size: 12px;
     }
+    .qstn-body-img{
+        width:100%;max-width:250px;max-height:150px;height:100%; 
+     }
+     .option-body-img{
+        width:100%;max-width:140px;max-height:70px;height:100%; 
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 0rem;
+        font-size: 14px;
+      }
+      .option-index-style{
+        color: rgb(192, 143, 9)
+     }

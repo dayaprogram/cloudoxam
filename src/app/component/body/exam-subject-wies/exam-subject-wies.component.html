@@ -65,7 +65,7 @@
     <div class="col-sm-3">
       <div class="row row-boarder" style="height: 102px;">
         <div class="col-sm-4">
-          <img src="http://itmsa.ca/images/student-icon.png" height="90px" width="80px" alt="HTML Tutorial" />
+          <img src="http://itmsa.ca/images/student-icon.png" height="90px" width="80px" alt="" />
         </div>
         <div class="col-sm-8" style="text-align: left">
           <span>User Id</span>
@@ -151,12 +151,14 @@
     <span *ngIf='!(questionSet.questionBodyImage==""||questionSet.questionBodyImage==null); then QuestionBodyWPImage'>
     </span>
     <ng-template #QuestionBodyWPImage>
-      <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" height="50%" width="50%" alt="">
+      <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" 
+      height="50%" width="50%" alt="">
     </ng-template>
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
-        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
+        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
+        (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
         <span class="option-index-style">{{qstnOption.optionIndex}} :
         </span>
@@ -165,7 +167,7 @@
         <span *ngIf='!(qstnOption.optionTextImage==""||qstnOption.optionTextImage==null); then OptionBodyImage'>
         </span>
         <ng-template #QuestionBodyImage>
-          <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" height="50%" width="50%" alt="">
+         <img [src]="'data:image/png;base64,'+questionSet.questionBodyImage" class="qstn-body-img" alt="">
         </ng-template>
         <ng-template #OptionBodyHindi>
           <p [MathJax]="qstnOption.optionTextBodyHnd">{{qstnOption.optionTextBodyHnd}}</p>
@@ -190,7 +192,7 @@
         </span>
         <span>{{qstnOption.optionTextBodyEng}}</span>
         <span>
-          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" height="50%" width="50%">
+          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" class="option-body-img" alt="">
         </span>
       </label>
     </div>
@@ -233,7 +235,7 @@
         </span>
         <span>{{qstnOption.optionTextBodyHnd}}</span>
         <span>
-          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" height="50%" width="50%">
+          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" class="option-body-img" alt="">
         </span>
       </label>
     </div>

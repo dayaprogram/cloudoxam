@@ -17,6 +17,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/interval';
 import { LocalStorage, SessionStorage } from 'ngx-store';
+import { UserDetails } from '../../../model/user-details';
 @Component({
   selector: 'app-exam-subject-wies',
   templateUrl: './exam-subject-wies.component.html',
@@ -30,9 +31,13 @@ export class ExamSubjectWiesComponent implements OnInit {
     private router: Router
   ) { }
 
+  // @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
+  // @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
+  @SessionStorage('EXAMQUESTIONSETSUBJECT') examQuestionSetSubjectLocal: ExamQuestionSetSubject = new ExamQuestionSetSubject();
+
+  @SessionStorage('loginUserDetail') userDtl: UserDetails;
   @LocalStorage('EXAMSEQNO') examSeqNoLocalStore: number;
   @SessionStorage('EXAMCOMPLETEFLAG') examCompleteFlag: String;
-  @SessionStorage('EXAMQUESTIONSETSUBJECT') examQuestionSetSubjectLocal: ExamQuestionSetSubject = new ExamQuestionSetSubject();
 
 
   questionSetSubjectList: QuestionSetSubject[];
@@ -52,7 +57,7 @@ export class ExamSubjectWiesComponent implements OnInit {
 
   questionSubjectList: Options[];
   subject = '';
-  questionLang = 'ENG';
+  questionLang = 'HND';
   selectedOption: string;
   selectedSubject: string;
 
