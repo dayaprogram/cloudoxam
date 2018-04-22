@@ -15,7 +15,7 @@
             <button type="button" class="btn btn-default btn-border btn-left-round" [ngClass]="{'btn-primary': selectedSubject == questionSetSubject.subjectId, 'btn-default': true}"
               (click)="onClickSubject(questionSetSubject.subjectId)">
               {{questionSetSubject.subjectName}}</button>
-          </div>
+          </div> 
         </div>
       </div>
       <div class="row row-boarder div-qtn-info">
@@ -94,22 +94,22 @@
         <div class="col-sm-12">
           <div class="row">
             <div class="col-sm-6">
-              <button type="button" class="btn btn-primary btn-nav-dcr answered"></button>
+              <button type="button" class="btn btn-primary btn-nav-dcr answered">{{quetStatusCount.answered}}</button>
               <span>Answered</span>
             </div>
             <div class="col-sm-6">
-              <button type="button" class="btn btn-primary btn-nav-dcr  not_aswared"></button>
+              <button type="button" class="btn btn-primary btn-nav-dcr  not_aswared">{{quetStatusCount.notAswared}}</button>
               <span>Not Answered</span>
             </div>
           </div>
           <br>
           <div class="row">
             <div class="col-sm-6">
-              <button type="button" class="btn btn-primary btn-nav-dcr  marked_review_answered"></button>
+              <button type="button" class="btn btn-primary btn-nav-dcr  marked_review_answered">{{quetStatusCount.markedReviewAnswered}}</button>
               <span>Mark For Review</span>
             </div>
             <div class="col-sm-6">
-              <button type="button" class="btn btn-primary btn-nav-dcr not_visited"></button>
+              <button type="button" class="btn btn-primary btn-nav-dcr not_visited">{{quetStatusCount.notVisited}}</button>
               <span>Not Visited</span>
             </div>
           </div>

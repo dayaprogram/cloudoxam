@@ -142,7 +142,6 @@ export class ExamComponent implements OnInit {
       x => x.markedForReview === true && x.finalSubmitAns === '').length;
   }
 
-
   onClickOption(questionSeqNo: number, optionIndex: string) {
     this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).finalSubmitAns = optionIndex;
     //  this.questionSetList[questionSeqNo].finalSubmitAns = optionIndex;

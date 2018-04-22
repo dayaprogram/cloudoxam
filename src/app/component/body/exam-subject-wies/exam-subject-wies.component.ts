@@ -18,6 +18,7 @@ import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/interval';
 import { LocalStorage, SessionStorage } from 'ngx-store';
 import { UserDetails } from '../../../model/user-details';
+import { QuetStatusCount } from '../../../model/question-status-count';
 @Component({
   selector: 'app-exam-subject-wies',
   templateUrl: './exam-subject-wies.component.html',
@@ -49,7 +50,7 @@ export class ExamSubjectWiesComponent implements OnInit {
 
   questionStatusList: QuestionStatus[] = [];
   questionStatus: QuestionStatus = new QuestionStatus();
-
+  quetStatusCount: QuetStatusCount = new QuetStatusCount();
   qstnOptionList: QuestionOption[];
   // this array evoluate by createQuestionOptions methode
 
@@ -126,6 +127,8 @@ export class ExamSubjectWiesComponent implements OnInit {
     this.questionNavigator(questionSeqNo + 1);
   }
 
+
+
   saveAndNext(questionSeqNo: number) {
     const questionSet = this.questionSetList.find(x => x.questionSeqNo === questionSeqNo);
     this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
@@ -145,6 +148,7 @@ export class ExamSubjectWiesComponent implements OnInit {
       this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).navButtonClass = this.navButtonClassAnswered;
     }
     this.questionNavigator(questionSeqNo + 1);
+    this.makeQuestionStatusCount();
   }
 
   clearResponse(questionSeqNo: number) {
@@ -154,6 +158,7 @@ export class ExamSubjectWiesComponent implements OnInit {
       // set the css class not answered
       this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).navButtonClass = this.navButtonClassNotAnswered;
     }
+    this.makeQuestionStatusCount();
   }
 
   onClickOption(questionSeqNo: number, optionIndex: string) {
@@ -177,7 +182,16 @@ export class ExamSubjectWiesComponent implements OnInit {
       }
     );
   }
-
+  makeQuestionStatusCount() {
+    this.quetStatusCount.notAswared = this.questionStatusList.filter(x => x.finalSubmitAns === '' && x.markedForReview === false).length;
+    this.quetStatusCount.answered = this.questionStatusList.filter(x => x.finalSubmitAns !== '' && x.markedForReview === false).length;
+    this.quetStatusCount.markedReviewAnswered = this.questionStatusList.filter(
+      x => x.markedForReview === true && x.finalSubmitAns !== '').length;
+    this.quetStatusCount.markedReviewNotAns = this.questionStatusList.filter(
+      x => x.markedForReview === true && x.finalSubmitAns === '').length;
+      this.quetStatusCount.notVisited = this.questionStatusList.filter(
+        x => x.visited === false && x.finalSubmitAns === '').length;
+  }
   createQuestionOptions(number: number, questionSeqNo: number) {
     this.qstnOptionList = [];
     for (let i = 65; i < (number + 65); i++) {
@@ -285,28 +299,28 @@ export class ExamSubjectWiesComponent implements OnInit {
       .take(counter)
       .map(() => --counter)
       .subscribe(
-      t => {
-        this.secondsDisplay = this.getSeconds(counter);
-        this.minutesDisplay = this.getMinutes(counter);
-        this.hoursDisplay = this.getHours(counter);
-        if ((this.getMinutesNum(counter) % 15) === 0) {
-          this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
-            data => {
-              console.log(data);
-            },
-            // Errors will call this callback instead:
-            err => {
-              console.log('Something went wrong!' + err);
-            }
-          );
+        t => {
+          this.secondsDisplay = this.getSeconds(counter);
+          this.minutesDisplay = this.getMinutes(counter);
+          this.hoursDisplay = this.getHours(counter);
+          if ((this.getMinutesNum(counter) % 15) === 0) {
+            this.api.saveExam(this.questionStatusList, this.examCompleteFlag).subscribe(
+              data => {
+                console.log(data);
+              },
+              // Errors will call this callback instead:
+              err => {
+                console.log('Something went wrong!' + err);
+              }
+            );
+          }
+          if (this.getMinutesNum(counter) === 5) {
+            alert('Only Five Left to over the exam! its automatically save after five minuts');
+          }
+        },
+        () => {
+          alert('hello Complete');
         }
-        if (this.getMinutesNum(counter) === 5) {
-          alert('Only Five Left to over the exam! its automatically save after five minuts');
-        }
-      },
-      () => {
-        alert('hello Complete');
-      }
       );
   }
 
