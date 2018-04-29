@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-sm-12" style="  background-color:rgb(56, 56, 58); border: 1px solid black;">
-      <p style="text-align: center; color:antiquewhite; padding-top: 10px; font-weight: bold; font-size:20px;">{{courseExamDeatal.examCaption}}{{examSeqNo}}</p>
+      <p style="text-align: center; color:antiquewhite; padding-top: 10px; font-weight: bold; font-size:20px;">{{courseExamDeatal.examCaption}} &nbsp; {{examSeqNo}}</p>
     </div>
   </div>
   <div class="row">
@@ -53,10 +53,39 @@
         </div>
       </ng-template>
       <!-- <div class="divider"></div> -->
+      <div class="row" class="qtn-btn-background">
+          <div class="col-sm-12">
+            <div class="row" style="margin-top: 15px">
+              <div class="col-sm-2">
+                <button type="button" class="btn btn-default btn-border"  (click)="questionNavigator(questionSet.questionSeqNo-1)">
+                  <strong>
+                    <i class="fa fa-chevron-left"></i>
+                  </strong>Next Question
+                </button>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" class="btn btn-default btn-border"  (click)="questionNavigator(questionSet.questionSeqNo+1)">
+                  Next Question
+                  <strong>
+                    <i class="fa fa-chevron-right"></i>
+                  </strong>
+                </button>
+              </div>
+              <div class="col-sm-4"></div>
+              <div class="col-sm-2">
+                <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">{{tagBtnCaption}}</button>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" class="btn btn-danger" (click)="clearAnswer(questionSet.questionSeqNo)">Erase</button>
+              </div>
+            
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="col-sm-3">
-      <div style="height: 120px; background-color:#99ff33;border-top-right-radius: 25px; border-top-left-radius: 25px; margin-top:10px; margin-left:1px; margin-bottom: 10px">
+      <div class="std_profile">
         <div class="row">
           <div class="col-sm-4">
             <img src="http://itmsa.ca/images/student-icon.png" height="90px" width="80px" alt="" />
@@ -83,6 +112,7 @@
             <div class="col-sm-12">
               <div class="row" style=" font-size: 11px;text-align: center;">
                 <div class="col-sm-12">
+                    <div class="container-fluid">
                   <div class="row">
                     <div class="col-sm-3">
                       <button type="button" class="btn btn-primary btn-nav-dcr answered">{{quetStatusCount.answered}}</button>
@@ -106,48 +136,25 @@
                     </div>
                     <div class="col-sm-1"></div>
                   </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row" style="background-color:#dce0d7; height: 65px">
-    <div class="col-sm-12">
-      <div class="row" style="margin-top: 15px">
-        <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border" style="background-color: #adadad" (click)="questionNavigator(questionSet.questionSeqNo-1)">
-            <strong>
-              <i class="fa fa-chevron-left"></i>
-            </strong>Next Question
-          </button>
-        </div>
-        <div class="col-sm-2">
-          <button type="button" class="btn btn-default btn-border" style="background-color: #adadad" (click)="questionNavigator(questionSet.questionSeqNo+1)">
-            Next Question
-            <strong>
-              <i class="fa fa-chevron-right"></i>
-            </strong>
-          </button>
-        </div>
-        <div class="col-sm-2">
-          <button type="button" class="btn btn-warning" (click)="markForReview(questionSet.questionSeqNo)">{{tagBtnCaption}}</button>
-        </div>
-        <div class="col-sm-2">
-          <button type="button" class="btn btn-danger" (click)="clearAnswer(questionSet.questionSeqNo)">Erase</button>
-        </div>
-        <div class="col-sm-4">
+      <div class="col-sm-12 qtn-btn-background">
           <button type="button" class="btn btn-success btn-md" style="text-align: center" (click)=" finalSubmit()">
-
             <strong>
               <i class="fa fa-check"></i>
             </strong>Preview Submit</button>
         </div>
-      </div>
     </div>
   </div>
+  
+ 
+
+
 </div>
 
 <ng-template #QuenBodyWithPara>

@@ -14,6 +14,9 @@
             <div class="row">
               <div class="col-sm-12">
                 <p class="sameline">
+                  <strong>Qn ID {{questionSet.questionId}} :</strong>
+                </p>
+                <p class="sameline">
                   <strong>Qn No {{questionSet.questionSeqNo}} :</strong>
                 </p>
                 <p [MathJax]="questionSet.questionBodyEng" class="sameline">{{questionSet.questionBodyEng}}</p>
@@ -42,6 +45,9 @@
                 </div>
               </div>
               <div class="col-sm-12" *ngIf="questionSet.questionBodyHindi!==''">
+                <p class="sameline">
+                  <strong>Qn ID {{questionSet.questionId}} :</strong>
+                </p>
                 <p class="sameline">
                   <strong>प्रश्न सं. {{questionSet.questionSeqNo}} :</strong>
                 </p>
@@ -74,11 +80,11 @@
               <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-6">
-                      <strong>  Correct Ans :  {{questionSet.correctAns}}</strong> 
+                    <strong> Correct Ans : {{questionSet.correctAns}}</strong>
                   </div>
                   <div class="col-sm-6">
                     <p *ngIf="questionSet.finalSubmitAns!==''" class="sameline">
-                      <strong> Attemped Ans :  {{questionSet.finalSubmitAns}}</strong>
+                      <strong> Attemped Ans : {{questionSet.finalSubmitAns}}</strong>
                     </p>
                     <strong>
                       <i class="fa fa-check sameline" *ngIf="questionSet.finalSubmitAns===questionSet.correctAns" style="color: rgb(8, 118, 48)"></i>

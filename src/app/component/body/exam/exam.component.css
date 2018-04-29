@@ -51,6 +51,30 @@ border: 2px solid #025aa5;
 .option-index-style{
     color: rgb(192, 143, 9)
  }
+ .qtn-btn-background{
+    background-color:#dce0d7; 
+    height: 65px;
+ }
+ .std_profile{
+    height: 120px; 
+    background-color:#99ff33;
+    border-top-right-radius: 25px; 
+    border-top-left-radius: 25px; 
+    margin-top:10px; margin-left:1px;
+    margin-bottom: 10px
+ }
+ @media (max-width: 400px) {
+    .qtn-btn-background{
+        background-color:#adadad;
+        height: auto;
+     }
+     .qtn-btn-background .btn{
+         width: 100%;
+     }
+     .std_profile{
+        height:auto; }
+
+}
  .overflow{
     overflow-y:scroll;height:370px; text-align: left;
  }

@@ -106,7 +106,7 @@
           <div class="row">
             <div class="col-sm-6">
               <button type="button" class="btn btn-primary btn-nav-dcr  marked_review_answered">{{quetStatusCount.markedReviewAnswered}}</button>
-              <span>Mark For Review</span>
+              <span>Mark For Review & Ans</span>
             </div>
             <div class="col-sm-6">
               <button type="button" class="btn btn-primary btn-nav-dcr not_visited">{{quetStatusCount.notVisited}}</button>
@@ -182,7 +182,7 @@
 <ng-template #EngQuenBodyWithoutPara>
   <div class="col-sm-12 col-boarder overflow">
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
-    <p>{{questionSet.questionBodyEng}}</p>
+    <p [MathJax]="questionSet.questionBodyEng">{{questionSet.questionBodyEng}}</p>
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
@@ -200,23 +200,24 @@
 </ng-template>
 <ng-template #HndQuenBodyWithPara>
   <div class="col-sm-6 col-boarder overflow">
-    <p>
+    <p [MathJax]="questionSet.paragraphBodyHnd">
       {{questionSet.paragraphBodyHnd}}
     </p>
   </div>
   <div class="col-sm-6 col-boarder overflow">
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
-    <p>{{questionSet.questionBodyHindi}}</p>
+    <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
-        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
+        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
+        (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
         <span class="option-index-style">{{qstnOption.optionIndex}} :
         </span>
         <span>{{qstnOption.optionTextBodyHnd}}</span>
         <span>
-          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" height="50%" width="50%">
+          <img [src]="'data:image/png;base64,'+qstnOption.optionTextImage" height="50%" width="50%" alt="">
         </span>
       </label>
     </div>
@@ -225,11 +226,12 @@
 <ng-template #HndQuenBodyWithoutPara>
   <div class="col-sm-12 col-boarder overflow">
     <span style="font-weight: bold;">Question No: {{questionSet.questionSeqNo}}</span>
-    <p>{{questionSet.questionBodyHindi}}</p>
+    <p [MathJax]="questionSet.questionBodyHindi">{{questionSet.questionBodyHindi}}</p>
     <br>
     <div class="radio" *ngFor="let qstnOption of qstnOptionList">
       <label>
-        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
+        <input type="radio" name="optradio" [value]="qstnOption.optionIndex" 
+        (click)="onClickOption(qstnOption.questionSeqNo,qstnOption.optionIndex)"
           [(ngModel)]="questionStatusList[qstnOption.questionSeqNo-1].finalSubmitAns">
         <span class="option-index-style">{{qstnOption.optionIndex}} :
         </span>

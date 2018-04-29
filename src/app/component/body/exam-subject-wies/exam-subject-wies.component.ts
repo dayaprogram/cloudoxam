@@ -102,6 +102,7 @@ export class ExamSubjectWiesComponent implements OnInit {
       const subjectId = this.questionSetSubjectList[nextIndex + 1].subjectId;
       this.onClickSubject(subjectId);
     }
+    this.makeQuestionStatusCount();
   }
 
   markForReviewAndNav(questionSeqNo: number) {
@@ -110,9 +111,9 @@ export class ExamSubjectWiesComponent implements OnInit {
     this.createQuestionOptions(questionSet.noOfOpt, questionSet.questionSeqNo);
     const questionStatus = this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo);
     if (!questionStatus.markedForReview) {
+             this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
       if (questionStatus.finalSubmitAns === '') {
-        this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).markedForReview = true;
-        // set the css class mark for review and not answered
+         // set the css class mark for review and not answered
         this.questionStatusList.find(x => x.questionSeqNo === questionSeqNo).navButtonClass = this.navButtonClassMarkedForReviewNotAns;
       } else {
         // set the css class mark for review but answered
@@ -189,8 +190,8 @@ export class ExamSubjectWiesComponent implements OnInit {
       x => x.markedForReview === true && x.finalSubmitAns !== '').length;
     this.quetStatusCount.markedReviewNotAns = this.questionStatusList.filter(
       x => x.markedForReview === true && x.finalSubmitAns === '').length;
-      this.quetStatusCount.notVisited = this.questionStatusList.filter(
-        x => x.visited === false && x.finalSubmitAns === '').length;
+    this.quetStatusCount.notVisited = this.questionStatusList.filter(
+      x => x.visited === false && x.finalSubmitAns === '').length;
   }
   createQuestionOptions(number: number, questionSeqNo: number) {
     this.qstnOptionList = [];
@@ -258,6 +259,7 @@ export class ExamSubjectWiesComponent implements OnInit {
     this.startCountDownTimer(this.examTime * 60);
     this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
     this.examTime = this.examQuestionSetSubjectLocal.examTime;
+    this.makeQuestionStatusCount();
   }
 
   ngOnInit() {
@@ -315,8 +317,10 @@ export class ExamSubjectWiesComponent implements OnInit {
               }
             );
           }
-          if (this.getMinutesNum(counter) === 5) {
-            alert('Only Five Left to over the exam! its automatically save after five minuts');
+          if (counter === 0) {
+            this.finalSubmit();
+          } if (counter === 300) {
+            alert('Only Five Minutes Left to over the exam! its automatically save after five minuts.');
           }
         },
         () => {
