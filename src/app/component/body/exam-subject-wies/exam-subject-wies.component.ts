@@ -270,6 +270,7 @@ export class ExamSubjectWiesComponent implements OnInit {
         data => {
           this.examQuestionSetSubjectLocal = data;
           this.questionSetSubjectList = data.mcqQuestionSubjectList;
+          this.examTime = data.examTime;
         },
         // Errors will call this callback instead:
         err => {

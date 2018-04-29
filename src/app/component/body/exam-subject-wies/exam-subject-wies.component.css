@@ -26,10 +26,11 @@
     border: 2px solid #025aa5;
     }
     .btn-nav-dcr{
-        width: 20px !important;
+        width: 30px !important;
         padding-left: 11px;
         text-align: center;
         height: 27px;
+        font-size: 12px;
     }
     .not_visited{
         background-color: rgb(240, 240, 228);
@@ -37,13 +38,13 @@
     }
     .not_aswared{
         background-color: rgb(219, 8, 36);
-        color: rgb(253, 247, 247);
+        color: black;
         border-bottom-left-radius: 18px;
         border-bottom-right-radius: 18px;
     }
     .marked_review_answered{
         background-color: rgb(184, 19, 143);
-        color: rgb(253, 247, 247);
+        color: black;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         border-top-left-radius: 20px;
@@ -51,7 +52,7 @@
     }
     .marked_review_not_answered{
         background-color: rgb(235, 144, 26);
-        color: rgb(253, 247, 247);
+        color: black;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         border-top-left-radius: 20px;
@@ -59,7 +60,7 @@
     }
     .answered{
         background-color: rgb(26, 151, 14);
-        color: rgb(253, 247, 247);
+        color: black;
         border-top-left-radius: 18px;
         border-top-right-radius: 18px;
     }
