@@ -1,188 +1,348 @@
-<div class="dashboard-main-section">
-  <!---// LEFT PART -->
-  <div class="dashboard-left">
-    <!--// LEFT HEADER -->
-    <div class="left-dashboard-header">
-      <h1>Dashboard</h1>
-    </div>
-    <!---// LEFT HEADER SECTION -->
-    <!---// LEFT MID SECTION -->
-    <div class="left-dashboard-mid">
-      <ul>
-        <li>
-          <a routerLink="/adm" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <i class="fa fa-dashboard"></i>
-            <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-        </li>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div *ngIf="userDtl.roleId===3; then StudentMenu else AdninMenu"></div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Cloudoxam">
 
-        <ng-template #AdninMenu>
-          <li>
-            <a routerLink="/adm/studentdtl" routerLinkActive="active">
-              <i class="fa fa-address-book-o"></i>
-              <span>Student Details</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+  <title>Cloudoxam</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./assets/assets/css/bootstrap.css" rel="stylesheet">
+  <!--external css-->
+  <link href="./assets/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="./assets/assets/css/style.css" rel="stylesheet">
+  <link href="./assets/assets/css/style-responsive.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a  class="logo"><b>{{userDtl.instName}}</b></a>
+      
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+          <!-- settings start -->
+          <!--
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle">
+              <i class="fa fa-tasks"></i>
+              <span class="badge bg-theme">4</span>
             </a>
-          </li>
-          <li class="treeview">
-            <a>
-              <i class="fa fa-question-circle-o"></i>
-              <span>Question</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-double-down pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
+            <ul class="dropdown-menu extended tasks-bar">
+              <div class="notify-arrow notify-arrow-green"></div>
               <li>
-                <a routerLink="/adm/question/mcq" routerLinkActive="active">
-                  <span>MCQ Question</span>
+                <p class="green">You have 4 pending tasks</p>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <div class="task-info">
+                    <div class="desc">DashGum Admin Panel</div>
+                    <div class="percent">40%</div>
+                  </div>
+                  <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 40%">
+                      <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                  </div>
                 </a>
               </li>
               <li>
-                <a routerLink="/adm/question/paramcq" routerLinkActive="active">
-                  <span>Paragraph Question</span>
+                <a href="index.html#">
+                  <div class="task-info">
+                    <div class="desc">Database Update</div>
+                    <div class="percent">60%</div>
+                  </div>
+                  <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 60%">
+                      <span class="sr-only">60% Complete (warning)</span>
+                    </div>
+                  </div>
                 </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <div class="task-info">
+                    <div class="desc">Product Development</div>
+                    <div class="percent">80%</div>
+                  </div>
+                  <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                      <span class="sr-only">80% Complete</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <div class="task-info">
+                    <div class="desc">Payments Sent</div>
+                    <div class="percent">70%</div>
+                  </div>
+                  <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 70%">
+                      <span class="sr-only">70% Complete (Important)</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="external">
+                <a href="#">See All Tasks</a>
               </li>
             </ul>
           </li>
-        </ng-template>
-
-
-        <ng-template #StudentMenu></ng-template>
-      </ul>
-
-    </div>
-    <!---// LEFT MID SECTION END -->
-    <!---// LEFT FOOTER SECTION -->
-    <div class="left-dashboard-footer">
-      <ul>
-        <li>
-          <a href="#">
-            <i class="fa fa-envelope-o"></i>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-envelope-o"></i>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-envelope-o"></i>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-envelope-o"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!---// LEFT FOOTER SECTION END -->
-  </div>
-  <!---// LEFT PART END -->
-  <!--// RIGHT PART -->
-  <div class="dashboard-right">
-    <!--// RIGHT HEADER -->
-    <div class="right-dashboard-header">
-      <ul class="float-left">
-        <li class="slide-menu">
-          <i class="fa fa-align-justify" aria-hidden="true"></i>
-        </li>
-        <!--
-        <li class="right-header-search">
-          <input type="text" class="custom-search" />
-          <span>
-            <i class="fa fa-search"></i>
-          </span>
-        </li>
       -->
-        <li>
-          <h3>{{userDtl.instName}}</h3>
-        </li>
-      </ul>
-      <ul class="float-right">
-        <li>
-          <a >
-            <i class="fa fa-bell-o"></i>
-          </a>
-        </li>
-        <li class="right-header-user">
-          <img src="http://uxliner.com/niche/main/dist/img/img1.jpg" />
-          <span>{{userDtl.firstName}}</span>
-          <ul>
-            <!--
-            <li>
-              <a href="#">Account Settings</a>
-            </li>
-            <li>
-              <a href="#">My Profile</a>
-            </li>
-            <li>
-              <a href="#">Bookmark</a>
-            </li>
-            <li>
-              <a href="#">My Payment</a>
-            </li>
+          <!-- settings end -->
+          <!-- inbox dropdown start-->
+          <!--
+          <li id="header_inbox_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-theme">5</span>
+            </a>
+            <ul class="dropdown-menu extended inbox">
+              <div class="notify-arrow notify-arrow-green"></div>
               <li>
-              <a (click)="logout()">Log Out</a>
+                <p class="green">You have 5 new messages</p>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="photo">
+                    <img alt="avatar" src="./assets/assets/img/ui-zac.jpg">
+                  </span>
+                  <span class="subject">
+                    <span class="from">Zac Snider</span>
+                    <span class="time">Just now</span>
+                  </span>
+                  <span class="message">
+                    Hi mate, how is everything?
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="photo">
+                    <img alt="avatar" src="./assets/assets/img/ui-divya.jpg">
+                  </span>
+                  <span class="subject">
+                    <span class="from">Divya Manian</span>
+                    <span class="time">40 mins.</span>
+                  </span>
+                  <span class="message">
+                    Hi, I need your help with this.
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="photo">
+                    <img alt="avatar" src="./assets/assets/img/ui-danro.jpg">
+                  </span>
+                  <span class="subject">
+                    <span class="from">Dan Rogers</span>
+                    <span class="time">2 hrs.</span>
+                  </span>
+                  <span class="message">
+                    Love your new Dashboard.
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="photo">
+                    <img alt="avatar" src="./assets/assets/img/ui-sherman.jpg">
+                  </span>
+                  <span class="subject">
+                    <span class="from">Dj Sherman</span>
+                    <span class="time">4 hrs.</span>
+                  </span>
+                  <span class="message">
+                    Please, answer asap.
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="index.html#">See all messages</a>
+              </li>
+            </ul>
+          </li>
+        -->
+          <!-- inbox dropdown end -->
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li>
+            <a class="logout" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+
+          <p class="centered">
+            <img src="./assets/assets/img/ui-sam.jpg" class="img-circle" width="60">
+          </p>
+          <h5 class="centered">{{userDtl.firstName}}
+
+          </h5>
+
+          <li class="mt">
+            <a routerLink="/adm" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+
+          <div *ngIf="userDtl.roleId===3; then StudentMenu else AdninMenu"></div>
+
+          <ng-template #AdninMenu>
+            <li class="sub-menu">
+              <a routerLink="/adm/studentdtl" routerLinkActive="active">
+                <i class="fa fa-tasks"></i>
+                <span>Student Details</span>
+              </a>
+              <!--<ul class="sub">
+                <li>
+                  <a href="form_component.html">Form Components</a>
+                </li>
+              </ul>
+            -->
             </li>
+            <li class="sub-menu">
+              <a routerLink="/adm/question/mcq" routerLinkActive="active">
+                <i class="fa fa-tasks"></i>
+                <span>MCQ Question</span>
+              </a>
+              <!--<ul class="sub">
+                <li>
+                  <a href="form_component.html">Form Components</a>
+                </li>
+              </ul>
+            -->
+            </li>
+          </ng-template>
+
+          <ng-template #SuperAdminMenu></ng-template>
+          <ng-template #StudentMenu></ng-template>
+          <!--
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-desktop"></i>
+              <span>UI Elements</span>
+            </a>
+            <ul class="sub">
+              <li>
+                <a href="general.html">General</a>
+              </li>
+              <li>
+                <a href="buttons.html">Buttons</a>
+              </li>
+              <li>
+                <a href="panels.html">Panels</a>
+              </li>
+            </ul>
+          </li>
+-->
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper site-min-height">
+        <!--
+        <h3>
+          <i class="fa fa-angle-right"></i> Blank Page</h3>
           -->
-          
-          </ul>
-        </li>
-        <li>
-          <a  style="color: brown">
-            <Strong>
-              <i class="fa fa-lock" (click)="logout()">Logout</i>
-            </Strong>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!---// RIGHT HEADER SECTION -->
-    <!---// RIGHT MID SECTION -->
-    <div class="right-dashboard-mid">
-      <router-outlet></router-outlet>
-    </div>
-    <!---// RIGHT MID SECTION END -->
-    <!---// RIGHT FOOTER SECTION -->
-    <div class="right-dashboard-footer">
-      <span class="float-left">Copyright © 2017 sagnetic.in. All rights reserved.</span>
-      <span>Version 1.2</span>
-    </div>
-    <!---// RIGHT FOOTER SECTION END -->
+        <div class="row mt">
+          <div class="col-lg-12">
+            <router-outlet></router-outlet>
 
-  </div>
-  <!---// RIGHT PART END -->
-</div>
+          </div>
+        </div>
+      </section>
+      <!--/wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        Copyright © 2017 sagnetic.in. All rights reserved.
+        <a class="go-top">
+          <i class="fa fa-angle-up"></i>
+        </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="./assets/assets/js/jquery.js"></script>
+  <script src="./assets/assets/js/bootstrap.min.js"></script>
+  <script src="./assets/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="./assets/assets/js/jquery.ui.touch-punch.min.js"></script>
+  <script class="include" type="text/javascript" src="./assets/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="./assets/assets/js/jquery.scrollTo.min.js"></script>
+  <script src="./assets/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 
 
-<script>
-  // $(document).ready(function (e) {
-  /// Give Window Height on load
-  //  var getWindowHeight = $(window).innerHeight();
-  //  $(window).resize(function (e) {
-  //    var getWindowHeight = $(this).innerHeight();
-  //   });
-  //  alert(getWindowHeight);
-  // alert(getWindowHeight);
-  // Left Mid Section Height 
-  // $('.left-dashboard-mid').css('max-height', getWindowHeight - 60);
-  // Right Sidebar Mid Height
-  // $('.right-dashboard-mid').css('max-height', getWindowHeight - 110);
-  // Slide Menu 
-  $('.slide-menu').click(function () {
-    $('.dashboard-left').toggleClass('active-slide-menu');
-    $('.dashboard-right').toggleClass('active-slide-menu');
-    $('.right-dashboard-footer').toggleClass('active-slide-menu');
-  })
- // });
-</script>
+  <!--common script for all pages-->
+  <script src="./assets/assets/js/common-scripts.js"></script>
+
+  <!--script for this page-->
+
+  <script>
+    //custom select box
+
+    $(function () {
+      $('select.styled').customSelect();
+    });
+
+  </script>
+
+</body>
+
+</html>
