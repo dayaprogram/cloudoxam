@@ -18,11 +18,11 @@ export class ExamAccessGuard implements CanActivate {
       if (this.validStudent) {
         return true;
       } else {
-        return true;
+        return false;
       }
     } else {
-     // this.router.navigate(['/adm']);
-      return true;
+      this.router.navigate(['/adm']);
+      return false;
     }
   }
 }
