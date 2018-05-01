@@ -19,6 +19,7 @@ import 'rxjs/add/operator/map';
 import { LocalStorage, SessionStorage } from 'ngx-store';
 import { UserDetails } from '../../../model/user-details';
 import { QuetStatusCount } from '../../../model/question-status-count';
+import { CourseDetail } from '../../../model/course-detail';
 @Component({
   selector: 'app-exam-subject-wies',
   templateUrl: './exam-subject-wies.component.html',
@@ -44,6 +45,10 @@ export class ExamSubjectWiesComponent implements OnInit {
   questionSetSubjectList: QuestionSetSubject[];
   questionSetSubject: QuestionSetSubject;
   examTime: number;
+  examSeqNo = 0;
+
+
+  courseExamDeatal: CourseDetail = new CourseDetail();
 
   questionSetList: QuestionSet[];
   questionSet: QuestionSet;
@@ -258,6 +263,7 @@ export class ExamSubjectWiesComponent implements OnInit {
     this.questionNavigator(1);
     this.startCountDownTimer(this.examTime * 60);
     this.examSeqNoLocalStore = this.questionSetList[0].examSeqNo;
+    this.examSeqNo = this.questionSetList[0].examSeqNo;
     this.examTime = this.examQuestionSetSubjectLocal.examTime;
     this.makeQuestionStatusCount();
   }
@@ -290,6 +296,15 @@ export class ExamSubjectWiesComponent implements OnInit {
     this.api.getExamLang().subscribe(
       data => {
         this.questionLangList = data;
+      },
+      // Errors will call this callback instead:
+      err => {
+        console.log('Something went wrong!');
+      }
+    );
+    this.api.getCourseExamDtl(this.cookieService.get('course')).subscribe(
+      data => {
+        this.courseExamDeatal = data;
       },
       // Errors will call this callback instead:
       err => {
