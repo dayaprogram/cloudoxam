@@ -101,3 +101,11 @@
       .option-index-style{
         color: rgb(192, 143, 9)
      }
+    
+  
+     @media (max-width: 400px) {
+     .row-boarder .btn{
+             width: 100%;
+         }
+      
+    }
